@@ -2,48 +2,45 @@
   <a href="https://fyrox.rs/">
     <img src="pics/logo.png" width="128" height="128" alt="Fyrox" />
   </a>
-  <h1>Fyrox - a modern Rust game engine</h1>
+  <h1>Fyrox - Modern bir Rust oyun motoru</h1>
 </div>
 
-[![License (MIT)](https://img.shields.io/crates/l/fyrox)](https://github.com/FyroxEngine/Fyrox/blob/master/LICENSE.md)
+[![license (MIT)](https://img.shields.io/crates/l/fyrox)](https://github.com/FyroxEngine/Fyrox/blob/master/LICENSE.md)
 [![CI Status](https://github.com/FyroxEngine/Fyrox/actions/workflows/ci.yml/badge.svg)](https://github.com/FyroxEngine/Fyrox/actions/workflows/ci.yml)
 [![Crates.io](https://img.shields.io/crates/v/fyrox)](https://crates.io/crates/fyrox)
 [![docs.rs](https://img.shields.io/badge/docs-website-blue)](https://docs.rs/Fyrox/)
 [![Discord](https://img.shields.io/discord/756573453561102427)](https://discord.gg/xENF5Uh)
 [![Lines of code](https://tokei.rs/b1/github/FyroxEngine/Fyrox)](https://github.com/FyroxEngine/Fyrox)
 
-A feature-rich, production-ready, general purpose 2D/3D game engine written in Rust with a scene editor.
-_Formerly known as rg3d_
+Sahne editörü ile Rust dilinde yazılmış, zengin özelliklere sahip, üretime hazır, genel amaçlı bir 2D/3D oyun motoru.
+_Eski adıyla RG3D_
 
-## [Learning materials](https://fyrox-book.github.io/)
+## [Öğrenme Materyalleri](https://fyrox-book.github.io/)
 
-[Read the official Fyrox book here.](https://fyrox-book.github.io/) It contains comprehensive information about many aspects of the engine, starting
-by "how to build" and ending by various tutorials.
+[Resmi Fyrox kitabını buradan okuyun.](https://fyrox-book.github.io/) Motorun birçok yönü hakkında kapsamlı bilgiler içerir,
+"nasıl yapılır" ile başlar ve çeşitli öğreticilerle sona erer.
 
-## Community
+## Topluluk
 
-You can always ask your question in Discord server - [Join the Discord server](https://discord.gg/xENF5Uh), or directly in 
-[Discussions](https://github.com/FyroxEngine/Fyrox/discussions).
+Sorularınızı her zaman Discord sunucusunda sorabilirsiniz - [Discord sunucusuna katılın](https://discord.gg/xENF5Uh), veya doğrudan Github'ın
+[Tartışmalar](https://github.com/FyroxEngine/Fyrox/discussions) bölümünden sorabilirisiniz.
 
-## Examples
+## Örnekler
 
-You can run examples directly in your web browser, the full list of demo projects is [available here](https://fyrox.rs/examples.html).
-Source code for each demo project [can be found here](https://github.com/FyroxEngine/Fyrox-demo-projects).
+Örnekleri doğrudan web tarayıcınızda çalıştırabilirsiniz, demo projelerinin tam listesine [buradan ulaşabilirsiniz](https://fyrox.rs/examples.html).
+Demo projeleri için kaynak kodlarını [burada bulabilirsiniz](https://github.com/FyroxEngine/Fyrox-demo-projects).
 
-## Support
+## Destek
 
-If you want to support the development of the project, click the link below. Preferrable way is to use [Boosty](https://boosty.to/fyrox) - this way the money
-will be available for the development immediately. Alternatively you can can use [Patreon](https://www.patreon.com/mrdimas), but in this case the money will
-be on-hold for unknown period of time ([details are here](https://github.com/FyroxEngine/Fyrox/issues/363)).
+Projenin geliştirilmesine destek olmak istiyorsanız aşağıdaki linke tıklayınız. [Boosty](https://boosty.to/fyrox) kullanmanızı öneriyoruz - bu şekilde para hemen geliştirme için kullanılabilir olacaktır. Alternatif olarak [Patreon](https://www.patreon.com/mrdimas) kullanabirsiniz, ancak bu durumda para bilinmeyen bir süre için bekletilecektir ([detaylar burada](https://github.com/FyroxEngine/Fyrox/issues/363)).
 
-## Contributing
+## Katkıda Bulunmak
 
-Contributions are very welcome! See the [contributions guidelines](CONTRIBUTING.md) for more info. Check the [good first issue](https://github.com/FyroxEngine/Fyrox/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22) label to 
-see where you can help.
+Katkılarınızı bekliyoruz! Daha fazla bilgi için [katkı yönergesine](CONTRIBUTING.md) bakınız. Nereye yardım edebileceğinizi görmek için [iyi bir ilk sorun](https://github.com/FyroxEngine/Fyrox/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22) etiketi
 
-## Sponsors
+## Sponsorlar
 
-The engine is supported by very generous people, their donations provides sustainable development of the engine:
+Motor çok cömert insanlar tarafından destekleniyor, onların bağışları motorun sürdürülebilir gelişimini sağlıyor:
 
 [Brandon Thomas](https://www.patreon.com/user?u=34951681) | [Taylor C. Richberger](https://www.patreon.com/user/creators?u=60141723) | [Avery Wagar](https://www.patreon.com/user?u=41863848) |
 [George Atkinson](https://www.patreon.com/user?u=61771027) | [Erlend Sogge Heggen](https://www.patreon.com/amethystengine/creators) | [Mitch Skinner](https://www.patreon.com/user/creators?u=60141723) | [ozkriff](https://www.patreon.com/ozkriff) | [Taylor Gerpheide](https://www.patreon.com/user/creators?u=32274918) |
@@ -55,8 +52,8 @@ The engine is supported by very generous people, their donations provides sustai
 
 ### JetBrains
 
-JetBrains provided an open-source all-products license for their products which drastically helps in development of the engine.
+JetBrains, ürünleri motorun geliştirilmesine büyük ölçüde yardımcı olan açık kaynaklı bir tüm ürünler lisansı sağlamıştır.
 
 <img src="https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.png" alt="JetBrains logo." width="200" height="200">
 
-_Copyright © 2000-2021 [JetBrains](https://jb.gg/OpenSource) s.r.o. JetBrains and the JetBrains logo are registered trademarks of JetBrains s.r.o._
+_Telif Hakkı © 2000-2021 [JetBrains](https://jb.gg/OpenSource) s.r.o. JetBrains ve JetBrains logosu JetBrains s.r.o.'nun tescilli ticari markalarıdır._
