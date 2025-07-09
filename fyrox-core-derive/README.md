@@ -1,6 +1,6 @@
 # fyrox-core-derive
 
-This crate provides with some derive macros:
+Bu sandık bazı türetilmiş makrolar sağlar:
 
 - `#[derive(Visit)]`
 - `#[derive(Inspect)]`

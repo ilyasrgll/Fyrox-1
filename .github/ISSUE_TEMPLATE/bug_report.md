@@ -1,23 +1,27 @@
 ---
 name: Bug report
 about: Report a bug you encountered
-title: ''
-assignees: ''
-
+title: ""
+assignees: ""
 ---
 
-## Description
-A clear and concise description of what the bug is.
+## Açıklama
 
-## To Reproduce
-Steps to reproduce the behavior:
+Hatanın ne olduğuna dair açık ve öz bir açıklama.
+
+## Çoğaltmak için
+
+Davranışı yeniden üretmek için adımlar:
+
 1. Go to '...'
 2. Click on '....'
 3. Scroll down to '....'
 4. See error
 
-## Expected behavior
-A clear and concise description of what you expected to happen.
+## Beklenen davranış
 
-## Screenshots
-If applicable, add screenshots to help explain your problem.
+Ne olmasını beklediğinize dair açık ve öz bir açıklama.
+
+## Ekran Görüntüleri
+
+Varsa, sorununuzu açıklamaya yardımcı olması için ekran görüntüleri ekleyin.

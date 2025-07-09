@@ -1,18 +1,19 @@
-# fyrox-animation
+# fyrox-animasyon
 
-Flexible, general-purpose, reflection-based animation system for game development.
+Oyun geliştirme için esnek, genel amaçlı, yansıma tabanlı animasyon sistemi.
 
-**NOTE:** even though this crate has `fyrox` prefix in its name, it can be used separately without any issues.
+**NOT:** Bu sandığın adında `fyrox` öneki olmasına rağmen, herhangi bir sorun olmadan ayrı olarak kullanılabilir.
 
-## Features
+## Özellikler
 
-- Reflection-based animation.
-- Animation blending state machine.
-- Sprite sheet animation.
-- Various blending modes - blend by weight, blend by index, blend space.
-- Smooth state transition.
-- Ability to animate any numeric property, including vectors, bools, natural and real numbers.
-- Layer masks.
-- Root motion.
-- Fixed set of binding modes for most common cases.
-- Signals and events.
+- Yansıma tabanlı animasyon.
+- Animasyon karıştırma durum makinesi.
+- Sprite sayfası animasyonu.
+- Çeşitli karıştırma modları
+- ağırlığa göre karışım, endekse göre karışım, karışım alanı.
+- Yumuşak durum geçişi.
+- Vektörler, booller, doğal ve gerçek sayılar dahil olmak üzere herhangi bir sayısal özelliği canlandırma yeteneği.
+- Katman maskeleri.
+- Kök hareketi.
+- En yaygın durumlar için sabit bağlama modu seti.
+- Sinyaller ve olaylar.

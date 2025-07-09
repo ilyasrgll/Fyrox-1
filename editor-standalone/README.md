@@ -1,28 +1,24 @@
-# FyroxEd (standalone)
+# FyroxEd (bağımsız)
 
-**WARNING:** Standalone version of the editor is not supported, use 
-[project template generator](https://fyrox-book.github.io/fyrox/beginning/scripting.html) to utilize the full power
-of the editor. Standalone version does not support plugins and scripts, it won't be update in next releases!
+**UYARI:** Editörün bağımsız sürümü desteklenmiyor,editörün tam gücünü kullanmak için [proje şablonu oluşturucuyu](https://fyrox-book.github.io/fyrox/beginning/scripting.html) kullanın. Bağımsız sürüm eklentileri ve komut dosyalarını desteklemez, sonraki sürümlerde güncellenmeyecektir!
 
-A standalone version of FyroxEd - native editor of [Fyrox engine](https://github.com/FyroxEngine/Fyrox). The standalone
-version allows you only to create and edit scenes, but **not run your game in the editor**. Please see
-[the book](https://fyrox-book.github.io/) to learn how to use the editor in different ways.
+FyroxEd'in bağımsız bir sürümü - [Fyrox motorunun](https://github.com/FyroxEngine/Fyrox) yerel editörü. Bağımsız sürüm yalnızca sahne oluşturmanıza ve düzenlemenize izin verir, ancak **oyununuzu düzenleyicide çalıştırmaz**. Editörün farklı şekillerde nasıl kullanılacağını öğrenmek için lütfen [kitaba](https://fyrox-book.github.io/) bakınız.
 
-## How to install and run
+## Nasıl kurulur ve çalıştırılır
 
-To install the latest stable **standalone** version from crates.io use:
+crates.io'dan en son kararlı **standalone** sürümünü yüklemek için kullanın:
 
 ```shell
 cargo install fyroxed
 ```
 
-After that, you can run the editor by simply calling:
+Bundan sonra, basitçe çağırarak editörü çalıştırabilirsiniz:
 
 ```shell
 fyroxed
 ```
 
-If you're on Linux, please make sure that the following dependencies are installed:
+Eğer Linux kullanıyorsanız, lütfen aşağıdaki bağımlılıkların kurulu olduğundan emin olun:
 
 ```shell
 sudo apt install libxcb-shape0-dev libxcb-xfixes0-dev libxcb1-dev libxkbcommon-dev libasound2-dev
@@ -30,12 +26,12 @@ sudo apt install libxcb-shape0-dev libxcb-xfixes0-dev libxcb1-dev libxkbcommon-d
 
 ## Controls
 
-- [Click] - Select
-- [W][S][A][D] - Move camera
-- [Space][Q]/[E] - Raise/Lower Camera
-- [1] - Select interaction mode
-- [2] - Move interaction mode
-- [3] - Scale interaction mode
-- [4] - Rotate interaction mode
-- [Ctrl]+[Z] - Undo
-- [Ctrl]+[Y] - Redo]()
+- [Click] - Seçmek
+- [W][S][A][D] - Kamerayı hareket ettir
+- [Space][Q]/[E] - Kamerayı Kaldır/Alçalt
+- [1] - Etkileşim modunu seçin
+- [2] - Etkileşim modunu taşıma
+- [3] - Ölçek etkileşim modu
+- [4] - Etkileşim modunu döndür
+- [Ctrl]+[Z] - Geri al
+- [Ctrl]+[Y] - Yeniden Yap]()

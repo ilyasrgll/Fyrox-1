@@ -1,5 +1,5 @@
 # fyrox-core
 
-Shared library for Fyrox-engine containing linear algebra and some useful algorithms.
+Doğrusal cebir ve bazı faydalı algoritmalar içeren Fyrox-engine için paylaşılan kütüphane.
 
-**NOTE:** even though this crate has `fyrox` prefix in its name, it can be used separately without any issues.
+**NOT:** Bu sandığın adında `fyrox` öneki olmasına rağmen, herhangi bir sorun olmadan ayrı olarak kullanılabilir.

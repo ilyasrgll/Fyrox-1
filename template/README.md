@@ -1,8 +1,8 @@
-# Fyrox Engine Template Generator
+# Fyrox Motor Şablon Oluşturucu
 
-This tiny utility handles project and script generation for Fyrox Game Engine. 
+Bu küçük yardımcı program, Fyrox Oyun Motoru için proje ve komut dosyası oluşturma işlemlerini gerçekleştirir.
 
-## Installation
+## Kurulum
 
 Install it via `cargo install`:
 
@@ -10,41 +10,41 @@ Install it via `cargo install`:
 cargo install fyrox-template
 ```
 
-## Generating New Project
+## Yeni Proje Oluşturma
 
 `fyrox-template init [--name <name> --style <style>]`
 
-- `name` - a name of new project (default is `my_game`)
-- `style` - defines a default scene type, either `2d` or `3d` (default is `3d`)
+- `name` - yeni projenin adı (varsayılan `my_game`)
+- `style` - varsayılan sahne türünü tanımlar, ya `2d` ya da `3d` (varsayılan `3d`)
 
-It creates a workspace with three projects:
+Üç proje içeren bir çalışma alanı oluşturur:
 
-- Game - your game project (library)
-- Editor - the editor with your game attached as a plugin
-- Executor - the "runner" for your game.
+- Oyun - oyun projeniz (kütüphane)
+- Editör - oyununuzun eklenti olarak eklendiği editör
+- Yürütücü - oyununuz için "koşucu".
 
-It also populates each project with boilerplate code. The main purpose of the project is to reduce amount of time
-that is needed to set up a new project.
+Ayrıca her projeyi şablon kodla doldurur. Projenin ana amacı zaman miktarını azaltmaktır
+yeni bir proje kurmak için gerekli olan.
 
-It will create a new folder with `<project_name>` and it will contain three projects, runnable only two of them:
+<proje_adı>` ile yeni bir klasör oluşturacak ve sadece ikisi çalıştırılabilir üç proje içerecektir:
 
-- `cargo run --package editor --release` - to run your game inside the editor.
-- `cargo run --package executor --release` - to run your game as a standalone project. It will also produce final
-  binary of your game, that can be shipped to a store.
+- `cargo run --package editor --release` - oyununuzu editör içinde çalıştırmak için.
+- `cargo run --package executor --release` - oyununuzu bağımsız bir proje olarak çalıştırmak için. Ayrıca final üretecektir
+  Oyununuzun bir mağazaya gönderilebilecek ikili kopyası.
 
-### Tips
+### İpuçları
 
-There is nothing special in generated project, so you can tweak them as you wish.
+Oluşturulan projede özel bir şey yoktur, bu nedenle bunları istediğiniz gibi değiştirebilirsiniz.
 
-## Adding New Scripts
+## Yeni Komut Dosyaları Ekleme
 
 `fyrox-template script [--name <name>]`
 
-- `name` - a name of your script (default is `MyScript`)
+- `name` - betiğinizin adı (varsayılan `MyScript`)
 
-The tool is also capable to generate script skeleton for you, filling it with all required boilerplate. Generated scripts
-will be added to `game/src` folder, so you should run the tool from the root folder of your game (where the root Cargo.toml
-is located).
+Araç ayrıca sizin için komut dosyası iskeleti oluşturabilir ve gerekli tüm şablonlarla doldurabilir. Oluşturulan komut dosyaları
+game/src` klasörüne eklenecektir, bu nedenle aracı oyununuzun kök klasöründen çalıştırmalısınız (kök Cargo.toml
+bulunur).
 
-Do not forget to add the script to your module tree at required position, you probably will need some small tweaks 
-to generated content, it can be easily automated by modern IDEs.
+Komut dosyasını modül ağacınıza gerekli konuma eklemeyi unutmayın, muhtemelen bazı küçük değişikliklere ihtiyacınız olacaktır
+oluşturulan içerik için modern IDE'ler tarafından kolayca otomatikleştirilebilir.

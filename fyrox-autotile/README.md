@@ -1,13 +1,13 @@
 # fyrox-autotile
 
-An implementation of autotiling algorithms for use with regular tile grids. This includes:
+Düzenli döşeme ızgaraları ile kullanım için otomatik döşeme algoritmalarının bir uygulaması. Bu içerir:
 
-- Interactive terrain-based autotiling for tile map editing. The user picks a broad category of tile for each cell. These categories are called *terrains* and each terrain may have many tiles. The algorithm picks specific tiles for each cell from its terrain so that the tiles fit naturally together, thus sparing the user from having to manually select matching tiles.
+- Karo harita düzenlemesi için etkileşimli arazi tabanlı otomatik döşeme. Kullanıcı her hücre için geniş bir karo kategorisi seçer. Bu kategorilere _arazi_ adı verilir ve her arazide çok sayıda karo bulunabilir. Algoritma, karoların doğal bir şekilde birbirine uyması için her hücre için arazisinden belirli karoları seçer, böylece kullanıcıyı eşleşen karoları manuel olarak seçmek zorunda bırakmaz.
 
-    The algorithm is based upon a Godot library for the same purpose: https://github.com/dandeliondino/terrain-autotiler
+  Algoritma, aynı amaca yönelik bir Godot kütüphanesine dayanmaktadır: https://github.com/dandeliondino/terrain-autotiler
 
-- Randomized tile generation using Wave Function Collapse. Unlike terrain-based autotiling where the purpose is to automate tedious work for an artist, the purpose of Wave Function Collapse is to replace the artist entirely by generating creative tile layouts through randomization.
+- Wave Function Collapse kullanarak rastgele karo üretimi. Amacın bir sanatçı için sıkıcı işleri otomatikleştirmek olduğu arazi tabanlı otomatik döşemenin aksine, Wave Function Collapse'in amacı, rastgeleleştirme yoluyla yaratıcı döşeme düzenleri oluşturarak sanatçıyı tamamen değiştirmektir.
 
-    The algorithm is based upon fast-wfc, a C++ library for the same purpose: https://github.com/math-fehr/fast-wfc
+  Algoritma, aynı amaca yönelik bir C++ kütüphanesi olan fast-wfc'ye dayanmaktadır: https://github.com/math-fehr/fast-wfc
 
-These algorithms are designed to be generic in a way that will work with *any* regular grid. They should work just as well with square cells and hexagon cells and 3D grids. The user specifies the coordinate system that is used to identify cells and which cells are neighbors to which other cells.
+Bu algoritmalar, _herhangi bir_ düzenli ızgara ile çalışacak şekilde genel olarak tasarlanmıştır. Kare hücreler, altıgen hücreler ve 3D ızgaralarda da aynı şekilde çalışmalıdırlar. Kullanıcı, hücreleri tanımlamak için kullanılan koordinat sistemini ve hangi hücrelerin hangi diğer hücrelere komşu olduğunu belirler.

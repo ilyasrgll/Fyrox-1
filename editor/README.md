@@ -1,6 +1,5 @@
 # FyroxEd
 
-Full-featured editor for [Fyrox engine](https://github.com/FyroxEngine/Fyrox). This is the basic library for the editor, 
-it cannot be run as executable. See `editor-standalone` for this.
+[Fyrox motoru](https://github.com/FyroxEngine/Fyrox) için Tam özellikli editör. Bu, editör için temel kütüphanedir, çalıştırılabilir olarak çalıştırılamaz. Bunun için `editor-standalone` bölümüne bakınız.
 
-The main purpose of making the editor library is to use it with static plugins, see `scripting` example for more info.
+Editör kütüphanesi oluşturmanın temel amacı statik eklentilerle kullanmaktır, daha fazla bilgi için `scripting` örneğine bakın.

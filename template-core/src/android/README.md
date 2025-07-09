@@ -1,5 +1,5 @@
-## Android Build Instructions
+## Android Derleme Talimatları
 
 - `cargo-apk apk run --target=armv7-linux-androideabi`
 
-TODO: Add more detailed instructions.
+TODO: Daha ayrıntılı talimatlar ekleyin.

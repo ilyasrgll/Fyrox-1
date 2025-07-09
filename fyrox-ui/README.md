@@ -1,20 +1,21 @@
 # fyrox-ui
 
-Retained mode, general purpose, graphics API agnostic user interface library. Inspired by WPF.
+Tutulan mod, genel amaçlı, grafik API agnostik kullanıcı arayüzü kütüphanesi. WPF'den esinlenilmiştir.
 
-**NOTE:** even though this crate has `fyrox` prefix in its name, it can be used separately without any issues.
+**NOT:** Bu sandığın adında `fyrox` öneki olmasına rağmen, herhangi bir sorun olmadan ayrı olarak kullanılabilir.
 
-## Features
+## Özellikler
 
-- More than 28 widgets
-- Full TTF/OTF fonts support
-- Powerful layout system
-- Fully customizable - you can construct visual trees of any complexity: for example a tree view item can have any sub-widgets as contents.
-- GAPI-agnostic - this crate does not know anything about the rendering backend: it can be OpenGL, DirectX, Vulkan, Metal, or even built-in OS drawing API.
-- OS-agnostic - similar look of all widgets across all operating systems and window managers.
-- Extendable - full support of user-defined widgets.
+- 28'den fazla widget
+- Tam TTF/OTF yazı tipi desteği
+- Güçlü yerleşim sistemi
+- Tamamen özelleştirilebilir - herhangi bir karmaşıklıkta görsel ağaçlar oluşturabilirsiniz: örneğin bir ağaç görünümü öğesi içerik olarak herhangi bir alt araca sahip olabilir.
+- GAPI-agnostik - bu sandık oluşturma arka ucu hakkında hiçbir şey bilmez: OpenGL, DirectX, Vulkan, Metal veya hatta yerleşik işletim sistemi çizim API'si olabilir.
+- OS-agnostik - tüm işletim sistemleri ve pencere yöneticilerinde tüm widget'ların benzer görünümü.
+- Genişletilebilir - kullanıcı tanımlı widget'lar için tam destek.
 
-## Widgets
+## Widget'lar
+
 - [x] Button
 - [x] Border
 - [x] Canvas
@@ -52,42 +53,42 @@ Retained mode, general purpose, graphics API agnostic user interface library. In
 - [x] User defined widget
 - [x] Inspector
 
-## Limitations
+## Sınırlamalar
 
-- Since this library is OS-, GAPI-agnostic it cannot create native OS' windows, and it cannot render anything on screen. Instead, it uses an internal draw buffer which holds a list of commands, which has to be interpreted in your game/app. This is very a flexible way, but it has some limitations: multiwindow (native) configuration is hard to implement, you have to implement your own UI renderer what can be difficult if you not familiar with anything like this.
-- There is still no keyboard navigation, it is planned but not with high priority.
-- No support for right-to-left text (arabic, hebrew, etc.)
+- Bu kütüphane OS-, GAPI-agnostik olduğundan, yerel OS pencereleri oluşturamaz ve ekranda herhangi bir şey oluşturamaz. Bunun yerine, oyununuzda/uygulamanızda yorumlanması gereken komutların bir listesini tutan dahili bir çizim tamponu kullanır. Bu çok esnek bir yoldur, ancak bazı sınırlamaları vardır: çoklu pencere (yerel) yapılandırmasının uygulanması zordur, kendi kullanıcı arayüzü oluşturucunuzu uygulamanız gerekir, bu da böyle bir şeye aşina değilseniz zor olabilir.
+- Hala klavye navigasyonu yok, planlanıyor ancak yüksek öncelikli değil.
+- Sağdan sola metin desteği yok (Arapça, İbranice, vb.)
 
-## Performance
+## Performans
 
-- In general fyrox-ui is fast, however it can be slow if used incorrectly. Since this library uses a very complex layout system, it may work slow if there are lots of ui elements being moved (i.e. when scrolling). Hopefully it has built-in layout caching system, and it relies on layout invalidation, so it won't do layout calculations each frame - only if something significant changed (position, size, etc.).
-- Batching of render commands can be difficult, because this library extensively uses clipping, and each clipping geometry has to be drawn into the stencil buffer as separate draw call. Rendering still has to be optimized, it is inefficient for now.
+- Genel olarak fyrox-ui hızlıdır, ancak yanlış kullanılırsa yavaş olabilir. Bu kütüphane çok karmaşık bir düzen sistemi kullandığından, çok sayıda ui öğesi hareket ettiriliyorsa (örneğin kaydırma sırasında) yavaş çalışabilir. Umarım yerleşik düzen önbellekleme sistemine sahiptir ve düzen geçersiz kılmaya dayanır, bu nedenle her karede düzen hesaplamaları yapmaz - yalnızca önemli bir şey değiştiğinde (konum, boyut vb.).
+- Render komutlarının gruplanması zor olabilir, çünkü bu kütüphane yaygın olarak kırpma kullanır ve her kırpma geometrisi ayrı bir draw çağrısı olarak stencil tamponuna çizilmelidir. Render hala optimize edilmelidir, şimdilik verimsizdir.
 
-## Styling
+## Şekillendirme
 
-fyrox-ui uses a bit unusual way of styling - you have to replace entire sub-graphs of widget's visual trees. What does that mean? fyrox-ui uses graph to build visual trees of any complexity, each widget is a set of nodes in the graph. For example a button is a set of background and foreground widgets, background widget usually defines appearance and foreground shows a content. Content of a button can be any widget, in most common cases it is either a text or an image. So to change appearance of a button you have to define your own background widget at the building stage, by default fyrox-ui uses Decorator widget which just changes its foreground brush when it receives MouseEnter, MouseLeave, etc. message. This fact significantly complicates **minor** styling (like change a color), but it is super flexible approach and allows to build your own unique style. Most of widget builders provides a way to change its parts, some of them still may lack such functionality, but this should eventually be fixed.
+fyrox-ui biraz alışılmadık bir şekillendirme yöntemi kullanır - widget'ın görsel ağaçlarının tüm alt grafiklerini değiştirmeniz gerekir. Bu ne anlama geliyor? fyrox-ui herhangi bir karmaşıklıkta görsel ağaçlar oluşturmak için grafik kullanır, her widget grafikteki bir düğüm kümesidir. Örneğin bir düğme, arka plan ve ön plan widget'larından oluşan bir kümedir, arka plan widget'ı genellikle görünümü tanımlar ve ön plan bir içeriği gösterir. Bir düğmenin içeriği herhangi bir widget olabilir, en yaygın durumlarda ya bir metin ya da bir resimdir. Bu nedenle, bir düğmenin görünümünü değiştirmek için oluşturma aşamasında kendi arka plan widget'ınızı tanımlamanız gerekir, varsayılan olarak fyrox-ui, MouseEnter, MouseLeave vb. mesajı aldığında sadece ön plan fırçasını değiştiren Decorator widget'ını kullanır. Bu gerçek, **küçük** stilleri (renk değiştirmek gibi) önemli ölçüde karmaşıklaştırır, ancak süper esnek bir yaklaşımdır ve kendi benzersiz stilinizi oluşturmanıza olanak tanır. Widget oluşturucuların çoğu parçalarını değiştirmek için bir yol sağlar, bazıları hala böyle bir işlevsellikten yoksun olabilir, ancak bu eninde sonunda düzeltilmelidir.
 
-## Screenshots
+## Ekran Görüntüleri
 
 ![editor](https://raw.githubusercontent.com/FyroxEngine/Fyrox/master/pics/editor.png)
 ![absm editor](https://fyrox.rs/assets/absm_editor_full.png)
 ![sound](https://fyrox.rs/assets/reverb_properties.png)
 
-## Contributing
+## Katkıda Bulunmak
 
-- Writing a user interface library is very challenging for one person, so any help is appreciated.
+- Bir kullanıcı arayüzü kütüphanesi yazmak tek bir kişi için çok zordur, bu nedenle her türlü yardım takdir edilmektedir.
 
-## Documentation
-
-TODO.
-
-## Samples 
+## Dokümantasyon
 
 TODO.
 
-There are two projects using this UI library:
+## Örnekler
+
+TODO.
+
+Bu UI kütüphanesini kullanan iki proje var:
 
 - [Fyroxed](https://github.com/FyroxEngine/Fyrox/)
 - [rusty-shooter](https://github.com/mrDIMAS/rusty-shooter)
 
-However, it can be too difficult to understand how to use the library from those projects, so standalone samples should be added. This is still a TODO.
+Ancak, bu projelerden kütüphanenin nasıl kullanılacağını anlamak çok zor olabilir, bu nedenle bağımsız örnekler eklenmelidir. Bu hala bir TODO'dur.

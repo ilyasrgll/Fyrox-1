@@ -1,253 +1,253 @@
-# Architecture
+# Mimarlık
 
-** WORK IN PROGRESS **
+** ÇALIŞMA DEVAM EDIYOR **
 
-This document describes high-level architecture and basic concepts of Fyrox. It should help you to understand
-basics of the engine's architecture and find a right place for your modifications.
+Bu belge Fyrox'un üst düzey mimarisini ve temel kavramlarını açıklamaktadır.
+Motor mimarisinin temellerini öğrenin ve modifikasyonlarınız için doğru yeri bulun.
 
-## Overview
+## Genel Bakış
 
-Fyrox is a monolithic game engine with very few replaceable parts. This means that Fyrox itself has relatively
-strong coupling between modules. However, some of its parts can be used as standalone crates - core, UI and 
-sound are independent of the engine. Internal coupling is one-way in most of the places, this means that, for
-instance, a renderer **is** dependent on a scene, but scene does **not** know anything about the renderer.
-This fact makes changes in the engine very easy even for beginners.
+Fyrox, çok az sayıda değiştirilebilir parçaya sahip yekpare bir oyun motorudur. Bu, Fyrox'un kendisinin nispeten
+modüller arasında güçlü bağlantı. Bununla birlikte, bazı parçaları bağımsız kasalar olarak kullanılabilir - çekirdek, kullanıcı arayüzü ve
+ses motordan bağımsızdır. Dahili kaplin çoğu yerde tek yönlüdür, bu da şu anlama gelir
+Örneğin, bir renderer bir sahneye **bağlıdır**, ancak sahne renderer hakkında **hiçbir şey bilmez**.
+Bu gerçek, motordaki değişiklikleri yeni başlayanlar için bile çok kolay hale getirir.
 
-Fyrox consists of the four crates - fyrox-core, fyrox-sound, fyrox-ui, and Fyrox itself. fyrox-core, fyrox-sound and
-fyrox-ui are **standalone** crates and can be used separately, the only place where these three are meet is the
-Fyrox. Previously each crate had a separate repository, but then I decided to put everything in single repository
-because it was too much of a pain to build any project that uses the engine.
+Fyrox dört kasadan oluşur - fyrox-core, fyrox-sound, fyrox-ui ve Fyrox'un kendisi. fyrox-core, fyrox-sound ve
+fyrox-ui **standalone** kasalardır ve ayrı ayrı kullanılabilirler, bu üçünün buluştuğu tek yer
+Önceden her sandığın ayrı bir deposu vardı, ancak daha sonra her şeyi tek bir depoya koymaya karar verdim
+Çünkü motoru kullanan herhangi bir projeyi inşa etmek çok zahmetliydi.
 
-Another important fact is that Fyrox **does not** use ECS, instead it uses generational arenas (pools in Fyrox's
-terminology) for efficient memory management (fast allocation/deallocation, CPU cache efficiency). This means
-that you are working with good old structures which are placed in contiguous memory block (pool). Once an
-object was placed in a pool, you get a handle to the object which can be used to access (borrow) the object
-when you need. Such approach allows you to make any relations between the objects - handle is just a pair of 
-numbers, it won't cause issues with borrow checker. For more info check 
+Bir başka önemli gerçek de Fyrox'un ECS kullanmadığı, bunun yerine nesilsel arenalar (Fyrox'un
+terminoloji) verimli bellek yönetimi için (hızlı tahsis/ayırma, CPU önbellek verimliliği). Bu şu anlama gelir
+bitişik bellek bloğuna (havuz) yerleştirilmiş eski güzel yapılarla çalıştığınızı unutmayın. Bir kez
+nesnesi bir havuza yerleştirildiğinde, nesneye erişmek (ödünç almak) için kullanılabilecek bir tanıtıcı elde edersiniz
+ihtiyaç duyduğunuzda. Bu yaklaşım, nesneler arasında herhangi bir ilişki kurmanıza olanak tanır - tutamaç sadece bir çift
+sayıları, borç denetleyicisinde sorunlara neden olmaz. Daha fazla bilgi için kontrol edin
 [pool.rs](https://github.com/FyroxEngine/Fyrox/blob/master/fyrox-core/src/pool.rs).
 
-### Core
+### Çekirdek
 
-Core contains some of very common algorithms and data structures that are used across other parts of the engine.
-It contains linear algebra, accelerating structures, color-space functions, etc. In other words it contains 
-"building blocks" that are very widely used across other parts of the engine. 
+Çekirdek, motorun diğer bölümlerinde kullanılan bazı çok yaygın algoritmaları ve veri yapılarını içerir.
+Doğrusal cebir, hızlandırıcı yapılar, renk uzayı fonksiyonları vb. içerir. Başka bir deyişle şunları içerir
+Motorun diğer bölümlerinde çok yaygın olarak kullanılan "yapı taşları".
 
 ### Renderer
 
-Fyrox uses a combination of deferred + forward renderers. The deferred renderer is used to render opaque objects,
-when the forward renderer is used to render transparent objects. The renderer provides lots of very common 
-graphical effects. The renderer is suitable for most of the needs, however it is not flexible enough yet and 
-there is no way of using custom shaders yet.
+Fyrox, ertelenmiş + ileri işleyicilerin bir kombinasyonunu kullanır. Ertelenmiş işleyici opak nesneleri işlemek için kullanılır,
+saydam nesneleri işlemek için forward renderer kullanıldığında. Renderer, çok yaygın olan birçok
+grafiksel efektler. Renderer ihtiyaçların çoğu için uygundur, ancak henüz yeterince esnek değildir ve
+henüz özel gölgelendiriciler kullanmanın bir yolu yok.
 
-### User Interface
+### Kullanıcı Arayüzü
 
-Fyrox uses custom user interface library. It is node-based, has very powerful layout system, uses messages
-to communicate between widgets, supports styling. The library has 30+ widgets (including docking manager,
-windows, file browsers, etc). Please keep in mind that the library does not render anything, instead it
-just prepares a set of drawing commands which can be used with any kind of renderer - a software (GDI for
-instance) or a hardware (OpenGL, DirectX, Vulkan, Metal, etc.).
+Fyrox özel kullanıcı arayüzü kütüphanesi kullanır. Düğüm tabanlıdır, çok güçlü bir düzen sistemine sahiptir, mesajlar kullanır
+widget'lar arasında iletişim kurmak için, şekillendirmeyi destekler. Kütüphanede 30'dan fazla widget vardır (yerleştirme yöneticisi dahil,
+pencereler, dosya tarayıcıları vb.) Lütfen kütüphanenin hiçbir şey oluşturmadığını, bunun yerine
+sadece her türlü renderer ile kullanılabilecek bir dizi çizim komutu hazırlar - bir yazılım (GDI için
+örneği) veya bir donanım (OpenGL, DirectX, Vulkan, Metal, vb.).
 
-### Sound
+### Ses
 
-Fyrox uses software sound engine [fyrox-sound](https://github.com/FyroxEngine/Fyrox/tree/master/fyrox-sound).
-The sound engine provides support for binaural sound rendering using HRTF, which gives excellent sound 
-spatialization. 
+Fyrox yazılım ses motoru [fyrox-sound](https://github.com/FyroxEngine/Fyrox/tree/master/fyrox-sound) kullanır.
+Ses motoru, HRTF kullanarak binaural ses oluşturma desteği sağlar, bu da mükemmel ses verir
+mekansallaştırma.
 
-## Code Map
+## Kod Haritası
 
-Code map should help you find a right place for your modifications. This is the most boring part of the 
-document, here is the table of contents for your comfort:
+Kod haritası, değişiklikleriniz için doğru yeri bulmanıza yardımcı olacaktır. Bu, kod haritasının en sıkıcı kısmıdır.
+belgesinin içindekiler bölümünü rahatınız için burada bulabilirsiniz:
 
 - [fyrox-core](#fyrox-core)
-    - [math](#mathmodrs)
+  - [math](#mathmodrs)
 - [fyrox-ui](#fyrox-ui)
-    - [widgets](#borderrs)
+  - [widgets](#borderrs)
 - [fyrox-sound](#fyrox-sound)
-    - [buffer](#buffermodrs)
-    - [decoder](#decodermodrs)
-    - [device](#devicemodrs)
+  - [buffer](#buffermodrs)
+  - [decoder](#decodermodrs)
+  - [device](#devicemodrs)
 - [Fyrox](#fyrox)
 
 ### fyrox-core
 
-As it was already said up above, fyrox-core is just a set of useful algorithms. If you want to add a thing
-that will be used in dependent crates then you're in the right place. Here is the very brief description
-of each module.
+Yukarıda da belirtildiği gibi, fyrox-core sadece bir dizi faydalı algoritmadan ibarettir. Eğer bir şey eklemek istiyorsanız
+bağımlı kasalarda kullanılacaksa doğru yerdesiniz. İşte çok kısa açıklama
+her modülün.
 
 #### math/mod.rs
 
-The module contains some intersection check algorithms, vector projection methods (tri-planar mapping for 
-example), generic rectangle struct, and other stuff that cannot be easily classified.
+Modül, bazı kesişim kontrol algoritmaları, vektör projeksiyon yöntemleri (üç düzlemli haritalama için
+örneğin), genel dikdörtgen yapısı ve kolayca sınıflandırılamayan diğer şeyler.
 
 #### math/aabb.rs
 
-The module contains Axis-Aligned Bounding Box (AABB) structure. It is used as a bounding volume to accelerate
-spatial checks (like ray casting, coarse intersection checks, etc).
+Modül, Eksen Hizalı Sınırlayıcı Kutu (AABB) yapısını içerir. Hızlandırmak için sınırlayıcı bir hacim olarak kullanılır
+uzamsal kontroller (ışın dökümü, kaba kesişim kontrolleri vb. gibi).
 
 #### math/frustum.rs
 
-The module contains Frustum structure. Its purpose (in the project) is to perform visibility checks - for
-example camera is using frustum culling to determine which objects must be rendered on screen. 
+Modül Frustum yapısını içerir. Amacı (projede) görünürlük kontrollerini gerçekleştirmektir - için
+örnek kamera, hangi nesnelerin ekranda işlenmesi gerektiğini belirlemek için frustum culling kullanıyor.
 
 #### math/plane.rs
 
-The module contains Plane structure that basically represents just plane equation. Planes are used for 
+Modül, temelde sadece düzlem denklemini temsil eden Düzlem yapısını içerir. Düzlemler şunlar için kullanılır
 intersection tests.
 
 #### math/ray.rs
 
-The module contains Ray structure which is used for intersection tests. For example the engine uses rays
-in lightmapper to do ray tracing to calculate shadows.
+Modül, kesişim testleri için kullanılan Ray yapısını içerir. Örneğin motor ışınları kullanır
+gölgeleri hesaplamak için ışın izleme yapmak için lightmapper'da.
 
 #### math/triangulator.rs
 
-The module contains a set of triangulation algorithms for polygon triangulation. There are two algorithms:
-simple one is for quadrilaterals, and generic one is the ear-clipping algorithm. The stuff from the module is
-used to triangulate polygons in 3d models to make them suitable to render on GPU.
+Modül, çokgen üçgenleme için bir dizi üçgenleme algoritması içerir. İki algoritma vardır:
+basit olanı dörtgenler içindir ve genel olanı kulak kırpma algoritmasıdır. Modüldeki şeyler
+GPU'da işlenmeye uygun hale getirmek için 3B modellerdeki çokgenleri üçgenleştirmek için kullanılır.
 
 #### color.rs
 
-The module contains structure and methods to work with colors in HSV and RGB color spaces, and to convert 
-colors HSV <-> RGB.
+Modül, HSV ve RGB renk uzaylarında renklerle çalışmak ve renkleri dönüştürmek için yapı ve yöntemler içerir.
+HSV <-> RGB renkleri.
 
 #### color_gradient.rs
 
-The module contains simple linear color gradient with multiple points. It is widely used in particle systems
-to change color of particles over time. For example a spark starts from white color and becomes more red over
-time and finally becomes black.
+Modül, çok noktalı basit doğrusal renk gradyanı içerir. Parçacık sistemlerinde yaygın olarak kullanılır
+zaman içinde parçacıkların rengini değiştirmek için. Örneğin bir kıvılcım beyaz renkten başlar ve zamanla daha kırmızı hale gelir.
+zaman ve sonunda siyah olur.
 
 #### lib.rs
 
-The module contains BiDirHashMap and very few other algorithms.
+Modül BiDirHashMap ve çok az sayıda başka algoritma içerir.
 
 #### numeric_range.rs
 
-The module contains fool-proof numeric range - there is no way to create a range with incorrect bounds - bounds
-will be determined at the sampling moment.
+Modül hatasız sayısal aralık içerir - yanlış sınırlara sahip bir aralık oluşturmanın yolu yoktur - bounds
+örnekleme anında belirlenecektir.
 
 #### octree.rs
 
-The module contains Octree acceleration structure which is used to accelerate ray casting, point-probing, 
-box intersection tests and so on.
+Modül, ışın dökümünü, nokta problamayı hızlandırmak için kullanılan Octree hızlandırma yapısını içerir,
+kutu kesişim testleri vb.
 
 #### pool.rs
 
-The module contains the heart of the engine: pool is one of the most commonly used structure in the engine.
-Its purpose is to provide a storage for objects of a type in a contiguous block of memory. Any object
-can be accessed later by a handle. Handles are some sort of indices, but with additional information that 
-is used to check if handle is valid.
+Modül, motorun kalbini içerir: havuz, motorda en sık kullanılan yapılardan biridir.
+Amacı, bitişik bir bellek bloğunda bir türdeki nesneler için bir depolama alanı sağlamaktır. Herhangi bir nesne
+daha sonra bir tanıtıcı tarafından erişilebilir. Tanıtıcılar bir çeşit indekstir, ancak ek bilgilerle birlikte
+tutamacın geçerli olup olmadığını kontrol etmek için kullanılır.
 
 #### profiles.rs
 
-The module contains a simple intrusive profiler. It uses special macro (scope_profile!()) to time a scope.
+Modül basit bir müdahaleci profilleyici içerir. Bir kapsamı zamanlamak için özel makro (scope_profile!()) kullanır.
 
 #### rectpack.rs
 
-The module contains rectangle packing algorithm (most commonly known as "bin-packing problem"). It is used
-to create texture atlases.
+Modül, dikdörtgen paketleme algoritması (en yaygın olarak "bin-packing problemi" olarak bilinir) içerir. Bu kullanılır
+doku atlasları oluşturmak için.
 
 #### visitor.rs
 
-The module contains node-based serializer/deserializer (visitor). Everything in the engine serialized by 
-this serializer. It supports serialization of basic types, many std types (including
-Rc/Arc) and user-defined types.
+Modül, düğüm tabanlı serileştirici/serileştirici (ziyaretçi) içerir. Motorda serileştirilen her şey
+bu serileştirici. Temel tiplerin serileştirilmesini, birçok std tipini (aşağıdakiler dahil) destekler
+Rc/Arc) ve kullanıcı tanımlı tipler.
 
 ### fyrox-ui
 
-fyrox-ui is a standalone, graphics API-agnostic, node-based, general-purpose user interface library.
+fyrox-ui bağımsız, grafik API'sinden bağımsız, düğüm tabanlı, genel amaçlı bir kullanıcı arayüzü kütüphanesidir.
 
 #### lib.rs
 
-The module contains UserInterface structure and Control trait. 
+Modül, Kullanıcı Arayüzü yapısını ve Kontrol özelliğini içerir.
 
 #### border.rs
 
-The module contains Border widget which is basically just a rectangle with variable width of borders, and
-an ability to be a container for child widgets.
+Modül, temelde değişken kenarlık genişliğine sahip bir dikdörtgen olan Border widget'ını ve
+alt widget'lar için bir kapsayıcı olma yeteneği.
 
 #### brush.rs
 
-The module contains Brush structure which describes a way of drawing graphics primitives. 
+Modül, grafik ilkellerini çizmenin bir yolunu tanımlayan Brush yapısını içerir.
 
 #### button.rs
 
-The module contains Button widget and its builder.
+Modül, Button widget'ını ve oluşturucusunu içerir.
 
 #### canvas.rs
 
-The module contains Canvas widget and its builder. Canvas is a simple container for child widgets,
-it allows setting position of children widgets directly. 
+Modül Canvas widget'ını ve oluşturucusunu içerir. Canvas, alt widget'lar için basit bir kapsayıcıdır,
+alt widget'ların konumunu doğrudan ayarlamaya izin verir.
 
 #### check_box.rs
 
-The module contains CheckBox widget and its builder. CheckBox is a three-state (checked, unchecked,
-undefined) switch.
+Modül, CheckBox widget'ını ve oluşturucusunu içerir. CheckBox üç durumludur (işaretli, işaretli değil,
+tanımlanmamış) anahtar.
 
 #### color.rs
 
-The module contains widgets to work with colors and their builders. There are separate widgets to change
-hue, saturation, brightness and compound color selector widget.
+Modül, renkler ve oluşturucuları ile çalışmak için widget'lar içerir. Değiştirmek için ayrı widget'lar vardır
+ton, doygunluk, parlaklık ve bileşik renk seçici widget'ı.
 
 #### decorator.rs
 
-The module contains Decorator widget and its builder. Decorator is a simple container for child widgets,
-it has built-in behaviour for most common actions: it changes appearance when mouse enters or leaves bounds,
-when user clicks on it, etc. 
+Modül, decorator widget'ını ve oluşturucusunu içerir. decorator, alt widget'lar için basit bir kapsayıcıdır,
+En yaygın eylemler için yerleşik davranışa sahiptir: fare sınırlara girdiğinde veya çıktığında görünümü değiştirir,
+kullanıcı üzerine tıkladığında, vb.
 
 #### dock.rs
 
-The module contains DockingManager and Tile widgets and their builders. Docking manager is able to combine
-multiple Window widgets in its tiles, each tile can be resized, docked or undocked. This is the must-have
-widget for any kind of editor.
+Modül, Yerleştirme Yöneticisi ve Tile widget'ları ile bunların oluşturucularını içerir. Yerleştirme yöneticisi şunları birleştirebilir
+Karolarında birden fazla Pencere widget'ı, her karo yeniden boyutlandırılabilir, yerleştirilebilir veya geri alınabilir. Bu sahip olunması gereken
+her türlü editör için widget.
 
 #### draw.rs
 
-The module is responsible for "drawing". It is in quotes, because it does not actually draw anything, it just 
-emits drawing commands in a queue for later interpretation. 
+Modül "çizimden" sorumludur. Tırnak içinde, çünkü aslında hiçbir şey çizmez, sadece
+çizim komutlarını daha sonra yorumlanmak üzere bir kuyruğa gönderir.
 
 #### dropdown_list.rs
 
-The module contains DropdownList widget and its builder. DropdownList is a small field that shows selected
-item and a "popup" that contains list of items.
+Modül, DropdownList widget'ını ve oluşturucusunu içerir. DropdownList seçilenleri gösteren küçük bir alandır
+öğesi ve öğelerin listesini içeren bir "açılır pencere".
 
 #### expander.rs
 
-The module contains Expander widget and its builder. Expander is a collapsable container for child widgets
-with a field that describes a content. 
+Modül, Expander widget'ını ve oluşturucusunu içerir. Genişletici, alt widget'lar için daraltılabilir bir kapsayıcıdır
+bir içeriği tanımlayan bir alan ile.
 
 #### file_browser.rs
 
-The module contains a set of widgets that displays file system. FileBrowser widget is a simple file system
-tree, FileSelector is a window with FileBrowser and few buttons. 
+Modül, dosya sistemini görüntüleyen bir dizi widget içerir. FileBrowser widget'ı basit bir dosya sistemidir
+ağacı, FileSelector, FileBrowser ve birkaç düğme içeren bir penceredir.
 
 #### formatted_text.rs
 
-The module is responsible for text formatting and "rendering". The latter is in quotes, because the library 
-just uses glyph info from a font to layout each glyph in a line of text with word wrapping and other 
-useful features (like text size calculation, etc).
+Modül, metin biçimlendirme ve "işleme "den sorumludur. İkincisi tırnak içinde, çünkü kütüphane
+sadece bir yazı tipindeki glif bilgisini kullanarak her bir glifi bir metin satırında kelime kaydırma ve diğer
+kullanışlı özellikler (metin boyutu hesaplama vb. gibi).
 
 #### grid.rs
 
-The module contains Grid widget and its builder. Grid is a powerful layout widget, it allows arranging child
-widgets in a series of rows and columns.
+Modül, Grid widget'ını ve oluşturucusunu içerir. Grid güçlü bir düzen aracıdır, alt öğelerin düzenlenmesine izin verir
+widget'larını bir dizi satır ve sütunda bir araya getirir.
 
 #### image.rs
 
-The module contains Image widget and its builder. Image is a simple rectangle with a texture.
+Modül, Image widget'ını ve oluşturucusunu içerir. Görüntü, dokusu olan basit bir dikdörtgendir.
 
 #### list_view.rs
 
-The module contains ListView widget and its builder. ListView is a container for items which arranged 
-as a stack. ListView supports item selection.
+Modül, ListView widget'ını ve oluşturucusunu içerir. ListView düzenlenmiş öğeler için bir kapsayıcıdır
+bir yığın olarak. ListView öğe seçimini destekler.
 
 #### menu.rs
 
-The module contains menu widgets. Menu here means a classic menu which is a strip with root items and a 
-set of child sub-menus.
+Modül menü widget'ları içerir. Buradaki menü, kök öğeleri olan bir şerit olan klasik bir menü anlamına gelir ve bir
+alt menüler kümesi.
 
 #### message.rs
 
-The module contains all supported messages for every widget in the library. 
+Modül, kütüphanedeki her widget için desteklenen tüm mesajları içerir.
 
 #### messagebox.rs
 
@@ -289,8 +289,8 @@ The module contains all supported messages for every widget in the library.
 
 ### fyrox-sound
 
-fyrox-sound is a standalone sound engine with multiple renderers and high-quality sound. The sound engine
-provides support for binaural sound rendering using HRTF, which gives excellent sound spatialization.
+fyrox-sound, birden fazla işleyiciye ve yüksek kaliteli sese sahip bağımsız bir ses motorudur. Ses motoru
+HRTF kullanarak binaural ses oluşturma desteği sağlar ve bu da mükemmel ses uzamsallaştırması sağlar.
 
 #### buffer/mod.rs
 
@@ -316,16 +316,25 @@ provides support for binaural sound rendering using HRTF, which gives excellent 
 
 ### Fyrox
 
-The engine itself. It has: a renderer, resource manager, animations, scenes, and various utilities like 
-lightmapper, uv-mapper, navigation mesh, logger, pathfinder.
+Motorun kendisi. Şunlara sahiptir: bir renderer, kaynak yöneticisi, animasyonlar, sahneler ve çeşitli yardımcı programlar
+lightmapper, uv-mapper, navigasyon ağı, logger, pathfinder.
 
 #### animation/mod.rs
+
 #### animation/machine/mod.rs
+
 #### animation/machine/blend_nodes.rs
+
 #### engine/mod.rs
+
 #### engine/error.rs
+
 #### engine/resource_manager.rs
+
 #### renderer/mod.rs
+
 #### renderer/framework/mod.rs
+
 #### renderer/framework/framebuffer.rs
+
 #### renderer/framework/geometry_buffer.rs

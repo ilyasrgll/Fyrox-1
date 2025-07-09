@@ -1,13 +1,15 @@
 ---
 name: Feature request
 about: Suggest an idea for this project
-title: ''
-assignees: ''
-
+title: ""
+assignees: ""
 ---
 
-## Problem this feature should fix
-A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
+## Bu özelliğin çözmesi gereken sorun
 
-## Expected solution
-A clear and concise description of what you want to happen.
+Sorunun ne olduğuna dair açık ve özlü bir açıklama.
+Örn. Her zaman hayal kırıklığına uğramışımdır. [...]
+
+## Beklenen çözüm
+
+Ne olmasını istediğinize dair açık ve öz bir açıklama.

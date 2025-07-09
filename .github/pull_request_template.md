@@ -1,23 +1,33 @@
-## Description
+## Açıklama
+
 <!-- Provide a clear and concise description of what this PR accomplishes -->
-Write here.
 
-## Related Issue(s)
+Buraya yaz.
+
+## İlgili Konu(lar)
+
 <!-- Link to the issue that this PR addresses (if applicable) -->
-Fixes #(issue number)
 
-## Review Guidance
+Düzeltmeler #(sorun numarası)
+
+## İnceleme Kılavuzu
+
 <!-- Provide any additional information that would help reviewing your work -->
-Write here.
 
-## Screenshots/GIFs
+Buraya yaz.
+
+## Ekran Görüntüleri/GIF'ler
+
 <!-- If applicable, add screenshots or GIFs demonstrating the changes -->
-Write here.
 
-## Checklist
+Buraya yaz.
+
+## Kontrol Listesi
+
 <!-- Mark items with 'x' (no spaces around x) -->
-- [ ] My code follows the project's code style guidelines
-- [ ] I have commented my code, particularly in hard-to-understand areas
-- [ ] I have updated the documentation accordingly
-- [ ] My changes don't generate new warnings or errors
-- [ ] No unsafe code introduced (or if introduced, thoroughly justified and documented)
+
+- [ ] Kodum projenin kod stili yönergelerini takip ediyor
+- [ ] Kodumu yorumladım, özellikle anlaşılması zor alanlarda
+- [ ] Belgeleri buna göre güncelledim
+- [ ] Değişikliklerim yeni uyarılar veya hatalar oluşturmuyor
+- [ ] Güvenli olmayan kod eklenmemiş (veya eklenmişse iyice gerekçelendirilmiş ve belgelenmiş)

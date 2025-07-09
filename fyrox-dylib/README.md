@@ -1,3 +1,3 @@
 # fyrox-dylib
 
-Dynamic library for Fyrox Game Engine.
+Fyrox Oyun Motoru için dinamik kütüphane.
