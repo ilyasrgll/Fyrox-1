@@ -51,1741 +51,2595 @@ gelecek sürümlere.
 - Varlıkları çift tıklama kullanarak açabilme.
 - `ListVIew` widget'ı için çoklu seçim desteği.
 - `impl PartialEq for Ray`.
-- Add an ability to rotate the editor camera using scene gizmo.
-- `impl From<&String> for ImmutableString`.
-- Improved material api - `Material::set_property` is now much less verbose.
-- Better support for fbx materials from 3DS max.
-- Validation for 2d colliders.
-- Added folders into asset browser.
-- Ability to cut holes in terrain.
-- Experimental occlusion culling for light sources.
-- `read_pixels_of_type` to get typed pixels instead of raw bytes.
-- Added `R32UI` texture format.
-- `get_image` for gpu texture.
-- Pixel buffer for async framebuffer reads.
-- Include cache sizes in rendering statistics (helps in catching uncontrollable GPU memory usage growth).
-- Ability to duplicate resources in asset browser.
-- Added visible distance for particle systems.
-  - Automatically excludes distant particle systems from rendering to improve performance.
-  - Can be tweaked on a per-system basis.
-- Ability to enable/disable scissor test from custom shaders.
-- Ability to specify depth func in custom shaders.
-- Added uniform buffers.
-- Added `UniformBufferCache` for easier handling of multiple UBOs.
-- Added bind groups + mandatory texture binding via render resources.
-- Ability to fetch graphics server capabilities.
-- Experimental `UniformMemoryAllocator`.
-- Frustum culling for light sources.
-- Support a saving/restoring the maximized flag of the editor's window.
-- Ability to save all opened scenes at once + hotkeys.
-- `AxisAlignedBoundingBox::project` method.
-- `post_update` callback for `Plugin`.
-- Editor plugins container - adds some useful methods for plugin search.
-- More dockable windows.
-- Ability to copy/paste selection in the curve editor widget.
-- Added a configurable limit for message log to prevent excessive bloat.
-- Configurable coordinate system for particle systems - allows selecting a coordinate system for generated particles—
-  local or world.
-- Lighting support for particle systems.
-- `ModelResource::instantiate_and_attach` method.
-- Ability to add keys on multiple curves at once.
-- Hotkey for `zoom to fit` for curve editor widget.
-- Useful macros for early return statements. While let-else exists, it still takes more lines of code than it should.
-  these macros are much more compact and easier to read.
-- `BaseControl::self_size` method.
-- Editor ui statistics plugin. Allows tracking the total amount of widget used by the editor, which is useful to find if
-  there are "dangling" widgets.
-- `DockingManagerLayoutDescriptor::has_window` method.
-- Print the total number of drawing commands of ui for the current frame.
-- `remove_on_close` flag for `Window` widget.
-- Ability to apply custom sorting for children widgets of a widget.
-- Ability to sort menu items.
-- Track processed ui messages in the editor - helps to find message queue overload.
-- `has_component` helper methods.
-- `StyleResource` resource type.
-- Configurable routing strategy for ui messages.
-- Helper methods for easier setting window icon.
-- Add a `Zed` editor option into editor settings.
-- Added configurable delay for tooltips.
-  - Prevents tooltips from popping up instantly on mouse hover, instead there's a configurable (0.55 s by default)
-    delay.
-  - Removes annoying tooltip popping when moving mouse.
-- Added more texture settings - base level, max level, min lod, max lod, lod bias.
-- Added home/desktop directories shortcut buttons for file browser widget.
-- Ability to focus the current path in the file browser widgets.
-- Ability to specify graphics server constructor.
-  - Essentially gives an ability to change graphics servers at creation/runtime stages.
-  - By default still uses OpenGL graphics server.
-- Added kerning support for fonts.
-- `BuildContext::send_message` method.
-- Added project manager CI.
-- Backward compatibility for deserialization of `Untyped->Typed` resource.
-- Ability to specify usage for element buffer.
-- `info! + warn! + err!` log macros.
-- Documentation improvements.
-- `Downcast` trait to remove code bloat.
-- Added tooltip for shader field in the material editor.
-- Toggle button widget.
-- Added tags for reflection.
+- Sahne gizmo'sunu kullanarak düzenleyici kamerasını döndürme yeteneği ekleyin.
+- `ImmutableString` için `impl From<&String>`.
+- Geliştirilmiş materyal api - `Material::set_property` artık çok daha az ayrıntılı.
+- 3DS max'ten fbx malzemeleri için daha iyi destek.
+- 2d çarpıştırıcılar için doğrulama.
+- Varlık tarayıcısına klasörler eklendi.
+- Arazide delik açma yeteneği.
+- Işık kaynakları için deneysel oklüzyon ayıklama.
+- Ham baytlar yerine yazılan pikselleri almak için `read_pixels_of_type`.
+- `R32UI` doku formatı eklendi.
+- gpu dokusu için `get_image`.
+- Async çerçeve arabelleği okumaları için piksel arabelleği.
+- Önbellek boyutlarını render istatistiklerine dahil edin (kontrol edilemeyen GPU bellek kullanım artışını yakalamaya yardımcı olur).
+- Varlık tarayıcısında kaynakları çoğaltma yeteneği.
+- Parçacık sistemleri için görünür mesafe eklendi.
+  - Performansı artırmak için uzaktaki parçacık sistemlerini otomatik olarak işleme dışında bırakır.
+  - Sistem bazında ince ayar yapılabilir.
+- Özel gölgelendiricilerden makas testini etkinleştirebilme/devre dışı bırakabilme.
+- Özel gölgelendiricilerde derinlik işlevini belirleyebilme.
+- Tek tip tamponlar eklendi.
+- Birden fazla UBO'nun daha kolay işlenmesi için `UniformBufferCache` eklendi.
+- Bağlama grupları + render kaynakları aracılığıyla zorunlu doku bağlama eklendi.
+- Grafik sunucusu yeteneklerini getirme yeteneği.
+- Deneysel `UniformMemoryAllocator`.
+- Işık kaynakları için frustum culling.
+- Editör penceresinin büyütülmüş bayrağını kaydetme / geri yükleme desteği.
+- Tüm açık sahneleri bir kerede + kısayol tuşlarıyla kaydedebilme.
+- `AxisAlignedBoundingBox::project` yöntemi.
+- `Plugin` için `post_update` geri çağrısı.
+- Editör eklentileri konteyneri
+- eklenti araması için bazı yararlı yöntemler ekler.
+- Daha fazla yerleştirilebilir pencere.
+- Eğri düzenleyici widget'ında seçimi kopyalama/yapıştırma yeteneği.
+- Aşırı şişmeyi önlemek için mesaj günlüğü için yapılandırılabilir bir sınır eklendi.
+- Parçacık sistemleri için yapılandırılabilir koordinat sistemi - oluşturulan parçacıklar için bir koordinat sistemi seçmeye izin verir-
+  yerel veya dünya.
+- Parçacık sistemleri için aydınlatma desteği.
+- `ModelResource::instantiate_and_attach` yöntem.
+- Aynı anda birden fazla eğriye anahtar ekleyebilme.
+- Eğri düzenleyici widget'ı için `sığdırmak için yakınlaştır` kısayol tuşu.
+- Erken dönüş ifadeleri için faydalı makrolar. let-else mevcut olsa da, hala olması gerekenden daha fazla kod satırı alır.
+  Bu makrolar çok daha kompakt ve okunması daha kolay.
+- `BaseControl::self_size` yöntemi.
+- Editör kullanıcı arayüzü istatistik eklentisi. Düzenleyici tarafından kullanılan toplam widget miktarının izlenmesine olanak tanır; bu, aşağıdakilerin olup olmadığını bulmak için yararlıdır "sarkan" widget'lar var.
+- `DockingManagerLayoutDescriptor::has_window` yöntemi.
+- Geçerli çerçeve için ui'nin toplam çizim komutu sayısını yazdırır.
+- `Pencere` widget'ı için `remove_on_close` bayrağı.
+- Bir widget'ın alt widget'ları için özel sıralama uygulayabilme.
+- Menü öğelerini sıralayabilme.
+- Editörde işlenmiş kullanıcı arayüzü mesajlarını izleme - mesaj kuyruğunun aşırı yüklenmesini bulmaya yardımcı olur.
+- `has_component` yardımcı yöntemleri.
+- `StyleResource` kaynak türü.
+- UI mesajları için yapılandırılabilir yönlendirme stratejisi.
+- Pencere simgesini daha kolay ayarlamak için yardımcı yöntemler.
+- Düzenleyici ayarlarına bir `Zed` düzenleyici seçeneği eklendi.
+- Araç ipuçları için yapılandırılabilir gecikme eklendi.
+  - Araç ipuçlarının farenin üzerine gelindiğinde anında açılmasını önler, bunun yerine yapılandırılabilir bir süre vardır (varsayılan olarak 0,55 sn)
+    Gecikme.
+  - Fareyi hareket ettirirken çıkan rahatsız edici araç ipucunu kaldırır.
+- Daha fazla doku ayarı eklendi - temel seviye, maksimum seviye, min lod, maksimum lod, lod bias.
+- Dosya tarayıcı widget'ı için ev/masaüstü dizinleri kısayol düğmeleri eklendi.
+- Dosya tarayıcı araçlarında geçerli yola odaklanabilme.
+- Grafik sunucusu yapıcısını belirleyebilme.
+  - Esasen grafik sunucularını oluşturma / çalışma zamanı aşamalarında değiştirme yeteneği verir.
+  - Varsayılan olarak hala OpenGL grafik sunucusunu kullanır.
+- Yazı tipleri için karakter aralığı desteği eklendi.
+- `BuildContext::send_message` yöntemi eklendi.
+- Proje yöneticisi CI eklendi.
+- `Untyped->Typed` kaynağının deserializasyonu için geriye dönük uyumluluk.
+- Eleman tamponu için kullanım belirleme yeteneği.
+- `info! + warn! + err!` günlük makroları.
+- Dokümantasyon iyileştirmeleri.
+- Kod şişkinliğini gidermek için `Downcast` özelliği.
+- Malzeme düzenleyicideki gölgelendirici alanı için araç ipucu eklendi.
+- Geçiş düğmesi widget'ı.
+- Yansıma için etiketler eklendi.
 - `WidgetBuilder::with_uniform_margin(..)`.
-- Shortcuts for groups in editor settings: allows quickly jumping to a particular settings group.
-- Searching functionality for editor settings.
-- `impl TypeUuidProvider for Rect<T>`.
-- Added property editors for `Option<Rect<T>>`.
-- Nine patch widget improvements.
-  - Added ability to specify a texture region for atlas support.
-  - Remove explicit uv coordinates and calculate them on the fly.
-  - Ability to disable drawing of the center region of the nine-patch widget.
-  - Configurable tiling mode for nine-patch widget.
-  - Easier editing of texture slice using new texture slice editor.
-- Thumb widget for draggable things.
-- Messages to change vertical and horizontal scrolling of ScrollViewer widget.
+- Düzenleyici ayarlarındaki gruplar için kısayollar: belirli bir ayar grubuna hızlıca atlamayı sağlar.
+- Düzenleyici ayarları için arama işlevi.
+- `Rect<T>` için `impl TypeUuidProvider.`
+- <Option<Rect<T>> için özellik düzenleyicileri eklendi.
+- Dokuz yama widget iyileştirmesi.
+  - Atlas desteği için bir doku bölgesi belirleme yeteneği eklendi.
+  - Açık uv koordinatlarını kaldırın ve bunları anında hesaplayın.
+  - Dokuz yama widget'ının merkez bölgesinin çizimini devre dışı bırakma yeteneği.
+  - Dokuz yama widget'ı için yapılandırılabilir döşeme modu.
+  - Yeni doku dilimi düzenleyicisini kullanarak doku diliminin daha kolay düzenlenmesi.
+- Sürüklenebilir şeyler için başparmak widget'ı.
+- ScrollViewer aracının dikey ve yatay kaydırmasını değiştirmek için mesajlar.
 
-## Changed
+## Değişti
 
-- Included project license in every source file.
-- Reset scene node transform to identity when making it root.
-- Take z index into account when linking widgets.
-- Split fyrox-template into lib + cli.
-- Ability to specify project root dir for template-core.
-- Optional app arguments. Prevents crash when trying to parse program arguments.
-- Change key bindings to make more intuitive up/down motion.
-- Replaced `SurfaceSharedData` into `Resource<SurfaceData>`
-  - Surface shared data was essentially a resource of some sort anyway.
-  - Allows saving meshes as resources externally.
-  - Allows using standard resource pipeline for surface data.
-- Simplified camera picking API in the editor.
-- Improved terrain brush system.
-- Print surface resource kind in the property editor.
-- Fixed new object placement.
-  - Children objects will stay at (0,0,0).
-  - When creating via "Create" menu, a new object will be located in front of the camera.
-  - When creating a parent object whose parent is root, it will also be located in front of the camera.
-- Ability to specify name column width of inspector widget.
-- Save camera projection mode in editor settings.
-- Refactored editor camera controller - allows dragging the camera using mmb in 2d mode.
-- Sort items of built-in resources.
-- Remove native collider when its shape cannot be created.
-- Hijack control over animations from animation container in ABSM - now ABSM itself updates the animations it uses,
-  and only those that are currently used either by a state or states of active transition.
-- Extract the rendering framework into a separate crate.
-- Make fbx elements of mesh geometry optional.
-  - Prints a warning message and continues reading.
-  - This is needed to be able to load "malformed" fbx, that has no mesh geometry, such as animation-only fbx.
-- Enable resource hot reloading by default in executor.
-- Move `rotateVec2` to shared shader functions.
-- Store initial data and file extension (if any) of built-in resources.
-- Moved opengl initialization to the rendering framework.
-- Use uniform buffer for bone matrices instead of texture matrix storage.
-- Use uniform buffer to pass object instance data to shaders.
-- Moved camera properties into its own uniform block.
-- Switched to uniform buffers across the renderer.
-- Pass material properties using uniform buffers.
-  - Automatically generate uniform buffer description for material properties.
-  - Automatically define uniforms for samplers.
-  - No more need to manually define material properties in shaders, just use `properies.your_property_name`.
-- Isolated opengl-specific code of gpu program into its own module.
-- Use uniform memory allocator to speed up uniform data upload to gpu.
-  - Splits rendering of render bundles in two steps: uniform data collection + upload and the actual rendering.
-  - More efficient use of memory by using all available space in uniform buffers (prevents having uniform.
-    buffers with just 200–300 bytes of memory, where the actual memory block on gpu is 4 kb).
-  - It significantly reduces the number of individual data transfers and gapi calls in general.
-  - Improves performance by 12–15%.
-- Removed redundant buffer binding/unbinding - saves some time on api calls (especially in WebGL, where everything is
-  proxied through JS).
-- Pass sceneDepth texture to shaders explicitly.
-- Use explicit binding for textures. Prevents dozens of `glUniform1i` calls when drawing stuff, thus improving
-  performance by 5–10% (more on WebAssembly, where each gl call is passed through JS).
-- Refactored shader structure to include resource bindings.
-  - Makes shader structure more rigid and removes implicit built-in variables.
-  - Makes binding points of resources explicit.
-- Turned `Matrix2Editor` into generic-over-size `MatrixEditor`.
-- Use immutable string in shader property name.
-- Reworked materials.
-  - Material now stores only changed shader properties.
-  - Move validation from set_property/bind to the renderer where it simply prints an error message to the log
-    if something's wrong.
-  - Removed fallback value from texture resource binding, it makes no sense to duplicate this info since the correct
-    one is stored in the shader anyway.
-  - Removed `default` property from texture definition in shaders.
-- Collect light info when constructing a render bundle. Removes redundant loop over scene graph nodes.
-- Refactor hot reload to allow custom dynamic plugins besides dylib-based.
-- Improved gpu texture api.
-- Perform checked borrow in node message processing to prevent crashes. Crash could happen if a node is already deleted,
-  but its message was still in the queue.
-- Replaced component querying from nodes with `ComponentProvider` trait.
-- Turned editor inspector into a plugin.
-- Cloning physics when cloning Graph to persist Scene settings when saving Scene from the editor.
-- TabControl improvements..
-- Changed `traverse_iter` to return a pair of handle and ref - much more convenient when there's a need to handle a
-  handle with a reference at the same time, no need to do re-borrow which is double work anyway.
-- Added `AnimationResource` which decoupled animation tracks data into a shared resource.
-  - Significantly reduces memory consumption when cloning animations, since it does not need to clone the tracks
-    anymore.
-  - Animation resource can be shared across multiple animations using the same tracks.
-  - Significantly speeds up the instantiation of animation player scene node.
-  - Backward compatibility is preserved.
-- Focus search bar's text box when focusing toolbar itself - toolbar focus makes no sense anyway, because it does not
-  interact with keyboard, but text box does.
-- Node selector usability improvements.
-  - Focus search bar on open.
-  - Ability to confirm selection by enter key.
-  - Bring the first selected item into view on open.
-  - Added tab navigation.
-- Lazy z-index sorting instead of on-demand.
-- Exclude samples buffer from a list of animatable properties.
-- Improved property selector.
-  - Focus search bar on opening.
-  - Tab navigation.
-  - Highlight selected properties on rebinding.
-  - Ability to confirm selection by hitting the enter key.
-- Detached material-related parts of the editor into its own plugin - material editor is now non-existent by default and
-  created only when needed, which saves memory (both ram and vram) and cpu/gpu time.
-- Detached ragdoll wizard into a separate plugin.
-- Move the settings window into a separate plugin.
-- Move the animation editor into its own plugin.
-- Improved editor plugins api.
-- Create animation editor on editor start if animation editor was docked before.
-- Move the absm editor to a separate plugin.
-- Create save file selector for prefabs on demand.
-- Move the curve editor window into its own plugin.
-- Move the path fixer into a plugin.
-- Use builtin surfaces for meshes created in the editor.
-- Migrated to latest `tinyaudio`.
-- Removed hardcoded ui widgets constructors. It replaced with user-defined constructors via `ConstructorProvider` trait.
-- Sort menu items in alphabetical order in creation menus.
-- Replaced hardcoded ui style variables with configurable styles.
-- Make tooltips invisible for hit test.
-- Move the log panel to `fyrox-ui`.
-- Keep the editor running until the active popup is fully shown.
-- Change the default path of file browser to `./`.
-- Disable log file by default. The log file could be undesirable in some cases, and now it is off by default and can be
-  enabled by `Log::set_file_name/set_file` in `fn main`.
-- Explicit api to change the log file.
-- Replaced proprietary Arial font with Roboto in the editor.
-- Do not precompile built-in shaders on engine start.
-  - It is faster to compile them on-demand.
-  - On WebAssembly such compilation could take 10–15 seconds.
-- Detached texture-related code to separate crate. It allows attaching it to `fyrox-ui` to use textures directly without
-  using hacky `UntypedResource`.
-- Use TextureResource directly in ui code where possible - removes redundant juggling with untyped↔typed conversions.
-- Force `Image` widget to use texture size on measurement stage - removes "surprising effect" with collapsed image, if
-  width/height is not set explicitly.
-- Audio initialization errors non-fatal now. It allows running the engine in environments without proper audio output
-  support.
-- Print editor version in the window title.
-- Print editor version in the log on start.
-- Replace the hardcoded version of the engine with the one from Cargo.toml. This is a semi-reliable solution, but much
-  better than having the hardcoded version.
-- Close projection (2d/3d) selector on selection.
-- Use toggle button for `track selection` in the world viewer.
-- Put the search bar of the world viewer on the same row with other buttons.
-- Moved `load_image` to `fyrox-ui` utils.
+- Her kaynak dosyaya proje lisansı eklendi.
+- Sahne düğümü dönüşümünü kök yaparken kimliğe sıfırlayın.
+- Widget'ları bağlarken z indeksini dikkate alın.
+- Fyrox-template'i lib + cli'ye bölün.
+- Şablon çekirdeği için proje kök direktörünü belirleme yeteneği.
+- İsteğe bağlı uygulama argümanları. Program argümanlarını ayrıştırmaya çalışırken çökmeyi önler.
+- Daha sezgisel yukarı/aşağı hareketi yapmak için tuş bağlamalarını değiştirin.
+- `SurfaceSharedData`, `Resource<SurfaceData>` olarak değiştirildi.
+  - Yüzey paylaşılan verileri zaten bir tür kaynaktı.
+  - Kafeslerin harici olarak kaynak olarak kaydedilmesine izin verir.
+  - Yüzey verileri için standart kaynak işlem hattının kullanılmasına izin verir.
+- Düzenleyicide basitleştirilmiş kamera seçme API'si.
+- Geliştirilmiş arazi fırça sistemi.
+- Özellik düzenleyicide yüzey kaynağı türünü yazdırın.
+- Yeni nesne yerleşimi düzeltildi.
+  - Çocuk nesneler (0,0,0) konumunda kalacaktır.
+  - "Oluştur" menüsü aracılığıyla oluştururken, yeni bir nesne kameranın önüne yerleştirilecek.
+  - Üstü kök olan bir üst nesne oluştururken, o da kameranın önünde yer alacaktır.
+- Denetçi widget'ının isim sütunu genişliğini belirleyebilme.
+- Kamera projeksiyon modunu editör ayarlarına kaydedin.
+- Yeniden düzenlenen düzenleyici kamera denetleyicisi - 2d modunda mmb kullanarak kamerayı sürüklemeye izin verir.
+- Yerleşik kaynakların öğelerini sıralayın.
+- Şekli oluşturulamadığında yerel çarpıştırıcıyı kaldırın.
+- ABSM'deki animasyon konteynerinden animasyonlar üzerindeki kontrolü kaçırın - artık ABSM kullandığı animasyonları kendisi güncelliyor,
+  ve yalnızca o anda bir durum veya aktif geçiş durumları tarafından kullanılanlar.
+- Render çerçevesini ayrı bir sandığa çıkarın.
+- Ağ geometrisinin fbx öğelerini isteğe bağlı hale getirin.
+  - Bir uyarı mesajı yazdırır ve okumaya devam eder.
+  - Bu, yalnızca animasyon fbx'leri gibi örgü geometrisi olmayan "hatalı biçimlendirilmiş" fbx'leri yükleyebilmek için gereklidir.
+- Yürütücüde varsayılan olarak kaynak sıcak yeniden yüklemeyi etkinleştirin.
+- `RotateVec2`yi paylaşılan gölgelendirici işlevlerine taşıyın.
+- Yerleşik kaynakların ilk verilerini ve dosya uzantısını (varsa) saklayın.
+- Opengl başlatma işlemi render çerçevesine taşındı.
+- Doku matrisi depolaması yerine kemik matrisleri için tek tip tampon kullanın.
+- Nesne örneği verilerini gölgelendiricilere aktarmak için tek tip tampon kullanın.
+- Kamera özellikleri kendi tekdüze bloğuna taşındı.
+- Renderer genelinde tek tip tamponlara geçildi.
+- Malzeme özelliklerini tek tip tamponlar kullanarak geçirin.
+  - Malzeme özellikleri için otomatik olarak tek tip tampon açıklaması oluşturun.
+  - Örnekleyiciler için üniformaları otomatik olarak tanımlayın.
+  - Artık gölgelendiricilerde malzeme özelliklerini manuel olarak tanımlamaya gerek yok, sadece `properies.your_property_name` kullanın.
+- Gpu programının opengl'e özgü kodu kendi modülüne izole edildi.
+- Gpu'ya tek tip veri yüklemesini hızlandırmak için tek tip bellek ayırıcı kullanın.
+  - Render paketlerinin işlenmesini iki adıma böler: tek tip veri toplama + yükleme ve gerçek render.
+  - Tekdüze tamponlarda mevcut tüm alanı kullanarak belleğin daha verimli kullanılması (tekdüze olmasını önler.
+    Gpu'daki gerçek bellek bloğunun 4 kb olduğu yerlerde sadece 200-300 bayt bellek içeren tamponlar).
+  - Genel olarak bireysel veri aktarımlarının ve gapi çağrılarının sayısını önemli ölçüde azaltır.
+  - Performansı %12-15 oranında artırır.
+- Gereksiz tampon bağlama/bağlama kaldırma - api çağrılarında biraz zaman kazandırır (özellikle WebGL'de her şeyin
+  JS aracılığıyla proxied).
+- sceneDepth dokusunu gölgelendiricilere açıkça aktarın.
+- Dokular için açık bağlama kullanın. Bir şeyler çizerken düzinelerce `glUniform1i` çağrısını önler, böylece iyileştirir
+  performansı %5-10 (her gl çağrısının JS'den geçirildiği WebAssembly'de daha fazla).
+- Kaynak bağlarını içerecek şekilde gölgelendirici yapısı yeniden düzenlendi.
+  - Gölgelendirici yapısını daha katı hale getirir ve örtük yerleşik değişkenleri kaldırır.
+  - Kaynakların bağlanma noktalarını açık hale getirir.
+- `Matris2Editor` genel boyutta `MatrixEditor` haline getirildi.
+- Gölgelendirici özellik adında değişmez dize kullanın.
+- Malzemeler yeniden düzenlendi.
+  - Materyal artık yalnızca değiştirilen gölgelendirici özelliklerini saklıyor.
+  - Doğrulamayı set_property/bind'dan renderer'a taşıyın, burada sadece günlüğe bir hata mesajı yazdırır
+    eğer bir şeyler yanlışsa.
+  - Doku kaynağı bağlayıcısından geri dönüş değeri kaldırıldı, bu bilgiyi çoğaltmanın bir anlamı yok çünkü doğru
+    biri yine de gölgelendiricide saklanır.
+  - Gölgelendiricilerdeki doku tanımından `default` özelliği kaldırıldı.
+- Bir render paketi oluştururken ışık bilgisi toplanır. Sahne grafiği düğümleri üzerindeki gereksiz döngü kaldırılır.
+- Dylib tabanlı dışında özel dinamik eklentilere izin vermek için sıcak yeniden yükleme refactor.
+- Geliştirilmiş gpu doku api.
+- Çökmeleri önlemek için düğüm mesajı işlemede kontrollü ödünç alma gerçekleştirin. Bir düğüm zaten silinmişse çökme meydana gelebilir,
+  ancak mesajı hala kuyruktaydı.
+- Düğümlerden bileşen sorgulama `ComponentProvider` özelliği ile değiştirildi.
+- Editör denetçisi bir eklentiye dönüştürüldü.
+- Düzenleyiciden Sahne kaydedilirken Sahne ayarlarını korumak için Grafiği klonlarken fiziği klonlama.
+- TabControl iyileştirmeleri...
+- Bir çift handle ve ref döndürmek için `traverse_iter` değiştirildi - bir
+  Aynı anda bir referansla işleyin, zaten çift iş olan yeniden ödünç almaya gerek yok.
+- Animasyon izleri verilerini paylaşılan bir kaynağa ayıran `AnimationResource` eklendi.
+  - Animasyonları klonlarken bellek tüketimini önemli ölçüde azaltır, çünkü izleri klonlaması gerekmez
+    Artık.
+  - Animasyon kaynağı, aynı parçaları kullanan birden fazla animasyon arasında paylaşılabilir.
+  - Animasyon oynatıcı sahne düğümünün örneklenmesini önemli ölçüde hızlandırır.
+  - Geriye dönük uyumluluk korunur.
+- Araç çubuğunun kendisine odaklanırken arama çubuğunun metin kutusuna odaklanın - araç çubuğu odağı zaten bir anlam ifade etmiyor, çünkü
+  klavye ile etkileşime girer, ancak metin kutusu etkileşime girer.
+- Düğüm seçici kullanılabilirlik iyileştirmeleri.
+  - Açıkken arama çubuğuna odaklanma.
+  - Enter tuşu ile seçimi onaylayabilme.
+  - Açıldığında ilk seçilen öğeyi görünüme getirme.
+  - Sekme gezintisi eklendi.
+- İsteğe bağlı yerine tembel z-indeks sıralaması.
+- Örnek tamponunu canlandırılabilir özellikler listesinden hariç tutma.
+- Geliştirilmiş özellik seçici.
+  - Açılışta arama çubuğuna odaklanın.
+  - Sekme gezintisi.
+  - Yeniden bağlama sırasında seçilen özellikleri vurgulayın.
+  - Enter tuşuna basarak seçimi onaylayabilme özelliği.
+- Düzenleyicinin malzeme ile ilgili kısımları kendi eklentisine ayrıldı - malzeme düzenleyici artık varsayılan olarak mevcut değil ve
+  sadece ihtiyaç duyulduğunda oluşturulur, bu da bellekten (hem ram hem de vram) ve cpu/gpu zamanından tasarruf sağlar.
+- Ragdoll sihirbazını ayrı bir eklentiye ayırdı.
+- Ayarlar penceresini ayrı bir eklentiye taşıyın.
+- Animasyon düzenleyicisini kendi eklentisine taşıyın.
+- Geliştirilmiş editör eklentileri api.
+- Animasyon düzenleyicisi daha önce yerleştirilmişse düzenleyici başlangıcında animasyon düzenleyicisi oluşturun.
+- Absm düzenleyiciyi ayrı bir eklentiye taşıyın.
+- İsteğe bağlı prefabrikler için dosya kaydetme seçicisi oluşturun.
+- Eğri düzenleyici penceresini kendi eklentisine taşıyın.
+- Yol sabitleyiciyi bir eklentiye taşıyın.
+- Düzenleyicide oluşturulan kafesler için yerleşik yüzeyler kullanın.
+- En son `tinyaudio`ya taşındı.
+- Sabit kodlanmış kullanıcı arayüzü widget kurucuları kaldırıldı.` ConstructorProvider` özelliği aracılığıyla kullanıcı tanımlı kurucularla değiştirildi.
+- Oluşturma menülerinde menü öğelerini alfabetik sıraya göre sıralayın.
+- Kodlanmış kullanıcı arayüzü stil değişkenleri yapılandırılabilir stillerle değiştirildi.
+- Vuruş testi için araç ipuçlarını görünmez yapın.
+- Günlük panelini `fyrox-ui`ye taşıyın.
+- Etkin açılır pencere tamamen gösterilinceye kadar düzenleyiciyi çalışır durumda tutun.
+- Dosya tarayıcısının varsayılan yolunu `./` olarak değiştirin.
+- Günlük dosyasını varsayılan olarak devre dışı bırakın. Günlük dosyası bazı durumlarda istenmeyebilir ve şimdi varsayılan olarak kapalıdır ve
+  `fn main` içinde `Log::set_file_name/set_file` tarafından etkinleştirildi.
+- Günlük dosyasını değiştirmek için açık api.
+- Editörde tescilli Arial yazı tipi Roboto ile değiştirildi.
+- Motor başlatıldığında yerleşik gölgelendiricileri önceden derlemeyin.
+  - Bunları talep üzerine derlemek daha hızlıdır.
+  - WebAssembly üzerinde böyle bir derleme 10-15 saniye sürebilir.
+- Doku ile ilgili kodu ayrı bir sandığa ayırdı. Dokuları doğrudan kullanmak için `fyrox-ui`ye eklenmesine izin verir.
+  hacky `UntypedResource` kullanarak.
+- `TextureResource`u mümkün olduğunca doğrudan kullanıcı arayüzü kodunda kullanın - yazılmamış↔yazılmış dönüşümlerle gereksiz hokkabazlığı ortadan kaldırır.
+- `Image` widget'ını ölçüm aşamasında doku boyutunu kullanmaya zorlayın - daraltılmış görüntü ile "şaşırtıcı etkiyi" ortadan kaldırır, eğer
+  genişlik/yükseklik açıkça ayarlanmamıştır.
+- Ses başlatma hataları artık ölümcül değil. Motorun uygun ses çıkışı olmayan ortamlarda çalıştırılmasına izin verir
+  destek.
+- Düzenleyici sürümünü pencere başlığına yazdırın.
+- Düzenleyici sürümünü başlangıçta günlüğe yazdırın.
+- Motorun sabit kodlanmış sürümünü Cargo.toml'daki ile değiştirin. Bu yarı güvenilir bir çözümdür, ancak çok
+  kodlanmış versiyona sahip olmaktan daha iyidir.
+- Seçim sırasında projeksiyon (2d/3d) seçiciyi kapatın.
+- Dünya görüntüleyicide "parça seçimi" için geçiş düğmesini kullanın.
+- Dünya görüntüleyicisinin arama çubuğunu diğer düğmelerle aynı satıra yerleştirin.
+- `Load_image` `fyrox-ui` utils'e taşındı.
 
-## Fixed
+## Sabit
 
-- Fixed blurry fonts.
-- Significantly improved editor performance.
-- Improved joint stability after migration to the latest Rapier physics.
-- Use z index from the respective message.
-- Fixed crash when trying to change window title using the respective message.
-- Fixed procedural meshes serialization.
-- Fixed inspector syncing when replacing the selected object with another type.
-- Fixing Rect tests in fyrox-math.
-- `transmute_vec_as_bytes` soundness fix.
-- Fixed crash when trying to drag'n'drop non-texture in texture field.
-- Refresh asset browser after asset deletion.
-- Better validation for colliders.
-- Support for chained texture nodes in fbx - fixes normal map import on FBX files made in latest 3ds max/Maya/etc.
-- Watch for changes in the current directory and refresh asset browser content.
-- Fixed potential crash when cloning ui nodes.
-- Fixed tool installation check in project exporter.
-  - Do not try to install already installed tools.
-  - Prevents accessing the network when there's no actual need.
-- Fixed redundant texture binding if it is already bound to pipeline.
-- Discard scaling from rotation matrix before passing it to bounding shape - fixes clipping issues of light sources.
-- Do not skip light scatter rendering even if there's no fragments lit. It fixes flashing of light scattering.
-- Fixed shadow map lod selection condition.
-- Speed up access to animation curve data.
-- Use `ImmutableString` in `ValueBinding` to make it smaller results in faster copying (32 bytes vs. 16 bytes).
-- Prevent render targets from registering multiple times in texture cache.
-- Improved performance of render data collection.
-- Drop inherited `RUSTFLAGS` for project exporter child processes.
-- Fixed crash when rendering large bundles.
-- Do not reallocate gpu buffer if there's enough space for data already.
-- Ignore buffer write commands when the data is empty.
-- Set glsl es precision to `highp`.
-- Fixed an invalid editor window size on second startup at the hidpi display.
-- Ensure vector images have a set size.
-- Fix crash on macOS in notify crate when the path is set first time.
-- Reduced code bloat by isolating fallback textures into their own struct.
-- Fix wasm tests fails due to using of the deprecated PanicInfo.
-- Discard scaling part when calculating light source bounding box.
-- Excluded some non-animatable properties from property selector.
-- Detached perf of hierarchical properties propagation from graph size.
-  - Graph now updates hierarchical properties only for ones that actually changed.
-  - Significantly improves performance in static scenes.
-- Prevent redundant global transform update for 2d rigid bodies.
-- Fixed "teleportation" bug (when a scene node was located at world's origin for one frame and then teleports back
-  where it should be).
-- Prevent potential nan in `vector_to_quat`.
-- Fixed convergence in reverb sound effect.
-- Fixed root motion jitter on looping animations - loop boundaries were handled incorrectly, thus leading to error
-  accumulation that led to annoying jitter after some iterations.
-- Fixed visible borders around point lights.
-- Reduced code bloat in the engine internals.
-- Fixed transform syncing of colliders.
-- Fixed `Inspector` widget syncing issues.
-- Fixed crash when deleting multiple animation tracks at once.
-- Fix for UI layout, including Grid and Text.
-- Fixed crash when trying to fetch intersections from a deleted collider.
-- Fixed crash when trying to collect animation events without a root state.
-- Fixed crash when using `accurate_world_bounding_box` on some meshes - it would crash if a mesh has no position/bone
-  indices/bone weights attributes in its vertex buffer.
-- Fixed name of ragdoll joint generated by ragdoll wizard.
-- Improved overall editor performance and ui nodes linking in particular.
-- Prevent redundant syncing of the editor settings window - saves ~10% of time.
-- Prevent the editor from loading the same texture over and over again.
-- Fixed keyboard navigation for tree root - fixes annoying issue which causes keyboard focus to stick at tree root.
-- Fixed camera preview panel size.
-- Fixed deletion of some widgets.
-- Fixed arrow visibility of menu item when dynamically changing its items.
-- Fixed `MenuItem` performance issues.
-- Fixed syncing of material editor shader field.
-- Added `fyrox-build-tools` crate which essentially contains build tools from the editor.
-- Fixed incorrect texture bindings invalidation - caused weird bug with incorrect textures applied to some objects (very
-  noticeable in the ui after resizing the window).
-- Use mip mapping for icons in the editor to smooth icons in the editor.
-- Fixed background color "leaking" during `Border` widget rendering.
-- Fixed syncing bug of R coordinates for volume textures.
-- Fixed transform order in visual transform calculation.
-- Fixed incorrect memory alignment when deserializing `BinaryBlob`.
-- Fixed crash when using nine-patch widget without a texture.
-- Fixed crash when dropping non-texture resource on texture field.
+- Bulanık yazı tipleri düzeltildi.
+- Editör performansı önemli ölçüde iyileştirildi.
+- En son Rapier fiziğine geçişten sonra eklem stabilitesi iyileştirildi.
+- İlgili mesajdaki z indeksini kullanın.
+- İlgili mesajı kullanarak pencere başlığını değiştirmeye çalışırken oluşan çökme düzeltildi.
+- Prosedürel kafes serileştirme düzeltildi.
+- Seçili nesneyi başka bir türle değiştirirken denetçi senkronizasyonu düzeltildi.
+- Fyrox-math'de Rect testleri düzeltildi.
+- `transmute_vec_as_bytes` sağlamlık düzeltmesi.
+- Doku alanına doku olmayan bir nesneyi sürükleyip bırakmaya çalışırken oluşan çökme düzeltildi.
+- Varlık silme işleminden sonra varlık tarayıcısını yenileyin.
+- Çarpıştırıcılar için daha iyi doğrulama.
+- FBX'te zincirleme doku düğümleri için destek - en son 3ds max/Maya/vb'de yapılan FBX dosyalarında normal harita içe aktarımını düzeltir.
+- Geçerli dizindeki değişiklikleri izleyin ve varlık tarayıcısı içeriğini yenileyin.
+- UI düğümleri klonlanırken olası çökme düzeltildi.
+- Proje dışa aktarıcıda araç yükleme kontrolü düzeltildi.
+  - Önceden yüklenmiş araçları yüklemeye çalışmayın.
+  - Gerçek bir ihtiyaç olmadığında ağa erişmeyi önler.
+- Boru hattına zaten bağlıysa gereksiz doku bağlama düzeltildi.
+- Sınırlayıcı şekle geçirmeden önce rotasyon matrisinden ölçeklendirmeyi atın - ışık kaynaklarının kırpma sorunlarını düzeltir.
+- Hiçbir parça yanmasa bile ışık saçılımı oluşturmayı atlamayın. Işık saçılımının yanıp sönmesini düzeltir.
+- Gölge haritası lod seçim koşulu düzeltildi.
+- Animasyon eğrisi verilerine erişimi hızlandırın.
+- Daha küçük hale getirmek için `ValueBinding` içinde `ImmutableString` kullanın, daha hızlı kopyalama ile sonuçlanır (32 bayta karşı 16 bayt).
+- Render hedeflerinin doku önbelleğine birden fazla kez kaydedilmesi engellendi.
+- Render veri toplama performansı iyileştirildi.
+- Proje dışa aktarıcı alt süreçleri için devralınan `RUSTFLAGS` bırakıldı.
+- Büyük paketler işlenirken oluşan çökme düzeltildi.
+- Veri için zaten yeterli alan varsa gpu tamponunu yeniden tahsis etmeyin.
+- Veri boş olduğunda tampon yazma komutlarını yoksay.
+- Glsl es hassasiyetini `highp` olarak ayarlayın.
+- Hidpi ekranında ikinci başlangıçta geçersiz editör penceresi boyutu düzeltildi.
+- Vektör görüntülerinin ayarlanmış bir boyuta sahip olduğundan emin olun.
+- MacOS'ta yol ilk kez ayarlandığında bildirim sandığında çökme düzeltildi.
+- Geri dönüş dokularını kendi yapılarına izole ederek kod şişkinliği azaltıldı.
+- Kullanımdan kaldırılan PanicInfo kullanımı nedeniyle başarısız olan wasm testleri düzeltildi.
+- Işık kaynağı sınırlayıcı kutusu hesaplanırken ölçeklendirme kısmı çıkarıldı.
+- Bazı canlandırılamayan özellikler özellik seçiciden hariç tutuldu.
+- Hiyerarşik özelliklerin yayılma mükemmelliği grafik boyutundan çıkarıldı.
+  - Grafik artık hiyerarşik özellikleri yalnızca gerçekten değişenler için güncelliyor.
+  - Statik sahnelerde performansı önemli ölçüde artırır.
+- 2d rijit gövdeler için gereksiz global dönüşüm güncellemesi önlendi.
+- "Işınlanma" hatası düzeltildi (bir sahne düğümü bir kare boyunca dünyanın orijininde bulunduğunda ve sonra geri ışınlandığında
+  olması gereken yerde).
+- `Vector_to_quat`da potansiyel nan önlendi.
+- Yankı ses efektindeki yakınsama düzeltildi.
+- Döngü animasyonlarında kök hareketi titreşimi düzeltildi - döngü sınırları yanlış işleniyordu, bu nedenle hataya yol açıyordu
+  Bazı yinelemelerden sonra can sıkıcı titreşime yol açan birikim.
+- Nokta ışıklarının etrafındaki görünür sınırlar düzeltildi.
+- Motorun iç kısımlarındaki kod şişkinliği azaltıldı.
+- Çarpıştırıcıların dönüşüm senkronizasyonu düzeltildi.
+- `Inspector` widget senkronizasyon sorunları düzeltildi.
+- Birden fazla animasyon parçasını aynı anda silerken oluşan çökme düzeltildi.
+- Izgara ve Metin dahil olmak üzere kullanıcı arayüzü düzeni için düzeltme.
+- Silinen bir çarpıştırıcıdan kesişimleri almaya çalışırken oluşan çökme düzeltildi.
+- Kök durum olmadan animasyon olaylarını toplamaya çalışırken oluşan çökme düzeltildi.
+- Bazı kafeslerde `accurate_world_bounding_box` kullanıldığında oluşan çökme düzeltildi - bir kafesin pozisyonu/kemiği yoksa çöküyordu
+  tepe tamponundaki indeksler/kemik ağırlıkları nitelikleri.
+- Ragdoll sihirbazı tarafından oluşturulan ragdoll ekleminin adı düzeltildi.
+- Genel editör performansı ve özellikle ui düğümleri bağlantısı iyileştirildi.
+- Düzenleyici ayarları penceresinin gereksiz senkronizasyonunu önleyin - ~%10 zaman tasarrufu sağlar.
+- Düzenleyicinin aynı dokuyu tekrar tekrar yüklemesini önleyin.
+- Ağaç kökü için klavye gezintisi düzeltildi - klavye odağının ağaç kökünde kalmasına neden olan can sıkıcı sorun giderildi.
+- Kamera önizleme paneli boyutu düzeltildi.
+- Bazı widget'ların silinmesi düzeltildi.
+- Öğelerini dinamik olarak değiştirirken menü öğesinin ok görünürlüğü düzeltildi.
+- `MenuItem` performans sorunları düzeltildi.
+- Malzeme düzenleyici gölgelendirici alanının senkronizasyonu düzeltildi.
+- Esasen editörden derleme araçları içeren `fyrox-build-tools` sandığı eklendi.
+- Yanlış doku bağlamalarının geçersiz kılınması düzeltildi - bazı nesnelere uygulanan yanlış dokularla ilgili garip bir hataya neden oldu (çok
+  pencereyi yeniden boyutlandırdıktan sonra kullanıcı arayüzünde fark edilir).
+- Düzenleyicideki simgeleri yumuşatmak için düzenleyicideki simgeler için mip eşleme kullanın.
+- Kenarlık' widget'ı oluşturma sırasında arka plan renginin "sızması" düzeltildi.
+- Hacim dokuları için R koordinatlarının senkronizasyon hatası düzeltildi.
+- Görsel dönüşüm hesaplamasındaki dönüşüm sırası düzeltildi.
+- `BinaryBlob` serileştirilirken yanlış bellek hizalaması düzeltildi.
+- Doku olmadan dokuz yama widget'ı kullanıldığında oluşan çökme düzeltildi.
+- Doku alanına doku dışı kaynak bırakıldığında oluşan çökme düzeltildi.
 
-## Removed
+## Kaldırıldı
 
-- Removed redundant data hash calculation in textures.
-- Removed redundant field from render data bundle - `is_skinned` flag makes no sense, because it could be derived
-  from bone matrix count anyway and it is always defined on the per-instance basis, not per-bundle.
-- Remove redundant decal layer index from mesh/terrain/render the data bundle. These are residuals from before
-  custom material era, it makes no sense now since decal layer index is defined in materials and these fields simply had
-  no effect.
-- Removed depth offset.
-  - It could be done with shaders.
-  - Removed because it adds unnecessary projection matrix juggling for each rendered instance.
-- Removed implicit blend shapes storage passing to material shaders - it is now controlled directly from `Mesh` node,
-  and it creates temp material to pass blend shape storage explicitly.
-- Removed `PersistentIdentifier` and `MatrixStorageCache`.
-- Removed `cast_shadows` property from `BaseLight` - this property at some point started to be redundant, because `Base`
-  already has such property and the one in `BaseLight` must be deleted to prevent confusion.
-- Remove an incorrect error message in the animation editor.
-- Removed `Node::query_component_ref/mut`.
-  - It duplicates existing functionality.
-  - Replaced with `SceneGraphNode::component_ref/mut`.
-- Removed redundant boxing when applying animation values - makes animation of arbitrary numeric properies significantly
-  faster.
+- Dokulardaki gereksiz veri karması hesaplaması kaldırıldı.
+- Render veri paketinden gereksiz alan kaldırıldı - `is_skinned` bayrağı anlamsız, çünkü türetilebilir
+  Zaten kemik matrisi sayımından ve her zaman demet başına değil, örnek başına tanımlanır.
+- Gereksiz dekal katman indeksini mesh/terrain/render veri demetinden kaldırın. Bunlar öncesinden kalan artıklardır
+  özel malzeme dönemi, çıkartma katmanı indeksi malzemelerde tanımlandığından ve bu alanlar sadece
+  Etkisi yok.
+- Derinlik ofseti kaldırıldı.
+  - Gölgelendiriciler ile yapılabilirdi.
+  - Her render edilen örnek için gereksiz projeksiyon matrisi hokkabazlığı eklediği için kaldırıldı.
+- Malzeme gölgelendiricilerine aktarılan örtük karışım şekilleri depolaması kaldırıldı - artık doğrudan `Mesh` düğümünden kontrol ediliyor,
+  ve karışım şekli deposunu açıkça geçmek için geçici malzeme oluşturur.
+- `PersistentIdentifier` ve `MatrixStorageCache` kaldırıldı.
+- `BaseLight`dan `cast_shadows` özelliği kaldırıldı - bu özellik bir noktada gereksiz olmaya başladı, çünkü `Base`
+  zaten böyle bir özelliğe sahiptir ve `BaseLight` içindeki özellik karışıklığı önlemek için silinmelidir.
+- Animasyon düzenleyicisindeki yanlış hata mesajı kaldırıldı.
+- `Node::query_component_ref/mut` kaldırıldı.
+  - Mevcut işlevselliği çoğaltıyor.
+  - `SceneGraphNode::component_ref/mut` ile değiştirildi.
+- Animasyon değerleri uygulanırken gereksiz kutulama kaldırıldı - keyfi sayısal özelliklerin animasyonunu önemli ölçüde yapar
+  Daha hızlı.
 
 # 0.35
 
-- Version skipped, because of sub-crates version unification. See 0.36 change log for more info.
+- Alt krates sürüm birleştirmesi nedeniyle sürüm atlandı. Daha fazla bilgi için 0.36 değişiklik günlüğüne bakın.
 
-# 0.34.1 Engine + 0.21.1 Editor
+# 0.34.1 Motor + 0.21.1 Editör
 
-- Fixed crash when trying to create parent for root in the editor
-- Dispatch script messages after everything is initialized and updated
-- Prevent selection type name from disappearing in the inspector
-- Fixed potential crash when undoing asset instantiation
-- Fixed rendering issues in 2d projection mode in the editor
-- Update visual transform of a widget when render transform changes
+- Editörde kök için ebeveyn oluşturmaya çalışırken oluşan çökme düzeltildi
+- Her şey başlatıldıktan ve güncellendikten sonra komut dosyası mesajlarını gönderme
+- Seçim türü adının denetçide kaybolmasını önleme
+- Varlık örneklemesi geri alınırken oluşabilecek çökme düzeltildi
+- Düzenleyicide 2d projeksiyon modunda render sorunları düzeltildi
+- Render dönüşümü değiştiğinde bir widget'ın görsel dönüşümünü güncelleme
 
-# 0.34 Engine + 0.21.0 Editor
+# 0.34 Motor + 0.21.0 Editör
 
-## Added
+## Eklendi
 
-- Code hot reloading for plugins.
-- Ability to have multiple scripts on one scene node.
-- Static and dynamic batching for meshes.
-- Project exporter for automated deployment.
-- Configurable build profiles for the editor.
-- Ability to have multiple user interface instances.
-- GLTF support (available via `gltf` feature).
-- Keyboard navigation support in the UI.
-- Preview generation for assets in the asset browser.
-- Grid for the scene preview.
-- `fyrox-template` improvements to generate projects, that supports code hot reloading.
-- `AnimationPlayer` + `AnimationBlendingStateMachine` widgets.
-- UI prefabs with ability to instantiate them.
-- `Pool::try_get_component_of_type` + the same for `MultiBorrowContext`.
-- `NodeTrait::on_unlink` method.
-- Implemented `ComponentProvider` trait for `Node`.
-- `MultiBorrowContext::get/get_mut` methods.
-- Ability to remove objects from multiborrow context.
-- `newtype_reflect` delegating macro.
-- `SceneGraph::change_hierarchy_root` method.
-- Ability to change UI scene root.
-- Property inheritance for UI widgets.
-- Ability to instantiate UI prefabs by dropping prefab into world viewer/scene previewer.
-- Ability to open scripts from the editor's inspector.
-- `Control::post_draw` method.
-- Ability to reorder children of a scene node.
-- `SceneGraph::relative_position` + `SceneGraphNode::child_position` methods.
-- Ability to reorder nodes/widgets in the world viewer.
-- Added more icons for widgets.
-- Added support for UI animations in the animation editor.
-- Configurable UI update switches.
-- Ability to edit ui absm nodes in the absm editor.
-- `AbsmEventProvider` widget.
-- Ability to enable msaa when initializing graphics context.
-- Ability to change corner radius in `Border` widget.
-- Ability to draw rectangles with rounded corners in UI drawing context.
-- Added layout rounding for `fyrox-ui` which significantly reduced blurring.
-- Added support for embedded textures in FBX.
+- Eklentiler için kod sıcak yeniden yükleme.
+- Bir sahne düğümünde birden fazla komut dosyasına sahip olma yeteneği.
+- Kafesler için statik ve dinamik gruplama.
+- Otomatik dağıtım için proje dışa aktarıcı.
+- Editör için yapılandırılabilir derleme profilleri.
+- Birden fazla kullanıcı arayüzü örneğine sahip olma yeteneği.
+- GLTF desteği (`gltf` özelliği ile kullanılabilir).
+- Kullanıcı arayüzünde klavye navigasyon desteği.
+- Varlık tarayıcısındaki varlıklar için önizleme oluşturma.
+- Sahne önizlemesi için ızgara.
+- Kodun çalışırken yeniden yüklenmesini destekleyen projeler oluşturmak için `fyrox-template` geliştirmeleri.
+- `AnimationPlayer` + `AnimationBlendingStateMachine` widget`ları.
+- Onları örnekleme yeteneğine sahip UI prefabları.
+- `Pool::try_get_component_of_type` + `MultiBorrowContext` için aynı.
+- NodeTrait::on_unlink` yöntemi.
+- `Node` için `ComponentProvider` özelliği uygulandı.
+- `MultiBorrowContext::get/get_mut` yöntemleri.
+- Nesneleri çoklu ödünç bağlamından kaldırma yeteneği.
+- `newtype_reflect` temsilci makrosu.
+- `SceneGraph::change_hierarchy_root` yöntemi.
+- UI sahne kökünü değiştirebilme.
+- UI widget'ları için özellik kalıtımı.
+- Dünya görüntüleyicisine/sahne önizleyicisine prefab bırakarak UI prefablarını örnekleyebilme.
+- Editörün denetçisinden komut dosyalarını açabilme.
+- `Control::post_draw` yöntemi.
+- Bir sahne düğümünün çocuklarını yeniden sıralama yeteneği.
+- `SceneGraph::relative_position` + `SceneGraphNode::child_position` yöntemleri.
+- Dünya görüntüleyicisinde düğümleri/araçları yeniden sıralayabilme.
+- Widget'lar için daha fazla simge eklendi.
+- Animasyon düzenleyicisinde kullanıcı arayüzü animasyonları için destek eklendi.
+- Yapılandırılabilir UI güncelleme anahtarları.
+- Absm editöründe ui absm düğümlerini düzenleme yeteneği.
+- AbsmEventProvider' widget'ı.
+- Grafik bağlamını başlatırken msaa'yı etkinleştirebilme.
+- `Border` widget'ında köşe yarıçapını değiştirebilme.
+- UI çizim bağlamında köşeleri yuvarlatılmış dikdörtgenler çizebilme.
+- Bulanıklığı önemli ölçüde azaltan `fyrox-ui` için düzen yuvarlama eklendi.
+- FBX'te gömülü dokular için destek eklendi.
 - `Selector` widget.
-- Added project dir and scenes to open as cli args to editor.
-- `utils::make_cross_primitive` helper method.
-- Ability to draw wire circle in the UI drawing context.
-- Ability to draw WireCircle primitives in VectorImage widget.
-- More tests.
-- Vertex buffer API improvements.
-- Rendering statistics window for the editor.
-- Added shape casting in physics.
-- Ability to unassign textures in material editor.
-- Allow to set negative playback speed for animations in animation editor.
-- `Scene::clone_one_to_one` shortcut for easier scene cloning.
-- `fyrox-dylib` crate to be able to link the engine dynamically.
-- Ability to link the engine dynamically to the editor.
-- Added property editor for untyped textures.
-- Added `Plugin::on_loaded` method.
-- `NetListener::local_address` method.
-- `Model::new` method.
-- Ability to disable space optimization of `InheritableVariable` on serialization.
-- Added CI for project template for all supported platforms.
-- Added diagnostics for degenerated triangles when calculating tangents.
-- `Pool::first_ref/first_mut` methods.
-- Added release keystore for android project templates.
-- Collect rendering statistics on per-scene basis.
-- `transmute_slice` helper function.
-- Ability to read GPU texture data.
-- Experimental histogram-based auto-exposure for HDR (disabled by default).
-- Short-path angle interpolation mode for `Curve` - `Curve::angle_at`.
-- Property editor for `RcUiNodeHandle` type.
-- Adaptive scroll bar thumb.
-- Ability to fetch current task pool from resource manager.
-- Async icon generation for assets in the asset browser.
-- Case-insensitive string comparison helper method `fyrox::core::cmp_strings_case_insensitive`.
-- Major performance improvement for searching in the asset browser.
-- Configurable interpolation mode for animations.
-- Ability to close popups using `Esc` key.
-- Added diagnostics for docking manager layout, that warns if a window has empty name.
-- Keyboard navigation for tree widget.
-- Ability to close windows by `Esc` key.
-- Focus opened window automatically.
-- Keyboard navigation for `Menu` widget.
-- Added `ImmutableString` editor.
-- Docs for inspector module.
-- Ability to deactivate menus using `Esc` key.
-- `PopupMessage::RelayedMessage` to re-cast messages from a popup to a widget.
-- `NavigationLayer` widget that handles `Tab`/`Shift+Tab` navigation.
-- Ability to switch check box state using space key.
-- Ability to click button widget using `Space`/`Enter` keys.
-- `accepts_input` for widgets that can be used for keyboard interaction.
-- Added keyboard navigation for input fields in the inspector.
-- Highlight a widget with keyboard focus.
-- `Visitor` docs.
-- Ability to open/close drop down list using arrow keys.
-- Re-cast `Variant` message on enum property editor.
-- Focus popup content (if any) on opening.
-- Keyboard navigation for list view widget.
-- Focus window content (if any) on opening.
-- Optional ability to bring focused item into view in navigation layer.
-- Hotkey to run the game from the editor (default is `F5`).
-- Ability to increase/decrease `NumericUpDown` widget value by arrow keys.
-- Configurable command stack max capacity (prevents the command stack to grow uncontrollably, which could eat a lot of
-  memory if the editor is running for a long time).
-- Auto-select text on focusing `TextBox` widget.
-- Ability to render scene manually.
-- Ability to set precision for `VecEditor` widget.
-- Ability to switch between shaded and wireframe mode in the scene preview.
-- Multi-curve support for the curve editor widget.
-- `Color::COLORS` array with pre-defined colors.
-- Ability to set different brushes for every curve in the curve editor.
-- Apply different colors to curves in the animation editor.
-- Show multiple curves at once when selecting tracks in the animation editor.
-- Dropdown menu widget.
-- Quick-access menu for grid snapping.
-- `Create Parent` context menu option for scene nodes.
-- Add background curves concept to the curve editor widget.
-- Smart placement for newly created objects.
-- Added mesh control panel - allows to create physics entities (colliders, rigid bodies, etc) in a few clicks.
-- `Reflect::assembly_name` to retrieve assembly name of a type.
+- Editöre cli args olarak açmak için proje dir ve sahneler eklendi.
+- `utils::make_cross_primitive` yardımcı yöntemi.
+- UI çizim bağlamında tel daire çizme yeteneği.
+- VectorImage widget'ında WireCircle ilkellerini çizebilme.
+- Daha fazla test.
+- Vertex buffer API iyileştirmeleri.
+- Editör için render istatistikleri penceresi.
+- Fizikte şekil dökümü eklendi.
+- Malzeme düzenleyicide dokuların atamasını kaldırma yeteneği.
+- Animasyon düzenleyicide animasyonlar için negatif oynatma hızı ayarlamaya izin verin.
+- Daha kolay sahne klonlama için `Scene::clone_one_to_one` kısayolu.
+- Motoru dinamik olarak bağlayabilmek için `fyrox-dylib` crate.
+- Motoru dinamik olarak editöre bağlayabilme.
+- Tiplenmemiş dokular için özellik editörü eklendi.
+- `Eklenti::on_loaded` yöntemi eklendi.
+- `NetListener::local_address` yöntemi eklendi.
+- `Model::new` yöntemi.
+- Serileştirme sırasında `InheritableVariable` alan optimizasyonunu devre dışı bırakabilme.
+- Desteklenen tüm platformlar için proje şablonu için CI eklendi.
+- Tanjantlar hesaplanırken dejenere üçgenler için tanılama eklendi.
+- `Havuz::first_ref/first_mut` yöntemleri.
+- Android proje şablonları için sürüm anahtar deposu eklendi.
+- Sahne başına işleme istatistiklerini toplayın.
+- `transmute_slice` yardımcı işlevi.
+- GPU doku verilerini okuma yeteneği.
+- HDR için deneysel histogram tabanlı otomatik pozlama (varsayılan olarak devre dışı).
+- `curve` için kısa yol açı enterpolasyon modu - `Curve::angle_at`.
+- `RcUiNodeHandle` türü için özellik düzenleyici.
+- Uyarlanabilir kaydırma çubuğu başparmak.
+- Kaynak yöneticisinden mevcut görev havuzunu getirme yeteneği.
+- Varlık tarayıcısındaki varlıklar için asenkron simge oluşturma.
+- Büyük/küçük harfe duyarsız dize karşılaştırma yardımcı yöntemi `fyrox::core::cmp_strings_case_insensitive`.
+- Varlık tarayıcısında arama için büyük performans iyileştirmesi.
+- Animasyonlar için yapılandırılabilir interpolasyon modu.
+- `Esc` tuşunu kullanarak açılır pencereleri kapatabilme.
+- Bir pencerenin boş adı varsa uyaran yerleştirme yöneticisi düzeni için tanılama eklendi.
+- Ağaç widget'ı için klavye navigasyonu.
+- `Esc` tuşu ile pencereleri kapatabilme.
+- Açılan pencereye otomatik olarak odaklanma.
+- Menü aracı için klavye navigasyonu.
+- `ImmutableString` editörü eklendi.
+- Denetçi modülü için dokümanlar.
+- `Esc` tuşunu kullanarak menüleri devre dışı bırakabilme.
+- Mesajları bir açılır pencereden bir `widget`a yeniden göndermek için `PopupMessage::RelayedMessage`.
+- `NavigationLayer` widget'ı `Tab`/`Shift+Tab` navigasyonunu işler.
+- Boşluk tuşunu kullanarak onay kutusu durumunu değiştirebilme.
+- `Boşluk`/`Enter` tuşlarını kullanarak düğme widget`ına tıklayabilme.
+- Klavye etkileşimi için kullanılabilecek widget'lar için `accepts_input`.
+- Denetçideki giriş alanları için klavye gezintisi eklendi.
+- Klavye odağı olan bir widget'ı vurgulayın.
+- Ziyaretçi dokümanları.
+- Ok tuşlarını kullanarak açılır listeyi açma/kapama yeteneği.
+- Enum özellik düzenleyicisinde `Variant` mesajını yeniden yayınlayın.
+- Açılışta açılır pencere içeriğine (varsa) odaklanma.
+- Liste görünümü widget'ı için klavye navigasyonu.
+- Açıldığında pencere içeriğine (varsa) odaklanma.
+- Odaklanılan öğeyi gezinme katmanında görünüme getirmek için isteğe bağlı yetenek.
+- Oyunu editörden çalıştırmak için kısayol tuşu (varsayılan `F5`).
+- Ok tuşları ile `NumericUpDown` widget değerini artırma/azaltma yeteneği.
+- Yapılandırılabilir komut yığını maksimum kapasitesi (komut yığınının kontrolsüz bir şekilde büyümesini önler, bu da çok fazla
+  editör uzun süre çalışıyorsa bellek).
+- Odaklanan `TextBox` widget'ında metni otomatik seçme.
+- Sahneyi manuel olarak render edebilme.
+- `VecEditor` widget'ı için hassasiyet ayarlayabilme.
+- Sahne önizlemesinde gölgeli ve tel kafes modu arasında geçiş yapabilme.
+- Eğri düzenleyici aracı için çoklu eğri desteği.
+- Önceden tanımlanmış renklere sahip `Color::COLORS` dizisi.
+- Eğri düzenleyicideki her eğri için farklı fırçalar ayarlayabilme.
+- Animasyon düzenleyicisindeki eğrilere farklı renkler uygulayabilme.
+- Animasyon düzenleyicisinde parça seçerken aynı anda birden fazla eğri gösterme.
+- Açılır menü widget'ı.
+- Izgara tutturma için hızlı erişim menüsü.
+- Sahne düğümleri için `create parent` bağlam menüsü seçeneği.
+- Eğri düzenleyici widget'ına arka plan eğrileri konsepti ekleyin.
+- Yeni oluşturulan nesneler için akıllı yerleştirme.
+- Mesh kontrol paneli eklendi - birkaç tıklamayla fizik varlıkları (çarpıştırıcılar, katı cisimler, vb.) oluşturmaya izin verir.
+- Bir türün montaj adını almak için `Reflect::assembly_name`.
 
-## Changed
+## Değiştirildi
 
-- Major style improvements for the editor UI.
-- Migrated to Rapier 0.18.
-- Refactored multiborrow context - removed static size constraint and made borrowing tracking dynamic and more
-  efficient.
-- Use `Result` instead of `Option` for multiborrowing for better UX.
-- Added panic on `Ticket::drop` to prevent dangling pool records.
-- Moved generic graph handling code into `fyrox-graph` crate.
-- Do not call `Control::update` for every widget:
-  - in the editor on complex scenes it improves average performance by 13-20%.
-  - you have to set `need_update` flag when building the widget if you need `Control::update` to be called.
-- Mutable access to UI in `Control::update`.
-- Refactored `Selection` to use dynamic dispatch.
-- Refactored the entire editor command system to use dynamic dispatch.
-- Split `SceneGraph` trait into object-safe and object-non-safe parts.
-- Run most of `Engine::pre_update` logic even if there's no graphics context.
-- Moved color space transformation to vertex shader of particle system to increase performance.
-- Recalculate world space bounding box of a mesh on `sync_transform` instead of `update`.
-- Refactored rectpacker to use plain `Vec` instead of `Pool`.
-- Moved rectangle-related code to `rectutils` crate.
-- Automatically unregister faulty resources if registering ok one.
-- Prevent uvgen to modifying the actual surface data.
-- Extracted uvgen module to `uvgen` crate.
-- Use simple vec instead of pool in octree.
-- Moved `math` + `curve` + `octree` mods to `fyrox-math` crate.
-- Moved lightmapper into a `lightmap` crate.
-- Support for backwards movement (negative speed) for navmesh agent.
-- Moved the engine implementation into `fyrox-impl` crate, `fyrox` crate now is a proxy to it.
-- Moved interaction modes panel to the toolbar.
-- Made shader methods public to be able to create them manually.
-- Show unassigned handles in orange color to attract attention.
-- Major refactoring of `TextBox` widget that makes it much more pleasant to work with.
-- Major usability improvements for `DockingManager` tiles.
-- `Window` widget content is now linked to `NavigationLayer` widget instance.
-- Prevented `TextBox` and `NumericUpDown` widgets from sending change messages when they have not changed.
-- Reduced width and precision for worldspace position of current selection.
-- Use `ImmutableString` for scene nodes and widgets to reduce memory consumption on duplicated strings.
-- Do not flush the renderer when changing scenes, to prevent various graphical issues.
-- More informative names for curves in the animation editor.
-- Change cursor icon when picking/dragging keys in curve editor.
-- Major refactoring of coordinate system in the curve editor.
-- Keep the animation player selected in the animation editor.
-- Changed AABB validity to include zero-size dimensions to allow camera fitting to work with flat objects.
-- Prefer prefab roots when selecting nodes in scene.
-- `Reflect` trait bound for `Plugin` trait.
+- Editör kullanıcı arayüzü için büyük stil iyileştirmeleri.
+- Rapier 0.18'e geçiş yapıldı.
+- Çoklu ödünç alma bağlamı yeniden düzenlendi - statik boyut kısıtlaması kaldırıldı ve ödünç alma takibi dinamik ve daha fazlası yapıldı
+  verimli.
+- Daha iyi UX için çoklu borçlanma için `Option` yerine `Result` kullanın.
+- Sarkan havuz kayıtlarını önlemek için `Ticket::drop` üzerine panik eklendi.
+- Genel grafik işleme kodu `fyrox-graph` crate içine taşındı.
+- Her widget için `Control::update` çağrısı yapmayın:
+  - editörde karmaşık sahnelerde ortalama performansı %13-20 oranında artırır.
+  - Eğer `Control::update`in çağrılmasını istiyorsanız, widget'ı oluştururken `need_update` bayrağını ayarlamanız gerekir.
+- `Control::update` içinde kullanıcı arayüzüne değiştirilebilir erişim.
+- Dinamik gönderim kullanmak için `Selection` yeniden düzenlendi.
+- Tüm editör komut sistemi dinamik gönderim kullanacak şekilde yeniden düzenlendi.
+- `SceneGraph` özelliğini nesne güvenli ve nesne güvenli olmayan parçalara ayırın.
+- Grafik bağlamı olmasa bile `Engine::pre_update` mantığının çoğunu çalıştırın.
+- Performansı artırmak için renk uzayı dönüşümü parçacık sisteminin tepe gölgelendiricisine taşındı.
+- Bir ağın dünya uzayı sınırlayıcı kutusunu `update` yerine `sync_transform` üzerinde yeniden hesaplayın.
+- Rectpacker, `Pool` yerine düz `Vec` kullanacak şekilde yeniden düzenlendi.
+- Dikdörtgenle ilgili kod `rectutils` sandığına taşındı.
+- Tamam bir kaynak kaydediliyorsa hatalı kaynakların kaydını otomatik olarak kaldırın.
+- Uvgen'in gerçek yüzey verilerini değiştirmesini önleyin.
+- uvgen modülü `uvgen` sandığına çıkarıldı.
+- Octree'de havuz yerine basit vec kullanın.
+- `math` + `curve` + `octree` modları `fyrox-math` sandığına taşındı.
+- Işık eşleyici `lightmap` sandığına taşındı.
+- Navmesh ajanı için geriye doğru hareket (negatif hız) desteği.
+- Motor uygulaması `fyrox-impl` sandığına taşındı, `fyrox` sandığı artık bunun bir proxy'si.
+- Etkileşim modları paneli araç çubuğuna taşındı.
+- Manuel olarak oluşturabilmek için gölgelendirici yöntemleri herkese açık hale getirildi.
+- Dikkat çekmek için atanmamış tutamaçları turuncu renkte gösterin.
+- `TextBox` widget'ının büyük ölçüde yeniden düzenlenmesi, çalışmayı çok daha keyifli hale getiriyor.
+- DockingManager` kutucukları için önemli kullanılabilirlik iyileştirmeleri.
+- `window` widget içeriği artık `NavigationLayer` widget örneği ile bağlantılıdır.
+- `TextBox` ve `NumericUpDown` widget'larının değişmedikleri halde değişiklik mesajı göndermeleri engellendi.
+- Geçerli seçimin dünya uzayı konumu için genişlik ve hassasiyet azaltıldı.
+- Yinelenen dizelerde bellek tüketimini azaltmak için sahne düğümleri ve widget'lar için `ImmutableString` kullanın.
+- Çeşitli grafik sorunlarını önlemek için sahneleri değiştirirken renderer'ı flush etmeyin.
+- Animasyon düzenleyicisindeki eğriler için daha bilgilendirici isimler.
+- Eğri düzenleyicide tuşları seçerken/sürüklerken imleç simgesini değiştirin.
+- Eğri düzenleyicideki koordinat sisteminin büyük ölçüde yeniden düzenlenmesi.
+- Animasyon düzenleyicisinde animasyon oynatıcısını seçili tutun.
+- Kamera montajının düz nesnelerle çalışmasını sağlamak için AABB geçerliliği sıfır boyutlu boyutları içerecek şekilde değiştirildi.
+- Sahnede düğüm seçerken prefabrik kökleri tercih edin.
+- Plugin özelliği için `Reflect` özelliği bağlandı.
 
-## Fixed
+## Sabit
 
-- Fixed cascade shadow maps (CSM) rendering.
-- Fixed crash when setting particle spawn rate too high.
-- Fixed UB when using MultiBorrowContext.
-- Fixed visibility of cloned widget.
-- Set unique id for widget copies.
-- Fixed crash when closing scenes.
-- Fixed `Default` impl for `Pool`.
-- Fixed rare crash in `TextBox` widget when typing in something
-- Fixing double pixel loop (it was looping over y twice) in terrain internals.
-- Fixed creating a MenuItem in editor.
-- Force ui widget to recalculate layout if it was animated
-- Registered property editors for all UI properties.
-- Fixed incorrect FBX cluster loading (fixes incorrect rendering of FBX models)
-- Fixed crash when selection range is incorrect in the `TextBox` widget.
-- Fixed crash in the animation editor when trying to rebind a track referencing deleted scene node.
-- Properly expand tree items when building path in file browser widget.
-- Fixed doubling of items under disks in file browser widget.
-- Fixed track deletion in the animation editor.
-- Fixed file browser behaviour on empty file path
-- Select current dir in the asset browser.
-- Automatically remove disconnected listeners from the log.
-- Fixed support of custom layout panel of `ListView` widget.
-- Fixed async tasks at WebAssembly target.
-- Fixed property inheritance for types with interior mutability.
-- Keep selected brush when hovering mouse over a `Decorator` widget.
-- Fixed `TabControl` widget headers style.
-- Improved SearchBar widget style.
-- Fixed incorrect script task handling (it was passing task result to all scripts, instead the one that launched the
-  task).
-- Prevent particle systems from over-spawn particles when spawn rates are high.
-- Fixed incorrect vertex buffer data layout.
-- Fixed crash if a selected node was deleted during asset hot reloading.
-- Prevent moving a folder into its own subfolder in the asset browser.
-- Fixed lightmap saving when corresponding lightmap textures were deleted.
-- Sort rectangles back-to-front when rendering to prevent blending issues.
-- Back-to-front sorting when rendering nodes with transparency.
-- Fixed seams on skybox cubemap.
-- Hide `should_be_deleted` field.
-- Do not update scripts on disabled nodes.
-- Fixed sound context serialization (this bug caused all sound buses to disappear on load)
-- Fixed potential crash in audio bus editor.
-- Fixed crash when closing the editor.
-- Fixed crash `attempt to subtract with overflow` in particle systems.
-- Fixed incorrect `Selection::is_empty` implementation.
-- Fixed canvas background color leaking to the rendered image on WebAssembly.
-- Ignore `target` dir when doing search in the asset browser.
-- Fixed accidental enabling/disabling tracks when expanding them in the animation editor.
-- Fixed editor layout saving and loading.
-- Prevent `Inspector` properties from disappearing when expander is closed.
-- Use context menus instead of plain popups in color gradient editor.
-- Fixed incorrect extension proposal for in the resource creator.
-- Fixed incorrect resource creation in resource creator.
-- Fixed sluggish tiles resizing in the docking manager.
-- Keep the order of interaction modes the same.
-- Fixed bring-into-view for `ScrollPanel` widget - not it does not jump unpredictable.
-- Do not pass keyboard input to invisible widgets.
-- Handle edge cases properly when calculating curve bounds.
-- Fixed "zoom to fit" functionality in the curve editor widget.
-- Fixed sliding of the view in the curve editor widget on resizing.
-- Fixed frustum culling flag usage.
-- Fixed inspector syncing/context changing.
-- Fixed crash when trying to get selected entity from empty selection.
-- Fixed crash when closing scenes using `X` button on the tabs.
+- Kademeli gölge haritaları (CSM) oluşturma düzeltildi.
+- Parçacık ortaya çıkma oranı çok yüksek ayarlandığında oluşan çökme düzeltildi.
+- MultiBorrowContext kullanılırken UB düzeltildi.
+- Klonlanmış widget'ın görünürlüğü düzeltildi.
+- Widget kopyaları için benzersiz kimlik ayarlayın.
+- Sahneleri kapatırken oluşan çökme düzeltildi.
+- `pool` için `Default` impl düzeltildi.
+- Bir şey yazarken `TextBox` widget'ındaki nadir çökme düzeltildi
+- Arazi iç kısımlarında çift piksel döngüsü (y üzerinde iki kez döngü yapıyordu) düzeltildi.
+- Düzenleyicide bir MenuItem oluşturma düzeltildi.
+- UI widget'ı animasyonlu ise düzeni yeniden hesaplamaya zorlayın
+- Tüm UI özellikleri için kayıtlı özellik düzenleyicileri.
+- Hatalı FBX küme yüklemesi düzeltildi (FBX modellerinin hatalı işlenmesini düzeltir)
+- Seçim aralığı `TextBox` widget'ında yanlış olduğunda oluşan çökme düzeltildi.
+- Silinen sahne düğümüne referans veren bir parçayı yeniden bağlamaya çalışırken animasyon düzenleyicisinde oluşan çökme düzeltildi.
+- Dosya tarayıcı aracında yol oluştururken ağaç öğelerini düzgün şekilde genişletin.
+- Dosya tarayıcı aracında disklerin altındaki öğelerin iki katına çıkarılması düzeltildi.
+- Animasyon düzenleyicisinde parça silme düzeltildi.
+- Boş dosya yolunda dosya tarayıcı davranışı düzeltildi
+- Varlık tarayıcısında geçerli dir'i seçin.
+- Bağlantısı kesilen dinleyicileri günlükten otomatik olarak kaldırın.
+- `ListView` widget'ının özel düzen paneli desteği düzeltildi.
+- WebAssembly hedefindeki asenkron görevler düzeltildi.
+- İç değişebilirliğe sahip türler için özellik kalıtımı düzeltildi.
+- Fareyi bir `Decorator` widget`ının üzerine getirdiğinizde seçili fırçayı koruyun.
+- `TabControl` widget başlıklarının stili düzeltildi.
+- SearchBar widget stili geliştirildi.
+- Hatalı komut dosyası görev işleme düzeltildi (görev sonucunu tüm komut dosyalarına aktarıyordu, bunun yerine
+  görev).
+- Ortaya çıkma oranları yüksek olduğunda parçacık sistemlerinin aşırı parçacık ortaya çıkarmasını önleyin.
+- Hatalı tepe noktası tampon veri düzeni düzeltildi.
+- Varlık çalışırken yeniden yükleme sırasında seçilen bir düğüm silinirse oluşan çökme düzeltildi.
+- Varlık tarayıcısında bir klasörün kendi alt klasörüne taşınması engellendi.
+- İlgili ışık haritası dokuları silindiğinde ışık haritasının kaydedilmesi düzeltildi.
+- Karıştırma sorunlarını önlemek için render alırken dikdörtgenleri arkadan öne doğru sıralayın.
+- Şeffaflığa sahip düğümler oluşturulurken arkadan öne sıralama.
+- Gökyüzü kutusu küp haritasındaki dikişler düzeltildi.
+- `should_be_deleted` alanını gizle.
+- Devre dışı bırakılmış düğümlerde komut dosyalarını güncelleme.
+- Ses bağlamı serileştirmesini düzeltti (bu hata, yükleme sırasında tüm ses otobüslerinin kaybolmasına neden oluyordu).
+- Ses otobüsü düzenleyicisinde olası çökmeyi düzeltti.
+- Düzenleyiciyi kapatırken çökmeyi düzeltti.
+- Parçacık sistemlerinde `taşma ile çıkarma girişimi` çökmesini düzeltti.
+- Yanlış `Selection::is_empty` uygulamasını düzeltti.
+- WebAssembly'de render edilen görüntüye sızan tuval arka plan rengi düzeltildi.
+- Varlık tarayıcısında arama yaparken `target` dizinini yok say.
+- Animasyon düzenleyicide parçaları genişletirken yanlışlıkla etkinleştirme/devre dışı bırakma sorunu düzeltildi.
+- Düzenleyici düzeninin kaydedilmesi ve yüklenmesi düzeltildi.
+- Genişletici kapatıldığında `Inspector` özelliklerinin kaybolması önlendi.
+- Renk gradyanı düzenleyicide düz açılır pencereler yerine bağlam menüleri kullanılır.
+- Kaynak oluşturucuda yanlış uzantı önerisi düzeltildi.
+- Kaynak oluşturucuda yanlış kaynak oluşturma düzeltildi.
+- Bağlama yöneticisinde yavaş döşeme boyutlandırma düzeltildi.
+- Etkileşim modlarının sırası aynı tutulur.
+- `ScrollPanel` widget'ı için görüntüleme düzeltildi - artık öngörülemeyen şekilde atlamıyor.
+- Klavye girişini görünmez widget'lara aktarmayın.
+- Eğri sınırlarını hesaplarken kenar durumlarını doğru şekilde işleyin.
+- Eğri düzenleyici widget'ındaki “sığdırmak için yakınlaştır” işlevini düzeltin.
+- Yeniden boyutlandırma sırasında eğri düzenleyici widget'ındaki görünümün kaymasını düzeltin.
+- Frustum culling bayrağı kullanımını düzeltin.
+- Denetleyici senkronizasyonunu/bağlam değiştirmeyi düzeltin.
+- Boş seçimden seçili varlığı almaya çalışırken meydana gelen çökme düzeltildi.
+- Sekmelerdeki `X` düğmesini kullanarak sahneleri kapatırken meydana gelen çökme düzeltildi.
 
-## Removed
+## Kaldırıldı
 
-- Removed `define_command_stack` macro
-- Removed redundant `old_selection` arg from change selection command
+- `Define_command_stack` makrosu kaldırıldı
+- Seçimi değiştir komutundan gereksiz `old_selection` argümanı kaldırıldı
 
-# 0.33.1 Engine + 0.20.1 Editor
+# 0.33.1 Motor + 0.20.1 Editör
 
-## Fixed
+## Sabit
 
-- Fixed deadlock when deep cloning a texture. Caused the editor to hang up on saving terrains (#598).
-- Fixed occasional crash when undoing node creation
-- Fixed highlighting for objects that were cloned
+- Bir dokuyu derinlemesine klonlarken yaşanan kilitlenme düzeltildi. Editörün arazileri kaydederken takılmasına neden oluyordu (#598).
+- Düğüm oluşturma işlemi geri alınırken ara sıra yaşanan çökme düzeltildi
+- Klonlanan nesneler için vurgulama düzeltildi
 
-# 0.33 Engine + 0.20 Editor
+# 0,33 Motor + 0,20 Editör
 
-## Added
+## Eklendi
 
-- UI editor.
-- Tasks system for scripts and plugins.
-- Implemented dynamic font atlas.
-- Batching for 2D graphics.
-- Ability to move resources and folders in the Asset Browser.
-- Edge highlighting for selection in the editor.
-- Added an ability to create resources from asset browser.
-- Added height parameter for `Text` and `TextBox` widgets.
-- Ability to specify IO abstraction when loading user interface.
-- `Utf32StringPropertyEditorDefinition` to edit `Vec<char>` UTF32 strings.
-- `RefCellPropertyEditorDefinition` for `RefCell<T>` types.
-- Enable reflection + serialization for formatted text and its instances.
-- Built in font resource.
-- Font resource property editor with font preview.
-- Ability to assign fonts from asset browser.
-- Reflection for resources.
-- UI graph manipulation methods.
-- `Screen` widget automatically fits to the current screen size.
-- Show type name in world viewer for widgets.
-- Ability to specify ignored types for `Reflect::apply_recursively`.
-- Preview for curve and hrir resources.
-- Ability to open a window at desired position.
-- Ability to edit textures as UntypedResource in widgets.
-- Implemented `Serialize + Deserialize + Display` traits for `ErasedHandle`.
-- Smart positioning for contextual floating panels in the editor.
-- `WidgetMessage::Align` + `WindowMessage::OpenAndAlign` messages.
-- Ability to invalidate layout for all widgets at once.
-- Ability to mark all fields of a struct/enum optional when deserializing: `#[visit(optional)]` can now be
-  added to a struct/enum directly, thus overriding all other such attributes on fields.
-- Added access to user interface, task pool, graphics context, current scene handle for scripts.
-- `PluginsRefMut::get/get_mut/of_type_ref/of_type_mut` methods.
-- Added a bunch of `#[inline]` attributes for `Pool` for slight performance improvements.
-- Added `AtomicHandle` that can be modified using interrior mutability.
-- Ability to pass pixel kind to the `Renderer::render_ui_to_texture` method.
-- Show material resource state in the material field editor.
-- Ability to scroll to the end of the content for `ScrollViewer` and `ScrollPanel` widgets.
-- Ability to save and load light maps into/from a file.
-- Ability to repeat clicks of a button while it is hold pressed.
-- Ability to open materials for editing from the asset browser.
-- Ability to filter a list of types when using reflection for fields iteration.
-- Implemented `PartialOrd + Ord` traits for `Handle` type.
-- Added icon in the asset browser for material resources.
-- Ability to pass generics to `uuid_provider` macro.
-- Ability to share navigational mesh across multiple threads.
-- Implemented `Reflect` trait for `RwLock`.
-- `UserInterface::find_by_name_down_from_root` method to search widgets by name.
-- Implemented `Send` trait for UI entities.
-- Added user interface resource.
-- Collider control panel with ability to fit colliders to parent bounds.
-- Property editor for vector image's primitives.
-- Show warning in the log when there's script message with no subscribers.
-- Implemented `TypeUuidProvider` trait for standard types.
-- Ability to specify clear color in `Renderer::render_ui_to_texture`.
-- Added icon in the asset browser for shader resources.
-- Ability to copy widgets from UI to UI.
-- Ability to create ragdolls from `Create` menu.
-- Added an ability to rebind tracks in the animation editor.
-- Added a set of standard materials, exposed them in the editor.
-- Added placeholder texture.
-- Ability to fetch resource import options from their respective loaders.
-- Implemented `Visit` and `Reflect` traits for `char`.
-- Ability to specify icons for assets in respective preview generators.
-- `TypedResourceData` trait to be able to set correct default state of a resource.
-- Implemented `ResourceData::save` for built-in engine resource types.
-- Documentation for LODs.
-- Color constants for the colors with names.
-- Ability to save resources.
-- `ResourceLoader::supports_extension` method.
-- Implemented `Error` trait for `VisitError`.
-- `Material::set_texture` shortcut.
-- Implemented `From<&str>` trait for `ImmutableString`.
-- Added normalization option for vertex attribute descriptor.
-- Added experimental network abstraction layer.
-- Added frustum culling for rectangle node.
-- Added camera view pyramid visualization (kudos to [@dasimonde](https://github.com/dasimonde)).
-- Added IO abstraction for resource system (kudos to [@jacobtread](https://github.com/jacobtread)).
-- Added `Reflect`, `Debug`, `Visit` trait implementations for UI widgets.
-- Added `Visit` trait implementation for `usize/isize`.
-- Added `ResourceIo::move_file` method.
-- Added `ResourceManager::move_resource` method with filtering.
-- Added `Drop` message for `FileBrowser` with dropped path.
-- Added `ResourceIo::canonicalize_path`.
-- Added `Pool::generate_free_handles` methods.
-- Added `InteractionMode::make_button` method that creates appropriate button for the mode.
+- UI editörü.
+- Komut dosyaları ve eklentiler için görev sistemi.
+- Dinamik yazı tipi atlası uygulandı.
+- 2D grafikler için gruplama.
+- Varlık Tarayıcısında kaynakları ve klasörleri taşıyabilme.
+- Düzenleyicide seçim için kenar vurgulama.
+- Varlık tarayıcısından kaynak oluşturma özelliği eklendi.
+- `Text` ve `TextBox` widget'ları için yükseklik parametresi eklendi.
+- Kullanıcı arayüzü yüklenirken IO soyutlamasını belirleme yeteneği. -` Vec<char>` UTF32 dizelerini düzenlemek için `Utf32StringPropertyEditorDefinition` eklendi.
+- `RefCell<T>` türleri için `RefCellPropertyEditorDefinition`.
+- Biçimlendirilmiş metin ve örnekleri için yansıma + serileştirmeyi etkinleştirin.
+- Yerleşik yazı tipi kaynağı.
+- Yazı tipi önizlemeli yazı tipi kaynağı özellik düzenleyicisi.
+- Fontları varlık tarayıcısından atayabilme.
+- Kaynaklar için yansıma.
+- UI grafik manipülasyon yöntemleri.
+- `screen` widget'ı otomatik olarak geçerli ekran boyutuna sığar.
+- Widget'lar için dünya görüntüleyicide tür adını gösterme.
+- `Reflect::apply_recursively` için yok sayılan türleri belirleyebilme.
+- Eğri ve hrir kaynakları için önizleme.
+- İstenilen konumda pencere açabilme.
+- Widget'larda dokuları UntypedResource olarak düzenleyebilme.
+- `ErasedHandle` için `Serialize + Deserialize + Display` özellikleri uygulandı.
+- Düzenleyicideki bağlamsal yüzen paneller için akıllı konumlandırma.
+- `WidgetMessage::Align` + `WindowMessage::OpenAndAlign` mesajları.
+- Tüm widget'lar için düzeni bir kerede geçersiz kılma yeteneği.
+- Serileştirme sırasında bir struct/enum'un tüm alanlarını isteğe bağlı olarak işaretleyebilme: `#[visit(optional)]` artık
+  doğrudan bir struct/enum'a eklenir, böylece alanlardaki diğer tüm bu tür nitelikler geçersiz kılınır.
+- Kullanıcı arayüzüne, görev havuzuna, grafik bağlamına, komut dosyaları için geçerli sahne tanıtıcısına erişim eklendi.
+- `PluginsRefMut::get/get_mut/of_type_ref/of_type_mut` yöntemleri.
+- Hafif performans iyileştirmeleri için `Pool` için bir grup `#[inline]` niteliği eklendi.
+- Interrior mutability kullanılarak değiştirilebilen `AtomicHandle` eklendi.
+- Piksel türünü `Renderer::render_ui_to_texture` yöntemine geçirme yeteneği.
+- Malzeme alanı düzenleyicisinde malzeme kaynağı durumunu gösterme.
+- `ScrollViewer` ve `ScrollPanel` widget`ları için içeriğin sonuna kadar kaydırma yeteneği.
+- Işık haritalarını bir dosyaya kaydedebilme ve dosyadan yükleyebilme.
+- Bir düğme basılı tutulurken tıklamaları tekrarlayabilme.
+- Malzemeleri varlık tarayıcısından düzenlemek için açabilme.
+- Alan yinelemesi için yansıma kullanırken türlerin bir listesini filtreleyebilme.
+- `Handle` türü için `PartialOrd + Ord` özellikleri uygulandı.
+- Malzeme kaynakları için varlık tarayıcısına simge eklendi.
+- Jenerikleri `uuid_provider` makrosuna geçirme yeteneği.
+- Gezinme ağını birden fazla iş parçacığı arasında paylaşabilme.
+- `RwLock` için `Reflect` özelliği uygulandı.
+- Widget'ları isme göre aramak için `UserInterface::find_by_name_down_from_root` yöntemi.
+- UI varlıkları için `Send` özelliği uygulandı.
+- Kullanıcı arayüzü kaynağı eklendi.
+- Çarpıştırıcıları üst sınırlara sığdırma özelliğine sahip çarpıştırıcı kontrol paneli.
+- Vektör görüntüsünün ilkelleri için özellik editörü.
+- Abonesi olmayan komut dosyası mesajı olduğunda günlükte uyarı göster.
+- Standart tipler için `TypeUuidProvider` özelliği uygulandı.
+- `Renderer::render_ui_to_texture`da net renk belirleme yeteneği.
+- Gölgelendirici kaynakları için varlık tarayıcısına simge eklendi.
+- Widget'ları UI'den UI'ye kopyalayabilme.
+- `create` menüsünden ragdoll oluşturma yeteneği.
+- Animasyon düzenleyicisinde parçaları yeniden bağlama özelliği eklendi.
+- Bir dizi standart malzeme eklendi, bunları düzenleyicide açığa çıkardı.
+- Yer tutucu doku eklendi.
+- Kaynak içe aktarma seçeneklerini ilgili yükleyicilerinden getirme yeteneği.
+- Karakter için `Visit` ve `Reflect` özellikleri uygulandı.
+- İlgili önizleme oluşturucularında varlıklar için simgeler belirleyebilme.
+- Bir kaynağın doğru varsayılan durumunu ayarlayabilmek için `TypedResourceData` özelliği.
+- Yerleşik motor kaynak türleri için `ResourceData::save` özelliği uygulandı.
+- LOD'lar için dokümantasyon.
+- İsimleri olan renkler için renk sabitleri.
+- Kaynakları kaydetme yeteneği.
+- `ResourceLoader::supports_extension` yöntemi.
+- `VisitError` için `Error` özelliği uygulandı.
+- Malzeme::set_texture` kısayolu.
+- `ImmutableString` için `From<&str>` özelliği uygulandı.
+- Vertex öznitelik tanımlayıcısı için normalleştirme seçeneği eklendi.
+- Deneysel ağ soyutlama katmanı eklendi.
+- Dikdörtgen düğümü için frustum culling eklendi.
+- Kamera görünümü piramit görselleştirme eklendi ([@dasimonde](https://github.com/dasimonde)'a tebrikler).
+- Kaynak sistemi için IO soyutlaması eklendi (kudos [@jacobtread](https://github.com/jacobtread)).
+- UI widget'ları için `Reflect`, `Debug`, `Visit` özellik uygulamaları eklendi.
+- `Useize/isize` için `Visit` özellik uygulaması eklendi.
+- ResourceIo::move_file` yöntemi eklendi.
+- Filtreleme ile `ResourceManager::move_resource` yöntemi eklendi.
+- Düşen yol ile `FileBrowser` için `Drop` mesajı eklendi.
+- `ResourceIo::canonicalize_path` eklendi.
+- `Pool::generate_free_handles` yöntemleri eklendi.
+- Mod için uygun düğme oluşturan `InteractionMode::make_button` yöntemi eklendi.
 
-## Changed
+## Değişti
 
-- Major editor refactoring to support new UI scenes.
-- Moved low level animation modules into fyrox-animation crate.
-  - Type aliases for scene specific animation entities + preludes.
-  - Texture as generic parameter for sprite sheet animation.
-- Turn font into resource + added `TextMessage::Height`.
-- Make standard built-in shaders non-procedural by default.
-- Refactored internal structure of resources.
-  - All resource related data is now stored in `ResourceHeader` instead of being scattered all around in
+- Yeni UI sahnelerini desteklemek için büyük editör yeniden düzenlemesi.
+- Düşük seviye animasyon modülleri fyrox-animation sandığına taşındı.
+  - Sahneye özel animasyon varlıkları + prelüdler için tip takma adları.
+  - Sprite sayfası animasyonu için genel parametre olarak doku.
+- Yazı tipini kaynağa dönüştürün + `TextMessage::Height` eklendi.
+- Standart yerleşik gölgelendiricileri varsayılan olarak prosedürel olmayan hale getirin.
+- Kaynakların iç yapısı yeniden düzenlendi.
+  - Kaynakla ilgili tüm veriler artık `ResourceHeader` içinde saklanmaktadır.
     `ResourceState`
-    variants and even in resource data itself.
-  - Backward compatibility is preserved.
-  - `ResourceKind` instead of path+flag, refactored resource loader trait.
-- Refactored interaction modes in the editor.
-- Switched to UntypedResource from SharedTexture in ui
-- Simplified usage of `ResourceManager::request/try_request`. No need to write `rm.request<Type, _>`, just
+    varyantlarında ve hatta kaynak verilerinin kendisinde.
+  - Geriye dönük uyumluluk korunmuştur.
+  - Path+flag yerine `ResourceKind`, yeniden düzenlenmiş kaynak yükleyici özelliği.
+- Editördeki etkileşim modları yeniden düzenlendi.
+- Kullanıcı arayüzünde SharedTexture'dan UntypedResource'a geçildi
+- `ResourceManager::request/try_request` kullanımı basitleştirildi. `rm.request<Type, _>` yazmaya gerek yok, sadece
   `rm.request<Type>`.
-- Registered Light Panel in floating panels, so it can be docked.
-- Made searching in the asset browser smarter.
-- GPU resources cache refactoring.
-- Speed up access to textures.
-- Automatic implementation of `ScriptTrait::id()` method. This implementation now should be removed from your
-  scripts.
-- Scroll to the end of build log in the editor.
-- Prevented build window from closing when a build has failed.
-- Tweaked node handle property editor to also work with ui widgets.
-- Filter out texture bytes in the property selector to improve performance.
-- Enabled clicks repetition mode for scroll bar increase/decrease buttons.
-- Keep the editor active if there's any captured ui element.
-- Increased scroll bar step for scroll viewer.
-- Added filter argument for `aabb_of_descendants`.
-- Use abstract EntityId instead of ErasedHandle in animation entities.
-- Optimized internals of navigation mesh.
-- Prevented serialization of the data of external resources.
-- Pass screen size to `Control::update`.
-- Ability to clone user interface entirely.
-- Refactored scene saving dialogs in the editor to make them more stable.
-- Made `Limb::iterate_recursive` method public.
-- Switch character rigid body to kinematic when a ragdoll is active.
-- Keep menu items highlighted when opening a menu chain.
-- Gizmo improvements for navmesh interaction mode.
-- Open navmesh panel at the top right of the scene preview when selecting a navmesh scene node.
-- Improved visualization in the dependency viewer.
-- Made asset import options inspector generic.
-- Provide access to material context in the renderer.
-- Movement, scale, rotation gizmo improvements.
-- Mutable access for ui nodes.
-- Preload resources before generating preview for them.
-- Made world viewer to accept data provider instead of scene directly.
-- Replaced `Cow<Path>` with `&Path` in `ResourceData` trait
-- Allow to set materials by drag'n'drop on material editor field.
-- Made material fields in the inspector more clickable.
-- Improved navigation on navmesh using string pulling algorithm.
-- Improved performance of navigation mesh queries.
-- Improved text box widget performance.
-- `Plane` API improvements.
-- Made material editor wider a bit by default.
-- Extend resource data constructor with type name.
-- Turned material into resource, removed `SharedMaterial` struct.
-- Serialize vertex buffer data as a bytes slab.
-- Use `Window::pre_present_notify` as recommended in the `winit` docs.
-- Refactored sprites rendering to use materials.
-- Refactored particle system rendering to use forward renderer.
-- More built-in shader variables for lighting.
-- Triangle buffer API improvements.
-- Use debug message callback instead of message queue for OpenGL errors.
-- Enable OpenGL debugging in debug build profile.
-- Customizable time-to-live for geometry buffers (allows to create temporary buffers that lives one frame (ttl = 0)).
-- Allow to start multiple scenes at editor start up (kudos to [@dasimonde](https://github.com/dasimonde)).
-- `push_vertices` + `push_vertices_transform` method for vertex buffer.
-- Ability to connect a state with every other state in the ABSM editor (kudos
-  to [@Riddhiman007](https://github.com/Riddhiman007))
-- Added UUIDs for scene nodes.
-- Ability to set navmesh agent path recalculation threshold.
-- Reset `modified` flags of inheritable variables when fixing node type.
-- Check for node type mismatch on graph resolve and auto-fix this.
-- Use type names instead of type ids when reporting inheritance errors.
-- Remove orphaned nodes when restoring graph's integrity.
-- Code example for `Inspector` widget.
-- Pass node handle to surface instance data.
-- Check for global `enabled` flag when filtering out cameras for rendering.
-- Serialize joints binding local frames.
-- Support for touch events in the UI (kudos to [@Bocksdin](https://github.com/Bocksdin)).
-- A\* pathfinding optimization (kudos to [@TiltedTeapot](https://github.com/TiltedTeapot)).
+- Işık Paneli yüzen panellere kaydedildi, böylece yerleştirilebilir.
+- Varlık tarayıcısında arama daha akıllı hale getirildi.
+- GPU kaynakları önbelleği yeniden düzenlendi.
+- Dokulara erişimi hızlandırın.
+- `ScriptTrait::id()` yönteminin otomatik uygulaması. Bu uygulama artık sizin
+  Komut dosyaları.
+- Düzenleyicide derleme günlüğünün sonuna kaydırın.
+- Bir derleme başarısız olduğunda derleme penceresinin kapanması önlendi.
+- Düğüm tanıtıcısı özellik düzenleyicisi, kullanıcı arabirimi widget'larıyla da çalışacak şekilde düzenlendi.
+- Performansı artırmak için özellik seçicideki doku baytlarını filtreleyin.
+- Kaydırma çubuğu artırma/azaltma düğmeleri için tıklama tekrarı modu etkinleştirildi.
+- Yakalanan herhangi bir ui öğesi varsa düzenleyiciyi etkin tutun.
+- Kaydırma görüntüleyici için kaydırma çubuğu adımı artırıldı.
+- `aabb_of_descendants` için filtre argümanı eklendi.
+- Animasyon varlıklarında ErasedHandle yerine soyut EntityId kullanın.
+- Gezinme ağının iç kısımları optimize edildi.
+- Harici kaynakların verilerinin serileştirilmesi önlendi.
+- Ekran boyutunu `Control::update`e aktarın.
+- Kullanıcı arayüzünü tamamen klonlayabilme.
+- Düzenleyicideki sahne kaydetme iletişim kutuları daha kararlı hale getirilmek için yeniden düzenlendi.
+- `Limb::iterate_recursive` yöntemini herkese açık hale getirdi.
+- Bir ragdoll aktif olduğunda karakterin sert gövdesini kinematiğe çevirin.
+- Bir menü zinciri açarken menü öğelerini vurgulu tutun.
+- Navmesh etkileşim modu için Gizmo iyileştirmeleri.
+- Bir navmesh sahne düğümü seçerken sahne önizlemesinin sağ üst kısmında navmesh panelini açın.
+- Bağımlılık görüntüleyicisinde görselleştirme iyileştirildi.
+- Varlık içe aktarma seçenekleri denetçisi genel hale getirildi.
+- Oluşturucuda malzeme bağlamına erişim sağlayın.
+- Hareket, ölçek, döndürme gizmo iyileştirmeleri.
+- UI düğümleri için değiştirilebilir erişim.
+- Onlar için önizleme oluşturmadan önce kaynakları önceden yükleyin.
+- Dünya görüntüleyicinin doğrudan sahne yerine veri sağlayıcıyı kabul etmesi sağlandı.
+- `ResourceData` özelliğinde `Cow<Path>` yerine `&Path` kullanıldı.
+- Malzeme düzenleyici alanında sürükle ve bırak yöntemiyle malzeme ayarlamaya izin verin.
+- Denetçideki malzeme alanları daha tıklanabilir hale getirildi.
+- Dize çekme algoritması kullanılarak navmesh üzerinde gezinme iyileştirildi.
+- Gezinti ağı sorgularının performansı iyileştirildi.
+- Metin kutusu widget performansı iyileştirildi.
+- `Plane`API iyileştirmeleri.
+- Malzeme düzenleyicisi varsayılan olarak biraz daha geniş hale getirildi.
+- Kaynak veri yapıcısını tür adıyla genişletin.
+- Malzemeyi kaynağa dönüştürdü, `SharedMaterial` yapısını kaldırdı.
+- Vertex tampon verilerini bayt olarak seri hale getirin.
+- `Winit` dokümanlarında önerildiği gibi `Window::pre_present_notify` kullanın.
+- Materyalleri kullanmak için yeniden düzenlenmiş sprite oluşturma.
+- İleri renderer kullanmak için parçacık sistemi render'ı yeniden düzenlendi.
+- Aydınlatma için daha fazla yerleşik gölgelendirici değişkeni.
+- Üçgen tampon API iyileştirmeleri.
+- OpenGL hataları için mesaj kuyruğu yerine hata ayıklama mesajı geri çağrısı kullanın.
+- Hata ayıklama derleme profilinde OpenGL hata ayıklamayı etkinleştirin.
+- Geometri tamponları için özelleştirilebilir yaşam süresi (bir kare yaşayan geçici tamponlar oluşturmaya izin verir (ttl = 0)).
+- Editör başlangıcında birden fazla sahne başlatmaya izin verin ([@dasimonde](https://github.com/dasimonde)'a tebrikler).
+- Vertex buffer için `push_vertices` + `push_vertices_transform` yöntemi.
+- ABSM editöründe bir durumu diğer tüm durumlara bağlayabilme (kudos
+  'a [@Riddhiman007](https://github.com/Riddhiman007))
+- Sahne düğümleri için UUID'ler eklendi.
+- Navmesh aracı yolu yeniden hesaplama eşiğini ayarlayabilme.
+- Düğüm türünü düzeltirken devralınabilir değişkenlerin `modified` bayraklarını sıfırlayın.
+- Grafik çözümlemede düğüm tipi uyuşmazlığını kontrol edin ve bunu otomatik düzeltin.
+- Kalıtım hatalarını bildirirken tür kimlikleri yerine tür adlarını kullanın.
+- Grafiğin bütünlüğünü geri yüklerken öksüz düğümleri kaldırın.
+- `Inspector` widget'ı için kod örneği.
+- Örnek verilerini yüzeye çıkarmak için düğüm tanıtıcısını geçirin.
+- Oluşturma için kameraları filtrelerken global `enabled` bayrağını kontrol edin.
+- Yerel çerçeveleri bağlayan eklemleri serileştirin.
+- Kullanıcı arayüzünde dokunma olayları için destek ([@Bocksdin](https://github.com/Bocksdin)'a tebrikler).
+- A\* yol bulma optimizasyonu (tebrikler [@TiltedTeapot](https://github.com/TiltedTeapot)).
 
-## Fixed
+## Sabit
 
-- Fixed crash of the editor on Wayland.
-- Fixed font rendering API.
-- Fixed restoration of shallow resource handles of untyped resources.
-- Prevent double saving of settings after modification.
-- Keep aspect ratio when previewing a texture in the asset browser.
-- Filter out non-savable resources in resource creation dialog.
-- Fixed offscreen UI rendering in the UI editor.
-- Fixed deep cloning of materials: make them embedded after cloning.
-- Fixed path filters to correctly handle folders with "extensions".
-- Save material when changing its shader property in the material editor.
-- Fixed massive footgun with pointers to the graphics pipeline state scattered all around the renderer.
-- Prevent creating of multiple thread pool across the engine.
-- Fixed crash in the material editor if a material is failed to load.
-- Prevent the editor from closing after saving a scene via Ctrl+S.
-- Fixed position saving of maximized editor window.
-- Fixed crash when assigning non-material resource in a material property.
-- Fixed forward pass of standard shader for skinned meshes
-- Fixed uuid formatting in visitor.
-- Fixed resource extension comparison in the editor by making it case-insensitive.
-- Fixed crash when drag'n'dropping assets in scene previewer.
-- Fixed OpenGL error handling
-- Fixed performance issues when modifying vertex/triangle buffers.
-- Fixed crash when editing terrains (kudos to [@Riddhiman007](https://github.com/Riddhiman007))
-- Fixed a bug when vertex attribute divisor was ignored.
-- Fixed colors for log messages.
-- Fixed scene loading in derived mode.
-- Fixed text coloring when sending a `WidgetMessage::Foreground` to text.
-- Fixed memory leaks on Linux (kudos to [@LordCocoNut](https://github.com/LordCocoNut))
-- Fixed invalid GPU resource indexing bug, that caused crashes/quirks in graphics when switching scenes in the editor.
+- Wayland üzerinde editörün çökmesi düzeltildi.
+- Yazı tipi oluşturma API'si düzeltildi.
+- Tiplenmemiş kaynakların sığ kaynak tutamaçlarının geri yüklenmesi düzeltildi.
+- Değişiklikten sonra ayarların çift kaydedilmesi önlendi.
+- Varlık tarayıcısında bir dokuyu önizlerken en boy oranını koruyun.
+- Kaynak oluşturma iletişim kutusunda kaydedilemeyen kaynakları filtreleyin.
+- Kullanıcı arayüzü düzenleyicisinde ekran dışı kullanıcı arayüzü oluşturma düzeltildi.
+- Malzemelerin derin klonlanması düzeltildi: klonlamadan sonra gömülü hale getirin.
+- "Uzantıları" olan klasörleri doğru şekilde işlemek için yol filtreleri düzeltildi.
+- Malzeme düzenleyicide gölgelendirici özelliğini değiştirirken malzemeyi kaydedin.
+- İşleyicinin her tarafına dağılmış grafik boru hattı durumuna işaretçiler içeren devasa ayak tabancası düzeltildi.
+- Motor genelinde çoklu iş parçacığı havuzu oluşturulmasını önleyin.
+- Bir malzeme yüklenemediğinde malzeme düzenleyicinin çökmesi düzeltildi.
+- Ctrl+S ile bir sahne kaydedildikten sonra düzenleyicinin kapanması önlendi.
+- Maksimize edilmiş düzenleyici penceresinin konum kaydetmesi düzeltildi.
+- Bir malzeme özelliğine malzeme olmayan kaynak atandığında oluşan çökme düzeltildi.
+- Kaplanmış kafesler için standart gölgelendiricinin ileri geçişi düzeltildi
+- Ziyaretçideki uuid biçimlendirmesi düzeltildi.
+- Düzenleyicideki kaynak uzantısı karşılaştırması büyük/küçük harfe duyarsız hale getirilerek düzeltildi.
+- Sahne önizleyicisinde varlıkları sürükleyip bırakırken oluşan çökme düzeltildi.
+- OpenGL hata işleme düzeltildi
+- Tepe noktası/üçgen tamponlarını değiştirirken yaşanan performans sorunları düzeltildi.
+- Arazileri düzenlerken oluşan çökme düzeltildi (tebrikler [@Riddhiman007](https://github.com/Riddhiman007))
+- Tepe noktası öznitelik böleninin göz ardı edildiği bir hata düzeltildi.
+- Günlük mesajları için renkler düzeltildi.
+- Türetilmiş modda sahne yüklemesi düzeltildi.
+- Metne bir `WidgetMessage::Foreground` gönderirken metin renklendirmesi düzeltildi.
+- Linux'taki bellek sızıntıları düzeltildi ([@LordCocoNut](https://github.com/LordCocoNut)'a tebrikler)
+- Düzenleyicide sahneler arasında geçiş yaparken grafiklerde çökmelere/sorunlara neden olan geçersiz GPU kaynak indeksleme hatası düzeltildi.
 
-## Removed
+## Kaldırıldı
 
-- Removed implicit cloning when in `Reflect::into_any` impl for some types.
-- Removed redundant memory allocation when fetching fields using reflection.
-- Removed redundant memory allocation when iterating over fields.
-- Removed `Option` wrapper in typed resource to flatten the internal structure of resources.
-- Removed a bunch of redundant clones in the renderer.
-- Removed lazy calculations in the navigational mesh.
-- Removed unused `soft_boundary_sharpness_factor` param from particle systems (this property was moved to the
-  standard particle system material).
-- Removed `InteractionModeKind` and replaced it with uuids.
+- Bazı türler için `Reflect::into_any` uygulamasında örtük klonlama kaldırıldı.
+- Yansıma kullanarak alanları getirirken gereksiz bellek ayırma kaldırıldı.
+- Alanlar üzerinde yineleme yaparken gereksiz bellek ayırma kaldırıldı.
+- Kaynakların iç yapısını düzleştirmek için `typed resource`daki `Option` wrapper`ı kaldırıldı.
+- Renderer'daki bir grup gereksiz klon kaldırıldı.
+- Gezinme ağındaki tembel hesaplamalar kaldırıldı.
+- Parçacık sistemlerinden kullanılmayan `soft_boundary_sharpness_factor` parametresi kaldırıldı (bu özellik
+  standart parçacık sistemi malzemesi).
+- InteractionModeKind` kaldırıldı ve uuidler ile değiştirildi.
 
 # 0.32
 
-- Do not call `Script::on_os_event` if script is not started yet.
-- Borrow instead of move in `Visitor::load_from_memory`.
-- Ability to load scenes in two modes - derived and raw.
-- Fixed selection issues in the animation editor.
-- Fixed path fixer.
-- Ability to set resource path.
-- `ResourceManager::unregister` to unregister loaded resources.
-- Refactored scene loading + plugin interface improvements.
-- Bring currently selected node into view when clearing filter in the world viewer.
-- Fixed searching in the property selector.
-- Bring current selection into view in node selector when clearing filter text.
-- Fixed `zoom to fit` in the curve editor when there's no keys.
-- Fixed node name formatting in the animation editor's track list.
-- Fixed tooltips in the inspector.
-- `EditorPlugin::on_post_update` that invoked after any other update methods.
-- Fixed selection syncing in node selector.
-- `TreeRootMessage::ItemsChanged` to catch the moment when tree root items changes.
-- Improved visual style of node handle property editor.
-- Ability to set scene node handle via node selector.
-- `Sound::try_play` method that will only play the sound if it is not already playing.
-- `Flip green channel` option for texture import options: this adds an ability to flip green channels for
-  normal maps made in OpenGL Y+ format.
-- Resource manager improvements: added base trait with auto-implementation to reduce boilerplate code, mandatory
-  `ResourceLoader::data_type_uuid` method to fetch actual data type produced by resource loader,
-  `ResourceManager::try_request` - returns an optional resource handle, returns `None` if `T` does not match the
-  actual data id (`request` just panics in this case).
-- Print an error message to the log when unable to load a resource.
-- Resource field property editor improvements: emit transparent geometry to improve mouse picking,
-  added margins for elements.
-- Exposed resource manager reference to plugin registration context to be able to register custom resource
-  loaders that will be used in both the game and the editor.
-- `Material::sync_to_shader` method to sync material properties with its shader.
-- `parallaxCenter` + `parallaxScale` property for standard shaders.
-- Fixed TBN-basis visualization in mesh debug drawing.
-- Make all gizmo's X axis match the actual coordinate system's X axis.
-- Fixed tooltip in asset browser to show full path without clipping.
-- Fixed parallax mapping.
-- Fixed binormal vector calculation.
-- Added missing `tif` extension for texture loader.
-- Fixed build window output in the editor.
-- Added fade in/fade out for shadows, that prevents them from popping out of nowhere.
-- Added scene gizmo.
-- Keep frame alpha when applying lighting for transparent background rendering.
-- Rewind sound sources before stopping them.
-- Improved camera focusing on a scene object.
-- Changed orbital camera controls: drag camera was moved to `Shift+RMB`, added configurable zoom range.
-- Added orbital camera mode for editor camera (can be activated by middle mouse button).
-- Use `f32` instead of `Duration` for scene sound source's playback time.
-- Fixed terrain brush bounds visualization.
-- Hotkeys for terrain editor.
-- Use `workspace.dependencies` in the projects generated by `fyrox-template` to simplify dependency change.
-- Improved editor settings handling.
-- `Curve::bounds` + ability to `Zoom to fit` with delay for the curve editor.
-- Property editor for `Curve` fields.
-- New `fyrox-scripts` crate + flying camera controller script.
-- Ability to map ui key back to winit + change key binding property editor.
-- Fallback to root directory if `fyrox-template script` cant find `game/src`.
-- Added debug impls for gpu texture.
-- Fixed seams between terrain chunks.
-- Removed obsolete examples and replaced them with [new examples](https://github.com/FyroxEngine/Fyrox-demo-projects).
-- Fixed curve editor compatibility with scrolling regions.
-- Fixed clipping issues in curve editor.
-- Save expanded state of the scene items in the world viewer in the editor settings.
-- Fixed invalid keys positioning in the curve editor when selecting them.
-- Fixed box selection in the curve editor when mouse is outside.
-- Focus currently selected entity when clearing filter text in animation editor.
-- Fixed a bunch of potential crashes in the `CurveEditor` widget.
-- Fixed HiDPI issues on WebAssembly.
-- Removed hardcoded list of supported resource extensions from the editor and use ones from resource loaders.
-- `Hrir` resource + async HRTF loading for HRTF sound renderer.
-- Fixed texture compression.
-- Do not use `glCheckError` in release builds since it has bad performance.
-- Set nearest filtration for floating-point textures in the renderer (WebAssembly fix).
-- Switch a resource without a loader into error state to prevent infinite loading in some cases.
-- Fixed resource loading in WebAssembly.
-- Do not render anything if screen size is collapsed into a point.
-- Split light map generation in two steps + added async generation for the editor.
-- Do not allow to create game projects with a number in beginning of its name.
-- Optimized light map data serialization (breaking change, regenerate your lightmaps).
-- `BinaryBlob` wrapper to serialize arbitrary sets of data as bytes.
-- Print an error to the log instead crashing when unable to generate a lightmap.
-- Moved light map into `Graph` from `Scene`.
-- Fixed light map internal handles mapping when copying a graph.
-- `PathEditor` widget + property editor for `PathBuf` for Inspector.
-- Reduce default amount of texels per unit for lightmapper in the editor.
-- Ability to specify vcs for a new project in `fyrox-template`
-- Set `resolver = 2` for workspaces generated by `fyrox-template`
-- Improved joints computational stability.
-- `Make Unassigned` button for node handle property editor.
-- Do not save invalid window attributes of the main editor window.
-- Fixed joints binding.
-- Joint rebinding is now optional.
-- Fixed potential infinite loop when constructing quaternion from a matrix.
-- Ability to set custom name to group command in the editor.
-- `Ragdoll` scene node.
-- Improved mouse picking for node handle property editor.
-- Ragdoll wizard to create ragdolls with a few clicks.
-- Power-saving mode for the editor. Editor pauses its execution if its window is unfocused or there's no OS events
-  from the main window. This change reduces CPU/GPU resources consumption down to zero when the editor is non-active.
-- Do not create a separate region for inheritable variables on serialization if non-modified. This saves quite a
-  lot of disk space in derived assets (including saved games).
-- Property editors for inheritable vec collections of resources.
-- Clamp input time to the actual duration of the buffer when setting sound source's playback time.
-- Fixed inability to fetch stream length of ogg/vorbis.
-- `GenericBuffer::duration` is now using integer arithmetics which does not suffer from precision
-  issues (unlike floating point numbers).
-- Decoders now returns channel duration in samples, not in seconds.
-- Send text box message on changes only if its commit mode is immediate.
-- Fixed severity for messages from inability to load editor settings.
-- Added vec property editors for collections of resources.
-- Property editor for `Vec<T>` will now use appropriate property editor for `T` instead of implicit usage
-  of `InspectablePropertyEditor`.
-- Fixed incorrect focusing of an asset in the asset browser.
-- Fixed emitted message direction for `TextBox` widget.
-- `Show in Asset Browser` button for resource fields in the inspector.
-- Take sound source gain into account when using HRTF renderer.
-- Fixed visualization of bones list of a surface in the editor.
-- Reduced HRTF sound renderer latency.
-- Fixed animation events collection for blend-by-index ABSM nodes.
-- Improved ABSM events collection API.
-- Ability to fetch animation events from ABSM layers.
-- Fixed property reversion: now it reverts only modified ones.
-- Ability to revert all inheritable properties at once of a scene node.
-- `Reflect::enumerate_fields_recursively` allows you to iterate over descendant fields of an object
-  while getting info about each field.
-- Update only currently active scene in the editor.
-- Navmesh path smoothing improvements and fixes. Prevent smoothing from cutting corners.
-- `A*` path finder API improvements.
-- Debug drawing for NavMesh scene node.
-- Light scattering now takes light intensity into account.
-- Prevent loading the same scene multiple times.
-- Clear UI in the editor when changing scenes to prevent potential visual desync.
-- Fixed potential panic when handling UI messages with invalid target widget handle.
-- Fixed doubling of the text when printing text in `TextBox` widget on some platforms.
-- Ability to duplicate animation tracks in the animation editor.
-- Ability to set an ID of animation tracks.
-- Fixed potential panic on invalid handles of `Rapier` entities when fetching contacts.
-- Ability to close tabs in `TabControl` widget using middle mouse button.
-- Visualize directional lights as arrows in the editor.
-- Ability to draw arrows in scene debug drawing context.
-- Migrated to `winit 0.29`.
-- Fixed `Rect::clip_by` method.
-- Removed `VecExtensions` trait, because its functionality was already added in the standard library.
-- `Popup` widget improvements: `Placement::target` method, ability to create popups without adding them
-  to the UI.
-- Fixed potential infinite loop in the `Menu` widget.
-- Added context menu to the file browser to be able to create folders and remove files.
-- Significantly improved test coverage for `fyrox-core` and `fyrox-resource` crates (kudos to
+- Script henüz başlatılmamışsa `Script::on_os_event` çağrısı yapmayın.
+- Ziyaretçi::load_from_memory`de taşıma yerine ödünç alma.
+- Sahneleri iki modda yükleyebilme - türetilmiş ve ham.
+- Animasyon düzenleyicisindeki seçim sorunları düzeltildi.
+- Yol düzeltici düzeltildi.
+- Kaynak yolunu ayarlayabilme.
+- Yüklenen kaynakların kaydını kaldırmak için `ResourceManager::unregister`.
+- Yeniden düzenlenmiş sahne yükleme + eklenti arayüzü iyileştirmeleri.
+- Dünya görüntüleyicide filtreyi temizlerken seçili düğümü görünüme getirin.
+- Özellik seçicide arama düzeltildi.
+- Filtre metni temizlenirken mevcut seçimi düğüm seçicide görünüme getirin.
+- Eğri düzenleyicide tuş olmadığında 'sığdırmak için yakınlaştır' düzeltildi.
+- Animasyon düzenleyicinin parça listesindeki düğüm adı biçimlendirmesi düzeltildi.
+- Denetçideki araç ipuçları düzeltildi.
+- Diğer güncelleme yöntemlerinden sonra çağrılan `EditorPlugin::on_post_update`.
+- Düğüm seçicideki seçim senkronizasyonu düzeltildi.
+- Ağaç kökü öğelerinin değiştiği anı yakalamak için `TreeRootMessage::ItemsChanged` eklendi.
+- Düğüm tanıtıcısı özellik düzenleyicisinin görsel stili iyileştirildi.
+- Düğüm seçici aracılığıyla sahne düğümü tanıtıcısını ayarlama yeteneği.
+- `Sound::try_play` metodu, sesi sadece zaten çalmıyorsa çalacaktır.
+- Doku içe aktarma seçenekleri için `Turn the green channel` seçeneği: bu, yeşil kanalları çevirme yeteneği ekler
+  OpenGL Y+ biçiminde yapılmış normal haritalar.
+- Kaynak yöneticisi iyileştirmeleri: şablon kodu azaltmak için otomatik uygulama ile temel özellik eklendi, zorunlu
+  Kaynak yükleyici tarafından üretilen gerçek veri türünü almak için `ResourceLoader::data_type_uuid` yöntemi,
+  `ResourceManager::try_request` - isteğe bağlı bir kaynak tanıtıcısı döndürür, `T` ile eşleşmezse `None` döndürür.
+  gerçek veri kimliği (`request` bu durumda sadece panikler).
+- Bir kaynak yüklenemediğinde günlüğe bir hata mesajı yazdırın.
+- Kaynak alanı özellik düzenleyicisi iyileştirmeleri: fare seçimini iyileştirmek için şeffaf geometri yayar,
+  öğeler için kenar boşlukları eklendi.
+- Özel kaynak kaydedebilmek için eklenti kayıt bağlamına kaynak yöneticisi referansı eklendi
+  Hem oyunda hem de editörde kullanılacak yükleyiciler.
+- Malzeme özelliklerini gölgelendiricisiyle senkronize etmek için `Material::sync_to_shader` yöntemi.
+- Standart gölgelendiriciler için `parallaxCenter` + `parallaxScale` özelliği.
+- Mesh hata ayıklama çiziminde TBN tabanlı görselleştirme düzeltildi.
+- Tüm gizmo'ların X eksenini gerçek koordinat sisteminin X ekseniyle eşleştirin.
+- Varlık tarayıcısındaki araç ipucu, kırpma olmadan tam yolu gösterecek şekilde düzeltildi.
+- Paralaks eşlemesi düzeltildi.
+- Binormal vektör hesaplaması düzeltildi.
+- Doku yükleyici için eksik `tif` uzantısı eklendi.
+- Editördeki yapı penceresi çıktısı düzeltildi.
+- Gölgelerin aniden ortaya çıkmasını önleyen gölgeler için solma/sönme eklendi.
+- Sahne gizmosu eklendi.
+- Şeffaf arka plan oluşturma için aydınlatma uygularken kare alfasını koruyun.
+- Ses kaynaklarını durdurmadan önce geri sarın.
+- Bir sahne nesnesine odaklanan kamera geliştirildi.
+- Yörüngesel kamera kontrolleri değiştirildi: kamerayı sürükleme `Shift+RMB`ye taşındı, yapılandırılabilir yakınlaştırma aralığı eklendi.
+- Editör kamerası için yörüngesel kamera modu eklendi (orta fare tuşuyla etkinleştirilebilir).
+- Sahne ses kaynağının oynatma süresi için `Duration` yerine `f32` kullanın.
+- Arazi fırça sınırları görselleştirmesi düzeltildi.
+- Arazi düzenleyici için kısayol tuşları.
+- Bağımlılık değişimini basitleştirmek için `fyrox-template` tarafından oluşturulan projelerde `workspace.dependencies` kullanın.
+- Geliştirilmiş editör ayarları işleme.
+- `curve::bounds` + eğri düzenleyici için gecikmeli olarak `Sığdırmak için yakınlaştırma` yeteneği.
+- `curve` alanları için özellik düzenleyici.
+- Yeni `fyrox-scripts` sandığı + uçan kamera denetleyici komut dosyası.
+- UI tuşunu winit'e geri eşleme + tuş bağlama özelliği düzenleyicisini değiştirme yeteneği.
+- Eğer `fyrox-template script` `game/src` bulamazsa kök dizine geri dönüş.
+- Gpu dokusu için hata ayıklama impls eklendi.
+- Arazi parçaları arasındaki dikişler düzeltildi.
+- Eski örnekler kaldırıldı ve [yeni örnekler](https://github.com/FyroxEngine/Fyrox-demo-projects) ile değiştirildi.
+- Kaydırma bölgeleri ile eğri düzenleyici uyumluluğu düzeltildi.
+- Eğri düzenleyicideki kırpma sorunları düzeltildi.
+- Dünya görüntüleyicisindeki sahne öğelerinin genişletilmiş durumu düzenleyici ayarlarına kaydedildi.
+- Eğri düzenleyicide geçersiz tuşların seçilirken konumlandırılması düzeltildi.
+- Eğri düzenleyicide fare dışarıdayken kutu seçimi düzeltildi.
+- Animasyon düzenleyicide filtre metni temizlenirken seçili varlığa odaklanıldı.
+- `CurveEditor` widget'ındaki bir dizi potansiyel çökme düzeltildi.
+- WebAssembly üzerindeki HiDPI sorunları düzeltildi.
+- Desteklenen kaynak uzantılarının kodlanmış listesi editörden kaldırıldı ve kaynak yükleyicilerden gelenler kullanıldı.
+- HRTF ses oluşturucu için `Hrir` kaynağı + async HRTF yüklemesi.
+- Doku sıkıştırması düzeltildi.
+- Kötü performansa sahip olduğu için sürüm yapılarında `glCheckError` kullanmayın.
+- Görüntüleyicideki kayan noktalı dokular için en yakın filtrelemeyi ayarlayın (WebAssembly düzeltmesi).
+- Bazı durumlarda sonsuz yüklemeyi önlemek için yükleyicisi olmayan bir kaynağı hata durumuna geçirin.
+- WebAssembly'de kaynak yüklemesi düzeltildi.
+- Ekran boyutu bir noktaya daraltılırsa hiçbir şey oluşturmayın.
+- Işık haritası üretimini iki adıma bölün + editör için asenkron üretim eklendi.
+- Adının başında bir sayı olan oyun projeleri oluşturmaya izin vermeyin.
+- Optimize edilmiş ışık haritası veri serileştirmesi (kırılma değişikliği, ışık haritalarınızı yeniden oluşturun).
+- Rastgele veri kümelerini bayt olarak serileştirmek için `BinaryBlob` sarmalayıcı.
+- Bir ışık haritası oluşturamadığında çökmek yerine günlüğe bir hata yazdırın.
+- Işık haritasını `Scene`den `Graph` içine taşıdı.
+- Bir grafiği kopyalarken ışık haritası dahili tutamaç eşlemesi düzeltildi.
+- Inspector için `PathBuf` için `PathEditor` widget + özellik editörü.
+- Editördeki ışık eşleyici için birim başına varsayılan texel miktarı azaltıldı.
+- `fyrox-template` içinde yeni bir proje için vcs belirleme yeteneği
+
+- `fyrox-template` tarafından oluşturulan çalışma alanları için `resolver = 2` ayarı
+
+- Eklem hesaplama kararlılığı iyileştirildi.
+
+- Düğüm tutamağı özellik düzenleyicisi için `Unassigned Structure` düğmesi.
+
+- Ana düzenleyici penceresinin geçersiz pencere özniteliklerini kaydetme.
+
+- Eklem bağlama düzeltildi.
+
+- Eklem yeniden bağlama artık isteğe bağlıdır.
+
+- Matristen kuaterniyon oluştururken ortaya çıkan potansiyel sonsuz döngü düzeltildi.
+
+- Düzenleyicide grup komutuna özel ad belirleme özelliği.
+
+- `Ragdoll` sahne düğümü.
+
+- Düğüm tutamağı özellik düzenleyicisi için fare seçimi iyileştirildi.
+
+- Birkaç tıklamayla ragdoll'lar oluşturmak için ragdoll sihirbazı.
+
+- Düzenleyici için güç tasarrufu modu. Düzenleyici, penceresi odaklanmamışsa veya ana pencereden OS olayı gelmezse
+
+çalışmasını duraklatır. Bu değişiklik, düzenleyici etkin değilken CPU/GPU kaynaklarının tüketimini sıfıra indirir.
+
+- Değiştirilmedikleri takdirde, serileştirmede kalıtsal değişkenler için ayrı bir bölge oluşturulmaz. Bu, türetilmiş varlıklarda (kaydedilmiş oyunlar dahil) oldukça
+
+fazla disk alanı tasarrufu sağlar.
+
+- Kaynakların kalıtsal vec koleksiyonları için özellik düzenleyicileri.
+- Ses kaynağının çalma süresini ayarlarken, giriş süresini tamponun gerçek süresine sabitleyin.
+- Ogg/vorbis akış uzunluğunun alınamaması sorunu düzeltildi.
+
+- `GenericBuffer::duration` artık hassasiyet sorunları olmayan tamsayı aritmetiği kullanıyor
+
+(kayan nokta sayılarından farklı olarak).
+
+- Kod çözücüler artık kanal süresini saniye olarak değil, örnek olarak döndürüyor.
+
+- Yalnızca onay modu anında ise değişikliklerde metin kutusu mesajı gönderin.
+
+- Editör ayarlarının yüklenememesi nedeniyle görüntülenen mesajların önem derecesi düzeltildi.
+
+- Kaynak koleksiyonları için vec özellik editörleri eklendi.
+
+- `Vec<T>` için özellik editörü artık `InspectablePropertyEditor`'ın örtük kullanımı yerine `T` için uygun özellik editörünü kullanacaktır
+
+.
+
+- Varlık tarayıcısında bir varlığın yanlış odaklanma sorunu düzeltildi.
+
+- `TextBox` widget'ı için gönderilen mesajların yönü düzeltildi.
+
+- Denetçide kaynak alanları için `Show in Asset Browser` düğmesi eklendi.
+
+- HRTF renderer kullanılırken ses kaynağı kazancı dikkate alınır.
+- Editörde bir yüzeyin kemik listesinin görselleştirilmesi düzeltildi.
+- HRTF ses oluşturucu gecikmesi azaltıldı.
+- Blend-by-index ABSM düğümleri için animasyon olayları toplama düzeltildi.
+- Geliştirilmiş ABSM olay toplama API'si.
+- ABSM katmanlarından animasyon olaylarını getirebilme.
+- Özellik geri dönüşü düzeltildi: artık sadece değiştirilmiş olanları geri döndürüyor.
+- Bir sahne düğümünün tüm devralınabilir özelliklerini bir kerede geri alma yeteneği.
+- `Reflect::enumerate_fields_recursively` bir nesnenin alt alanları üzerinde yineleme yapmanızı sağlar
+  her alan hakkında bilgi alırken.
+- Düzenleyicide yalnızca o anda etkin olan sahneyi güncelleyin.
+- Navmesh yolu yumuşatma iyileştirmeleri ve düzeltmeleri. Düzgünleştirmenin köşeleri kesmesini önleyin.
+- `A*` yol bulucu API iyileştirmeleri.
+- NavMesh sahne düğümü için hata ayıklama çizimi.
+- Işık saçılması artık ışık yoğunluğunu hesaba katıyor.
+- Aynı sahnenin birden çok kez yüklenmesini önleyin.
+- Olası görsel desenkronizasyonu önlemek için sahneleri değiştirirken editördeki kullanıcı arayüzünü temizleyin.
+- Geçersiz hedef widget tanıtıcısı ile kullanıcı arayüzü mesajları işlenirken olası panik düzeltildi.
+- Bazı platformlarda `TextBox` widget'ında metin yazdırırken metnin iki katına çıkması düzeltildi.
+- Animasyon düzenleyicisinde animasyon parçalarını çoğaltma yeteneği.
+- Animasyon parçalarının kimliğini ayarlayabilme.
+- Kişileri getirirken `Rapier` varlıklarının geçersiz tutamaçlarında olası panik düzeltildi.
+- Farenin orta tuşunu kullanarak `TabControl` widget'ındaki sekmeleri kapatabilme.
+- Yön ışıklarını editörde oklar olarak görselleştirme.
+- Sahne hata ayıklama çizim bağlamında ok çizebilme.
+- `Winit 0.29`a geçiş yapıldı.
+- `Rect::clip_by` yöntemi düzeltildi.
+- İşlevselliği standart kütüphaneye zaten eklenmiş olduğu için `VecExtensions` özelliği kaldırıldı.
+- `Popup` widget geliştirmeleri: Yerleştirme::hedef` yöntemi, eklemeden açılır pencere oluşturma yeteneği
+  kullanıcı arayüzüne eklendi.
+- Menü' widget'ındaki potansiyel sonsuz döngü düzeltildi.
+- Klasör oluşturabilmek ve dosyaları kaldırabilmek için dosya tarayıcısına içerik menüsü eklendi.
+- `fyrox-core` ve `fyrox-resource` crates için test kapsamı önemli ölçüde geliştirildi (kudos to
   [@san-smith](https://github.com/san-smith))
-- Optional node deletion dialog to warn if a node is referenced somewhere in the graph.
-- Fixed potential double free issue in the vertex buffer.
-- Fixed unsoundness of type-erasure in the vertex buffer.
-- `Graph::find_references_to` to search for node references in the graph.
-- `Reflect::apply_recursively` for recursive iteration over the descendant fields of an object.
-- Added `try` reserved keyword for `fyrox-template`.
-- Built-in sky box for `Camera` scene node.
-- Improved search in the World Viewer.
-- Make `TriangleDefinition` trivially-copyable.
-- Major UI documentation improvements.
-- Docs for `VectorImage`, `ScrollPanel`, `RectEditor`, `RangeEditor`, `ProgressBar`, `ListView`, `Canvas`,
+- Bir düğüme grafiğin herhangi bir yerinde atıfta bulunulduğunda uyarı vermek için isteğe bağlı düğüm silme iletişim kutusu.
+- Tepe noktası tamponundaki potansiyel çift serbest sorunu düzeltildi.
+- Tepe noktası tamponundaki tip ölçümünün sağlam olmaması düzeltildi.
+- Grafikteki düğüm referanslarını aramak için `Graph::find_references_to`.
+- Bir nesnenin alt alanları üzerinde özyinelemeli yineleme için `Reflect::apply_recursively`.
+- `fyrox-template` için `try` ayrılmış anahtar sözcüğü eklendi.
+- `Kamera` sahne düğümü için yerleşik gökyüzü kutusu.
+- Dünya Görüntüleyicisi'nde arama geliştirildi.
+- `TriangleDefinition` üçgen olarak kopyalanabilir hale getirildi.
+- Büyük UI dokümantasyon iyileştirmeleri.
+- `VectorImage`, `ScrollPanel`, `RectEditor`, `RangeEditor`, `ProgressBar`, `ListView`, `Canvas` için dokümanlar,
   `SearchBar`, `ScrollViewer`, `Expander`, `KeyBindingEditor`, `HotKeyEditor`, `Tree`, widgets.
-- Major book improvements.
+- Büyük kitap geliştirmeleri.
+  **_ Translated with www.DeepL.com/Translator (free version) _**
 
 # 0.31
 
-- Multi-scene editing
-- Docs for `Window` widget
-- Fixed opengl es usage when opengl is not supported
-- Docs for `Decorator` widget
-- Added `crv` extension for `CurveLoader`
-- Basic editor plugins support
-- Updated deps
-- Expose all editor fields so they can be accessible outside
-- Docs for `UuidEditor` widget
-- Use user_data field of physics entities to store handle to engine entity
-- Ability to encode/decode handles to/from u128
-- Ability to fetch all contact pairs from 2d/3d physics worlds
-- Docs for `MessageBox` widget
+- Çoklu sahne düzenleme
+
+- `Window` widget için belgeler
+
+- Opengl desteklenmediğinde opengl es kullanımı düzeltildi
+
+- `Decorator` widget için belgeler
+
+- `CurveLoader` için `crv` uzantısı eklendi
+
+- Temel düzenleyici eklentileri desteği
+
+- Bağımlılıklar güncellendi
+
+- Tüm düzenleyici alanları dışarıdan erişilebilir hale getirildi
+- `UuidEditor` widget'ı için belgeler
+
+- Fizik varlıklarının user_data alanını motor varlığına ait tanıtıcıyı depolamak için kullanma
+
+- Tanıtıcıları u128'e kodlama/kod çözme yeteneği
+
+- 2d/3d fizik dünyalarından tüm temas çiftlerini alma yeteneği
+
+- `MessageBox` widget'ı için belgeler
+
 - `Graph::aabb_of_descendants`
-- Aabb api improvements
-- Ability to open asset of a node from the world viewer
-- Improved `impl_component_provider` macro to accept `field.foo.ab` chains
-- Docs for navmesh node
-- Useful shortcuts for behaviour trees
-- Fixed standard materials for new serialization format
-- Inverter node for behaviour trees
-- Docs and examples for `VertexBuffer`
-- Added `VertexTrait` to prevent using a vertex type with different layout
-- Improved `surface` mod docs
-- Added `elapsed_time` in `PluginContext`
-- Use all texture channels in sprite fragment shader
-- Load editor's docking manager layout on reconfiguration
-- Open window of a tile when restoring docking manager layout
-- Ability to save/load editor's docking manager layout
-- Prevent panic in ui search methods
-- Ability to apply saved docking manager layout + improved layout saving
-- Ability to save docking manager layout
-- Changed error to warning when unable to load missing options file
-- Fixed crash when exiting the editor
-- Fixed opening arbitrary files from asset browser
-- Ability to open scenes from asset browser
-- User-defined data for tabs
-- Ability to add and remove tabs in the `TabControl` widget via messages
-- Added a nine patch widget
-- Fixed tab control's content alignment
-- `can_be_closed` flag for `TabControl` tabs
-- Ability to close tabs in `TabControl` widget
-- Docs for `TabControl` widget
-- Ability to catch the moment when the active tab of `TabControl` changed
-- Docs for `ScrollBar` widget
-- Docs for `Popup` widget
-- Docs for `NumericUpDown` widget
-- Ability to change `StackPanel`'s orientation via message
-- Ability to change `WrapPanel`'s orientation via message
-- Docs for `WrapPanel` widget
-- Docs for `CheckBox` widget
-- Docs for `Widget`
-- Docs for `TextBox` widget
-- Docs for `StackPanel` widget
-- Docs for `Grid` widget
-- Docs for `Image` widget
-- Docs for `Text` widget
-- Fyrox-ui docs
-- Docs for `Button` widget
-- Access to current transform of `TransformStack`
-- Docs for `Border`
-- Ability to pass doc comments in `define_constructor` macro
-- Docs for `BuildContext`
-- Docs for `UiNode`
-- Iterative font atlas packing.
-- Docs for `Thickness`
-- Docs for widget alignments
-- Docs for `BaseControl`
-- Update hierarchical data when instantiating a prefab
-- Docs for `trait Control`
-- Hotkey to focus editor's camera on a selected object
-- Helper methods for `Frustum`
-- Ability to focus editor's camera on an object
-- Helper methods for `TextureKind`
-- Camera fitting functionality
-- Aabb helper methods
-- Save editor settings only if they were modified by user
-- `Camera::frustum`
-- Fixed camera preview + added camera preview control panel
-- Automatically select newly created scene nodes in the editor
+- Aabb api iyileştirmeleri
+
+- Dünya görüntüleyiciden bir düğümün varlığını açma yeteneği
+
+- `field.foo.ab` zincirlerini kabul etmek için `impl_component_provider` makrosu iyileştirildi
+
+- Navmesh düğümü için belgeler
+
+- Davranış ağaçları için kullanışlı kısayollar
+
+- Yeni serileştirme biçimi için standart malzemeler düzeltildi
+- Davranış ağaçları için invertör düğümü
+
+- `VertexBuffer` için belgeler ve örnekler
+
+- Farklı düzenlere sahip köşe tipi kullanımını önlemek için `VertexTrait` eklendi
+
+- `surface` mod belgeleri iyileştirildi
+
+- `PluginContext` içine `elapsed_time` eklendi
+- Sprite fragman gölgelendiricisinde tüm doku kanallarını kullanma
+
+- Yeniden yapılandırma sırasında editörün kenetlenme yöneticisi düzenini yükleme
+
+- Kenetlenme yöneticisi düzenini geri yüklerken bir döşemenin penceresini açma
+
+- Editörün kenetlenme yöneticisi düzenini kaydetme/yükleme
+
+- UI arama yöntemlerinde paniği önleme
+
+- Kaydedilen kenetlenme yöneticisi düzenini uygulama + düzen kaydetme iyileştirmeleri
+
+- Kenetlenme yöneticisi düzenini kaydetme
+- Eksik seçenek dosyası yüklenemediğinde hata uyarısına dönüştürüldü
+
+- Editörden çıkarken yaşanan çökme sorunu düzeltildi
+
+- Varlık tarayıcısından rastgele dosyaların açılması sorunu düzeltildi
+
+- Varlık tarayıcısından sahneleri açma özelliği eklendi
+
+- Sekmeler için kullanıcı tanımlı veriler
+
+- Mesajlar aracılığıyla `TabControl` widget'ında sekme ekleme ve kaldırma özelliği eklendi
+
+- Dokuz yama widget'ı eklendi
+- Sekme denetiminin içerik hizalaması düzeltildi
+
+- `TabControl` sekmeleri için `can_be_closed` bayrağı
+
+- `TabControl` widget'ında sekmeleri kapatma özelliği
+
+- `TabControl` widget'ı için belgeler
+
+- `TabControl`'ün etkin sekmesinin değiştiği anı yakalama özelliği
+
+- `ScrollBar` widget'ı için belgeler
+
+- `Popup` widget'ı için belgeler
+- `NumericUpDown` widget'ı için belgeler
+
+- Mesaj yoluyla `StackPanel`'in yönünü değiştirme özelliği
+
+- Mesaj yoluyla `WrapPanel`'in yönünü değiştirme özelliği
+
+- `WrapPanel` widget'ı için belgeler
+
+- `CheckBox` widget'ı için belgeler
+
+- `Widget` için belgeler
+
+- `TextBox` widget'ı için belgeler
+- `StackPanel` widget'ı için belgeler
+
+- `Grid` widget'ı için belgeler
+
+- `Image` widget'ı için belgeler
+
+- `Text` widget'ı için belgeler
+
+- Fyrox-ui belgeleri
+
+- `Button` widget'ı için belgeler
+
+- `TransformStack`'in geçerli dönüşümüne erişim
+
+- `Border` için belgeler
+
+- `define_constructor` makrosunda belge yorumlarını geçirme yeteneği
+- Çoklu sahne düzenleme
+
+- `Window` widget için belgeler
+
+- Opengl desteklenmediğinde opengl es kullanımı düzeltildi
+
+- `Decorator` widget için belgeler
+
+- `CurveLoader` için `crv` uzantısı eklendi
+
+- Temel düzenleyici eklentileri desteği
+
+- Bağımlılıklar güncellendi
+
+- Tüm düzenleyici alanları dışarıdan erişilebilir hale getirildi
+- `UuidEditor` widget'ı için belgeler
+
+- Fizik varlıklarının user_data alanını motor varlığına ait tanıtıcıyı depolamak için kullanma
+
+- Tanıtıcıları u128'e kodlama/kod çözme yeteneği
+
+- 2d/3d fizik dünyalarından tüm temas çiftlerini alma yeteneği
+
+- `MessageBox` widget'ı için belgeler
+
+- `Graph::aabb_of_descendants`
+- Aabb api iyileştirmeleri
+
+- Dünya görüntüleyiciden bir düğümün varlığını açma yeteneği
+
+- `field.foo.ab` zincirlerini kabul etmek için `impl_component_provider` makrosu iyileştirildi
+
+- Navmesh düğümü için belgeler
+
+- Davranış ağaçları için kullanışlı kısayollar
+
+- Yeni serileştirme biçimi için standart malzemeler düzeltildi
+- Davranış ağaçları için invertör düğümü
+
+- `VertexBuffer` için belgeler ve örnekler
+
+- Farklı düzenlere sahip köşe tipi kullanımını önlemek için `VertexTrait` eklendi
+
+- `surface` mod belgeleri iyileştirildi
+
+- `PluginContext` içine `elapsed_time` eklendi
+- Sprite fragman gölgelendiricisinde tüm doku kanallarını kullanma
+
+- Yeniden yapılandırma sırasında editörün kenetlenme yöneticisi düzenini yükleme
+
+- Kenetlenme yöneticisi düzenini geri yüklerken bir döşemenin penceresini açma
+
+- Editörün kenetlenme yöneticisi düzenini kaydetme/yükleme
+
+- UI arama yöntemlerinde paniği önleme
+
+- Kaydedilen kenetlenme yöneticisi düzenini uygulama + düzen kaydetme iyileştirmeleri
+
+- Kenetlenme yöneticisi düzenini kaydetme
+- Eksik seçenek dosyası yüklenemediğinde hata uyarısına dönüştürüldü
+
+- Editörden çıkarken yaşanan çökme sorunu düzeltildi
+
+- Varlık tarayıcısından rastgele dosyaların açılması sorunu düzeltildi
+
+- Varlık tarayıcısından sahneleri açma özelliği eklendi
+
+- Sekmeler için kullanıcı tanımlı veriler
+
+- Mesajlar aracılığıyla `TabControl` widget'ında sekme ekleme ve kaldırma özelliği eklendi
+
+- Dokuz yama widget'ı eklendi
+- Sekme denetiminin içerik hizalaması düzeltildi
+
+- `TabControl` sekmeleri için `can_be_closed` bayrağı
+
+- `TabControl` widget'ında sekmeleri kapatma özelliği
+
+- `TabControl` widget'ı için belgeler
+
+- `TabControl`'ün etkin sekmesinin değiştiği anı yakalama özelliği
+
+- `ScrollBar` widget'ı için belgeler
+
+- `Popup` widget'ı için belgeler
+- `NumericUpDown` widget'ı için belgeler
+
+- Mesaj yoluyla `StackPanel`'in yönünü değiştirme özelliği
+
+- Mesaj yoluyla `WrapPanel`'in yönünü değiştirme özelliği
+
+- `WrapPanel` widget'ı için belgeler
+
+- `CheckBox` widget'ı için belgeler
+
+- `Widget` için belgeler
+
+- `TextBox` widget'ı için belgeler
+- `StackPanel` widget'ı için belgeler
+
+- `Grid` widget'ı için belgeler
+
+- `Image` widget'ı için belgeler
+
+- `Text` widget'ı için belgeler
+
+- Fyrox-ui belgeleri
+
+- `Button` widget'ı için belgeler
+
+- `TransformStack`'in geçerli dönüşümüne erişim
+
+- `Border` için belgeler
+
+- `define_constructor` makrosunda belge yorumlarını geçirme yeteneği
 
 # 0.30
 
-- Ability to change graph root to arbitrary graph node.
-- Ability to change graph root in the editor.
-- Optional checkerboard background for `Image` widget.
-- Simplified animation blending.
-- Mutable access to curve key's value.
-- Added property validation for the animation editor.
-- Track validation for the animation editor.
-- Ability to set widget's tooltip via message.
-- Correctly sync track names in the animation editor.
-- Ability to change target nodes on animation tracks.
-- Preserve parent when extracting a sub-graph from a graph.
-- Refactored editor scene structure to allow modifying the root node.
-- Play sound buffer resource when inspecting it in the asset browser.
-- Show textured quad in resources previewer when inspecting a texture.
-- Configurable scroll speed for `ScrollViewer` widget + speed up scrolling 2x.
-- Helper methods to quickly check a resource state.
-- Helper methods to access script components faster.
-- Improved range property editor.
-- `Enter State` for state menu in absm editor. Works the same as double click, removes confusion for ppl that does not
-  get used to double-click on things.
-- Leave preview mode when closing or changing scenes in the editor.
-- Prevent panic when trying to generate random number from an empty range.
-- Serialize delay line samples as POD array.
-- Optional ability to save current scene in text form for debugging.
-- Do not render disabled sprite nodes.
-- Fixed property inheritance subtle bugs.
-- Do not allow revering a property value in the editor if there's no parent.
-- Do not save content of non-modified inheritable variables.
-- Fixed directional light docs.
-- Fixed `Node::is_x,as_x,as_x_mut` methods.
-- `Graph::try_get_script_of + try_get_script_of_mut` methods
-- `Base::root_resource` - allows you to find root resource in dependency graph.
-- Prevent deadlock on self-referencing model resources
-- UUID for widgets.
-- Save editor's window position and size into editor's settings.
-- Apply local scaling of terrain to heightfield collider.
+- Grafik kökünü rastgele bir grafik düğümüne değiştirme yeteneği.
+
+- Editörde grafik kökünü değiştirme yeteneği.
+
+- `Image` widget için isteğe bağlı dama tahtası arka planı.
+
+- Basitleştirilmiş animasyon karıştırma.
+
+- Eğri anahtarının değerine değiştirilebilir erişim.
+
+- Animasyon editörü için özellik doğrulama eklendi.
+
+- Animasyon düzenleyicisi için iz doğrulama.
+
+- Mesaj yoluyla widget'ın araç ipucunu ayarlama özelliği.
+
+- Animasyon düzenleyicisinde iz adlarını doğru şekilde senkronize etme.
+
+- Animasyon izlerinde hedef düğümleri değiştirme özelliği.
+
+- Bir grafikten alt grafik çıkarırken üst öğeyi koruma.
+
+- Kök düğümü değiştirmeye izin vermek için düzenleyici sahne yapısı yeniden düzenlendi.
+
+- Varlık tarayıcısında incelerken ses tamponu kaynağını oynatma.
+
+- Bir dokuyu incelerken dokulu dörtgeni kaynak önizleyicide gösterme.
+
+- `ScrollViewer` widget'ı için yapılandırılabilir kaydırma hızı + kaydırmayı 2 kat hızlandırma.
+
+- Kaynak durumunu hızlıca kontrol etmek için yardımcı yöntemler.
+
+- Komut dosyası bileşenlerine daha hızlı erişmek için yardımcı yöntemler.
+
+- Aralık özelliği düzenleyicisi iyileştirildi.
+
+- AbsM düzenleyicisinde durum menüsü için `Enter Situation`. Çift tıklama ile aynı şekilde çalışır, çift tıklamaya alışkın olmayan kullanıcıların kafasını karıştırmaz
+
+.
+
+- Düzenleyicide sahneleri kapatırken veya değiştirirken önizleme modundan çıkın.
+
+- Boş bir aralıktan rastgele sayı oluşturmaya çalışırken panik önlenir.
+
+- Gecikme satırı örneklerini POD dizisi olarak serileştirin.
+
+- Hata ayıklama için mevcut sahneyi metin biçiminde kaydetme seçeneği.
+- Devre dışı bırakılmış sprite düğümlerini işlemeyin.
+
+- Özellik miras alma ile ilgili küçük hatalar düzeltildi.
+
+- Ebeveyn yoksa düzenleyicide bir özellik değerinin tersine çevrilmesine izin vermeyin.
+
+- Değiştirilmemiş miras alınabilir değişkenlerin içeriğini kaydetmeyin.
+
+- Yönlü ışık belgeleri düzeltildi.
+
+- `Node::is_x,as_x,as_x_mut` yöntemleri düzeltildi.
+
+- `Graph::try_get_script_of + try_get_script_of_mut` yöntemleri
+
+- `Base::root_resource` - bağımlılık grafiğinde kök kaynağı bulmanızı sağlar.
+
+- Kendine referans veren model kaynaklarında kilitlenmeyi önler
+
+- Widget'lar için UUID.
+- Editör penceresinin konumunu ve boyutunu editör ayarlarına kaydedin.
+
+- Yükseklik alanı çarpıştırıcısına yerel arazi ölçeklendirmesini uygulayın.
+
 - `MachineLayer::is_all_animations_of_state_ended`
-- Ability to fetch all animations of a state in ABSM layer.
-- Added `IsAnimationEnded` condition for ABSM transitions.
-- ABSM state actions. Allows you to rewind/enable/disable specific animations when entering/leaving a state.
-- Fixed incorrect "state enter" event sent from source instead of dest.
-- Added a collection of built-in resources for resource manager. This collection is used on resource deserialization
-  step to restore references to built-in resources.
-- Pre-compile built-in shaders on engine startup.
-- Ability to change camera zoom speed in the editor.
+
+- ABSM katmanındaki bir durumun tüm animasyonlarını alma yeteneği.
+
+- ABSM geçişleri için `IsAnimationEnded` koşulu eklendi.
+
+- ABSM durum eylemleri. Bir duruma girerken/çıkarken belirli animasyonları geri sarmanıza/etkinleştirmenize/devre dışı bırakmanıza olanak tanır.
+
+- Hedef yerine kaynaktan gönderilen yanlış “durum girişi” olayı düzeltildi.
+
+- Kaynak yöneticisi için yerleşik kaynakların bir koleksiyonu eklendi. Bu koleksiyon, yerleşik kaynaklara yapılan referansları geri yüklemek için kaynak serileştirme
+
+adımında kullanılır.
+
+- Motorun başlatılması sırasında yerleşik gölgelendiricileri önceden derleme.
+
+- Editörde kamera yakınlaştırma hızını değiştirme yeteneği.
+
 - `Plugin::before_rendering`
-- Matrix storage cache to prevent driver synchronization steps.
-- Persistent identifiers for render entities.
-- Improved deserialization performance.
-- Use `fast_image_resize` crate to generate mip maps (which gave 5x performance boost).
-- Configurable filter for mip-map generation for textures.
-- Fixed tooltip position - it now does not go outside of screen bounds.
-- "Immutable collection" reflection attribute for collection fields that prevent changing collection size.
-- Ability to get typed data of specific mip level of a texture.
-- Ability to fetch specific mip level data of textures.
-- Ability to set height map of terrain chunks directly from an image.
-- Dependency graph visualizer for asset browser.
-- Resource dependency graph.
-- Ability to flatten terrain slopes.
-- Return local height value at intersection point in ray-terrain test.
-- Cleaned editor's command API.
-- Removed visibility cache.
-- Ability to index graph with `Handle<T: NodeTrait>`
+
+- Sürücü senkronizasyon adımlarını önlemek için matris depolama önbelleği.
+
+- Render varlıkları için kalıcı tanımlayıcılar.
+
+- Dizileme performansı iyileştirildi.
+
+- Mip haritaları oluşturmak için `fast_image_resize` crate kullanın (bu, performansı 5 kat artırdı).
+
+- Dokular için mip harita oluşturma için yapılandırılabilir filtre.
+
+- Ara bilgi penceresinin konumu düzeltildi - artık ekran sınırlarının dışına çıkmıyor.
+
+- Koleksiyon boyutunun değiştirilmesini önleyen koleksiyon alanları için “Değiştirilemez koleksiyon” yansıma özniteliği.
+
+- Bir dokunun belirli mip seviyesinin türleştirilmiş verilerini alma yeteneği.
+
+- Dokuların belirli mip seviyesi verilerini alma yeteneği.
+
+- Arazi parçalarının yükseklik haritasını doğrudan bir görüntüden ayarlama yeteneği.
+
+- Varlık tarayıcısı için bağımlılık grafiği görüntüleyici.
+
+- Kaynak bağımlılık grafiği.
+
+- Arazi eğimlerini düzleştirme özelliği.
+
+- Işın-arazi testinde kesişme noktasında yerel yükseklik değerini döndürme.
+
+- Editörün komut API'sı temizlendi.
+
+- Görünürlük önbelleği kaldırıldı.
+
+- `Handle<T: NodeTrait>` ile grafiği indeksleme özelliği
+
 - `Handle::transmute`
-- Doc comments support for reflection.
-- Show doc comments for selected entity in a separate window.
-- Moved logger to `fyrox_core`.
-- Resource system refactoring to support user-defined resources.
-- Blackboard for visitor to pass arbitrary data when serializing/deserializing.
-- Added missing recalculation of terrain bounding box.
+
+- Yansıma için belge yorumları desteği.
+
+- Seçilen varlık için belge yorumlarını ayrı bir pencerede gösterme.
+
+- Günlük kaydediciyi `fyrox_core`'a taşındı.
+
+- Kullanıcı tanımlı kaynakları desteklemek için kaynak sistemi yeniden düzenlendi.
+
+- Seri hale getirme/seri hale getirmeyi kaldırma sırasında ziyaretçilerin rastgele verileri aktarması için kara tahta.
+
+- Eksik olan arazi sınır kutusu yeniden hesaplama eklendi.
+
 - `Texture::deep_clone`
 - `Log::verify_message`
-- `R32F` + `R16F` texture formats.
-- `data_of_type` methods to reinterpret inner texture data storage to a particular type.
-- Debug drawing for scene nodes.
-- Configurable polygon rasterization mode for scenes (gbuffer only).
-- Ability to set polygon rasterization mode to select between solid and wireframe rendering.
-- Force `Framebuffer::draw_x` methods to accept element range to draw.
-- Proper culling for terrains.
-- Refactored rendering: scene nodes can now supply renderer with data. `NodeTrait::collect_render_data` is now used to
-  supply renderer with data.
-- Batch generation is now done on per-camera (which includes light sources for shadows) basis.
-- Added a method to link nodes while keeping child's global position and rotation.
-- LODs for terrains.
-- Limits for collider shape values.
-- Added doc example for `Graph::begin_multi_borrow`.
-- Fixed samplers type collision when rendering with materials with different sampler types.
-- Unbind texture from other samplers when setting it to a new one.
-- Fixed half-float textures + fixed volume textures mip maps.
-- `RGB16F` texture format.
-- Use texture-based matrix storage for "unlimited" bone matrices. Raises matrix count per surface from 64
-  to 255.
-- Fixed texture alignment issues.
-- Use correct sampler index when changing texture data.
-- Set new mip count for texture when changing its data.
-- Fixed texture binding bug.
-- Warning instead of panic when there's not enough space for bone matrices.
-- Rename `visitor::Node` to `visitor::VisitorNode` to prevent confusing import in IDEs.
+- `R32F` + `R16F` doku formatları.
+
+- İç doku veri depolamasını belirli bir türe yeniden yorumlamak için `data_of_type` yöntemleri.
+
+- Sahne düğümleri için hata ayıklama çizimi.
+
+- Sahne için yapılandırılabilir poligon rasterleştirme modu (yalnızca gbuffer).
+
+- Katı ve tel kafes renderleme arasında seçim yapmak için poligon rasterleştirme modunu ayarlama yeteneği.
+
+- Çizilecek öğe aralığını kabul etmek için `Framebuffer::draw_x` yöntemlerini zorlama.
+
+- Araziler için uygun culling.
+
+- Yeniden düzenlenmiş render: sahne düğümleri artık renderer'a veri sağlayabilir. `NodeTrait::collect_render_data` artık
+
+renderer'a veri sağlamak için kullanılır.
+
+- Toplu oluşturma artık kamera başına (gölgeler için ışık kaynakları dahil) yapılır.
+
+- Alt öğenin global konumunu ve dönüşünü koruyarak düğümleri bağlamak için bir yöntem eklendi.
+
+- Araziler için LOD'lar.
+
+- Çarpışan şekil değerleri için sınırlar.
+
+- `Graph::begin_multi_borrow` için belge örneği eklendi.
+
+- Farklı örnekleyici türlerine sahip malzemelerle renderlama yaparken örnekleyici türü çarpışması düzeltildi.
+
+- Yeni bir örnekleyiciye ayarlandığında diğer örnekleyicilerden doku bağlantısı kaldırılır.
+
+- Yarım float dokular + sabit hacimli doku mip haritaları düzeltildi.
+
+- `RGB16F` doku formatı.
+
+- “Sınırsız” kemik matrisleri için doku tabanlı matris depolama kullanın. Yüzey başına matris sayısını 64'ten
+
+255'e yükseltir.
+
+- Doku hizalama sorunları düzeltildi.
+
+- Doku verilerini değiştirirken doğru örnekleyici indeksini kullanın.
+
+- Verilerini değiştirirken doku için yeni mip sayısı ayarlayın.
+
+- Doku bağlama hatası düzeltildi.
+
+- Kemik matrisleri için yeterli alan olmadığında panik yerine uyarı verilir.
+
+- IDE'lerde karışıklığı önlemek için `visitor::Node` adını `visitor::VisitorNode` olarak değiştirin.
+
 - `InheritableVariable::take`
-- Ability to change size of terrain height map and layer masks.
-- Ability to add chunks from any side of the terrain.
-- Fixed crash when deleting a navmesh edge.
-- Improved package description.
-- Make navmesh panel floating by default + open it when a navmesh is selected.
-- Navigational mesh refactoring.
-- Navigational mesh scene node.
-- Pass light intensity into lightmapper.
-- "Headless" mode for `Executor` - suitable for server-side of multiplayer games.
-- Added editor's window icon.
-- Blend shape support.
-- Changed sidebar to be inspector in the view dropdown menu.
-- Tweaked step values for transform properties.
-- Limits for vec editor.
-- Generic `Vector<T,N>` property editor.
-- Added support for min, max, step property attributes for vecN.
-- Ability to create/destroy audio output device on demand.
-- Migrate to `tinyaudio` as audio output backend
-- Use `RcUiNodeHandle` for context menus. This ensures that context menu will be destroyed when it is
-  not used anymore.
-- Fixed multiple lightmapping issues.
-- Fixed incorrect `sRGB` conversion for WASM.
-- Android support.
-- Ability to run the engine without graphics/window/sound by making these parts optional.
-- Update to latest `winit` + `glutin`.
-- Ability to change value in `NumericUpDown` widget by dragging
-- Removed "Scene Graph" item from world viewer + made breadcrumbs much more compact.
-- Put interaction mode panel on top of scene previewer.
-- Added ability to search assets in the asset browser.
-- `SearchBar` widget.
-- Ability to hide path text box in file browser widget.
-- Hide path field in the asset browser.
-- Tooltip for asset items in the asset browser that shows full asset path.
-- Improved simple tooltip style.
-- Optional ability to suppress closing menus by clicking on non-empty menu.
-- Added `No Scene` reminder in the editor and how to create/load a scene.
-- Editor UI style improvements.
-- `DrawingContext::push_arc+push_rounded_rect`
-- Ability to enable/disable debug geometry for camera/light sources.
-- Show indices of input sockets of ABSM nodes.
-- Keep animations enabled on import.
-- Blend space support.
-- Added help menu (with `Open Book` and `Open API Reference` items)
-- Ability to create special (much faster) bindings to position/scale/rotation of nodes in the animation
-  editor.
-- Ability to reimport animations in the animation editor.
-- New example: render to texture.
-- Audio bus graph.
-- Root motion support.
-- Audio panel rework to support audio bus graphs.
-- Sound effect API improvements.
-- Keep recent files list sorted and up-to-date.
-- Fixed incorrect sound panning in HRTF mode.
-- Ability to get unique material instances when cloning a surface.
-- Validation for sound node
-- Audio preview panel
-- Do not play sounds in the editor automatically. Sounds can only be played from the audio preview panel
-  instead. fixes the issue when you have a scene with multiple sounds, but since they're playing, their playback
-  position
-  changes and these changes sneak in the saved scene preventing from defining strict playback position
-- Ability to partially update global properties of a hierachy of nodes.
-- Do not crash if a root node in the previewer died.
-- Fixed deadlock when selecting object's property in animation editor.
-- Ability to set pre-generated particles in particle systems.
-- Provided access to standard shader names.
-- Print texture resource name when failed to create its GPU version.
-- Rebuild terrain's geometry on deserialization.
-- Automatic, reflection-based resource handle mapping.
-- Ability to ignore some type when doing property inheritance.
-- Support for hash maps in the property selector.
-- Expose material fields via reflection.
-- Keep flags of `ScrollBarMessage` when responding to value message.
-- Delegating implementation of `Debug` trait for `ImmutableString`.
-- Added reflection for hash maps.
-- Reflection system refactoring to support types with interior mutability (`Mutex`, `RefCell`, etc.)
-- Ability to rewind particle systems to a particular time.
-- Determinism for particle systems.
-- Fixed preview mode for particle systems.
-- Ability to "rewind" particle systems in particle system control panel.
-- Fixed `ParticleSystem::clear_particles` for emitters that does not resurrect their particles.
-- Fixed potential panic in formatted text on missing glyphs.
-- Supply `PluginContext` with performance statistics for the previous frame.
-- Property editor for `ColorGradient`s.
-- Simplified `color_over_lifetime` field in particle systems.
-- Improved color gradient API.
-- Fixed incorrect activation of transition/states during the preview mode in the ABSM editor.
-- Compound conditions for ABSM transitions
-- Fixed off-screen UI rendering compatibility with HDR pipeline.
-- Refactored scene node lifetime management - this mainly fixes the bug when a node with `Some(lifetime)` would crash
-  the editor. The same is applied to play-once sounds. `Node::update` now does not manage node's lifetime anymore,
-  instead
-  there's `Node::is_alive`.
-- Fixed incorrect handling of user-defined forces of rigid bodies. A body was pushed continuously using
-  previously set force.
-- Configurable size for light pictograms in the editor
-- `ActiveStateChanged` event now contains both previous and new states.
-- Message passing for scripts with multiple routing strategies
-- `Graph::find_map/find_up_map/find_up_by_name`
-- Improved `Graph::find_x` methods - returns `Option<(Handle<Node>, &Node)>` now, that removes another
-  borrow if there's a need to borrow it at a call site.
+
+- Arazi yükseklik haritası ve katman maskelerinin boyutunu değiştirme özelliği.
+
+- Arazinin herhangi bir tarafından parçalar ekleme özelliği.
+
+- Navmesh kenarını silerken meydana gelen çökme sorunu düzeltildi.
+
+- Paket açıklaması iyileştirildi.
+
+- Navmesh paneli varsayılan olarak yüzer hale getirildi + navmesh seçildiğinde açılır.
+
+- Navigasyon ağı yeniden düzenlendi.
+
+- Navigasyon mesh sahne düğümü.
+
+- Işık yoğunluğunu ışık eşlemecisine aktar.
+
+- `Executor` için “Headless” modu - çok oyunculu oyunların sunucu tarafı için uygun.
+
+- Editör penceresi simgesi eklendi.
+
+- Blend shape desteği.
+
+- Kenar çubuğu, görünüm açılır menüsünde denetleyici olarak değiştirildi.
+
+- Dönüştürme özellikleri için adım değerleri ayarlandı.
+
+- Vec editörü için sınırlar.
+
+- Genel `Vector<T,N>` özellik editörü.
+
+- VecN için min, max, step özellik öznitelikleri için destek eklendi.
+
+- İsteğe bağlı olarak ses çıkış cihazı oluşturma/yok etme özelliği.
+
+- Ses çıkışı arka ucu olarak `tinyaudio`'ya geçiş
+
+- Bağlam menüleri için `RcUiNodeHandle` kullanın. Bu, bağlam menüsünün artık kullanılmadığında yok edilmesini sağlar
+
+.
+
+- Birden fazla ışık eşleme sorunu düzeltildi.
+
+- WASM için yanlış `sRGB` dönüştürme düzeltildi.
+
+- Android desteği.
+
+- Bu parçaları isteğe bağlı hale getirerek motoru grafik/pencere/ses olmadan çalıştırma yeteneği.
+
+- En son `winit` + `glutin` sürümüne güncelleme.
+
+- Sürükleyerek `NumericUpDown` widget'ında değeri değiştirme
+
+- Dünya görüntüleyiciden “Sahne Grafiği” öğesi kaldırıldı + ekmek kırıntıları çok daha kompakt hale getirildi.
+
+- Etkileşim modu paneli sahne önizleyicinin üstüne yerleştirildi.
+
+- Varlık tarayıcısında varlıkları arama özelliği eklendi.
+
+- `SearchBar` widget'ı.
+
+- Dosya tarayıcı widget'ında yol metin kutusunu gizleme özelliği.
+
+- Varlık tarayıcısında yol alanını gizleme.
+
+- Varlık tarayıcısında varlık öğeleri için tam varlık yolunu gösteren araç ipucu.
+
+- Basit araç ipucu stili iyileştirildi.
+
+- Boş olmayan menüye tıklayarak menülerin kapanmasını engelleme seçeneği.
+
+- Editörde `No Scene` hatırlatıcısı ve sahne oluşturma/yükleme yöntemi eklendi.
+- `R32F` + `R16F` doku formatları.
+
+- İç doku veri depolamasını belirli bir türe yeniden yorumlamak için `data_of_type` yöntemleri.
+
+- Sahne düğümleri için hata ayıklama çizimi.
+
+- Sahne için yapılandırılabilir poligon rasterleştirme modu (yalnızca gbuffer).
+
+- Katı ve tel kafes renderleme arasında seçim yapmak için poligon rasterleştirme modunu ayarlama yeteneği.
+
+- Çizilecek öğe aralığını kabul etmek için `Framebuffer::draw_x` yöntemlerini zorlama.
+
+- Araziler için uygun culling.
+
+- Yeniden düzenlenmiş render: sahne düğümleri artık renderer'a veri sağlayabilir. `NodeTrait::collect_render_data` artık
+
+renderer'a veri sağlamak için kullanılır.
+
+- Toplu oluşturma artık kamera başına (gölgeler için ışık kaynakları dahil) yapılır.
+
+- Alt öğenin global konumunu ve dönüşünü koruyarak düğümleri bağlamak için bir yöntem eklendi.
+
+- Araziler için LOD'lar.
+
+- Çarpışan şekil değerleri için sınırlar.
+
+- `Graph::begin_multi_borrow` için belge örneği eklendi.
+
+- Farklı örnekleyici türlerine sahip malzemelerle renderlama yaparken örnekleyici türü çarpışması düzeltildi.
+
+- Yeni bir örnekleyiciye ayarlandığında diğer örnekleyicilerden doku bağlantısı kaldırılır.
+
+- Yarım float dokular + sabit hacimli doku mip haritaları düzeltildi.
+
+- `RGB16F` doku formatı.
+
+- “Sınırsız” kemik matrisleri için doku tabanlı matris depolama kullanın. Yüzey başına matris sayısını 64'ten
+
+255'e yükseltir.
+
+- Doku hizalama sorunları düzeltildi.
+
+- Doku verilerini değiştirirken doğru örnekleyici indeksini kullanın.
+
+- Verilerini değiştirirken doku için yeni mip sayısı ayarlayın.
+
+- Doku bağlama hatası düzeltildi.
+
+- Kemik matrisleri için yeterli alan olmadığında panik yerine uyarı verilir.
+
+- IDE'lerde karışıklığı önlemek için `visitor::Node` adını `visitor::VisitorNode` olarak değiştirin.
+
+- `InheritableVariable::take`
+
+- Arazi yükseklik haritası ve katman maskelerinin boyutunu değiştirme özelliği.
+
+- Arazinin herhangi bir tarafından parçalar ekleme özelliği.
+
+- Navmesh kenarını silerken meydana gelen çökme sorunu düzeltildi.
+
+- Paket açıklaması iyileştirildi.
+
+- Navmesh paneli varsayılan olarak yüzer hale getirildi + navmesh seçildiğinde açılır.
+
+- Navigasyon ağı yeniden düzenlendi.
+
+- Navigasyon mesh sahne düğümü.
+
+- Işık yoğunluğunu ışık eşlemecisine aktar.
+
+- `Executor` için “Headless” modu - çok oyunculu oyunların sunucu tarafı için uygun.
+
+- Editör penceresi simgesi eklendi.
+
+- Blend shape desteği.
+
+- Kenar çubuğu, görünüm açılır menüsünde denetleyici olarak değiştirildi.
+
+- Dönüştürme özellikleri için adım değerleri ayarlandı.
+
+- Vec editörü için sınırlar.
+
+- Genel `Vector<T,N>` özellik editörü.
+
+- VecN için min, max, step özellik öznitelikleri için destek eklendi.
+
+- İsteğe bağlı olarak ses çıkış cihazı oluşturma/yok etme özelliği.
+
+- Ses çıkışı arka ucu olarak `tinyaudio`'ya geçiş
+
+- Bağlam menüleri için `RcUiNodeHandle` kullanın. Bu, bağlam menüsünün artık kullanılmadığında yok edilmesini sağlar
+
+.
+
+- Birden fazla ışık eşleme sorunu düzeltildi.
+
+- WASM için yanlış `sRGB` dönüştürme düzeltildi.
+
+- Android desteği.
+
+- Bu parçaları isteğe bağlı hale getirerek motoru grafik/pencere/ses olmadan çalıştırma yeteneği.
+
+- En son `winit` + `glutin` sürümüne güncelleme.
+
+- Sürükleyerek `NumericUpDown` widget'ında değeri değiştirme
+
+- Dünya görüntüleyiciden “Sahne Grafiği” öğesi kaldırıldı + ekmek kırıntıları çok daha kompakt hale getirildi.
+
+- Etkileşim modu paneli sahne önizleyicinin üstüne yerleştirildi.
+
+- Varlık tarayıcısında varlıkları arama özelliği eklendi.
+
+- `SearchBar` widget'ı.
+
+- Dosya tarayıcı widget'ında yol metin kutusunu gizleme özelliği.
+
+- Varlık tarayıcısında yol alanını gizleme.
+
+- Varlık tarayıcısında varlık öğeleri için tam varlık yolunu gösteren araç ipucu.
+
+- Basit araç ipucu stili iyileştirildi.
+
+- Boş olmayan menüye tıklayarak menülerin kapanmasını engelleme seçeneği.
+
+- Editörde `No Scene` hatırlatıcısı ve sahne oluşturma/yükleme yöntemi eklendi.
 
 # 0.29
 
-- Animation system rework.
-- Animation Editor.
-- Animation Blending State Machine Editor.
-- Fixed potential crash when joint was initialized earlier than connected rigid bodies.
-- Model instantiation scaling now used for prefab preview.
-- Fixed lots of potential sources of panic in perspective and ortho projections.
-- Fixed editor's camera movement speed setting for 3D mode.
-- Standard "two-side" shader - useful for foliage and grass.
-- Sprite sheet editor
-- Support for `Vector(2/3/4)<f32/f64/u8/i8/u16/i16/u32/i32/u64/i64>` types in serializer.
-- Sprite sheet animation now uses frames coordinates instead of explicit uv rectangles for each frame.
-- Sprite sheet animation now has a texture associated with it.
-- Fixed reflection fallback in case of missing field setter.
-- Ability to set uv rect for Image widget
-- Scene settings window for the editor - gives you an ability to edit scene settings: change
-  physics integration parameters, ambient lighting color, various flags, etc.
-- Prevent crash when adding a new surface to a Mesh node in the editor
-- Fixed directory/file duplicates in file browser widget when double-clicking on an item.
-- Show use count for materials in Inspector
-- Replace `Arc<Mutex<Material>>` with `SharedMaterial` new-type.
-- Ability to assign a unique copy of a material to an object.
-- Replace `Arc<Mutex<Material>>` with `SurfaceSharedData`
-- Clear collections before deserialization
-- Property inheritance for collections
-- Fixed incorrect material replacement when loading a scene with an FBX with custom materials.
-- Added Blender material slots names in FBX loader
-- Access to `procedural` flag for `SurfaceData`
-- Property editor for mesh's surface data.
-- Validation for scene nodes
-  - Helps to find invalid cases like:
-  - Missing joint bodies or invalid types of bodies (i.e. use 2d rigid body for 3d joint)
-  - Wrongly attached colliders (not being a child of a rigid body)
-  - Shows small exclamation mark if there's something wrong with a node
-- Share tooltip across widgets on clone
-- Fixed color picker: brightness-saturation grid wasn't visible
-- Added support for Collider intersection check (kudos to [@Thomas Hauth](https://github.com/ThomasHauth))
-- Animation system refactoring
-  - Use curves for numeric properties.
-  - Ability to animate arbitrary numeric properties via reflection.
-- Prevent crash in case of invalid node handle in animation
-- `Curve::value_at` optimization - 2x performance improvement of using binary search for spans.
-- `Curve::add_key` optimized insertion using binary search.
-- Node Selector widget - allows you to pick a node from a scene.
-- Merge `Inspect` trait functionality into `Reflect` trait - it is now possible to obtain fields metadata
-  while iterating over them.
-- Property Selector widget - allows you to pick a property path from an object that supports `Reflect` trait.
-- `Reflect` implementation for `Uuid`
-- `fyrox::gui::utils::make_cross` - small helper to create a vector image of a cross
-- `FieldInfo::type_name` - allows to get type name of a field without using unstable
-  `std::any::type_name_of_val`
-- `PathVertex::g_score` penalty for A\* pathfinding (kudos to [@cordain](https://github.com/Cordain))
-- Added `Default`, `Debug`,`Clone` impls for `RawMesh`
-- Name and uuid for `Curve`
-- Send curve when adding new keys in the `CurveEditor` widget
-- Preserve curve and keys id in the curve editor widget
-- Correctly wrap `Audio Panel` in docking manager tile (kudos to [@iRaiko](https://github.com/iRaiko))
-- `AsyncSceneLoader` - cross-platform (wasm included) asynchronous scene loader
-- Added support for wasm in fyrox-template - now fyrox-template generates `executor-wasm` crate which is a special
-  version of executor for webassembly
-- Non-blocking resource waiting before processing scene scripts
-- Added missing property editor for sound status
-- Sync sound buffer first, then playback position
-- Property editor for `Machine` type.
-- Rectangle+RectangleFilled primitives for `VectorImage` widget
-- Draw x values in curve editor widget at the top of the view
-- Ability to show/hide axes values in the curve editor widget
-- Use messages to modify view position and zoom in the curve editor (helps to catch the moment when zoom or view
-  position changes)
-- Fixed UI messages not being passed to plugins based on when they happened during frame (kudos to
-  [@bolshoytoster](https://github.com/bolshoytoster))
-- Ability to explicitly set animation time slice instead of length.
-- Cloning a node now produces exact clone.
-- Ability to set min, max values, step, precision for numericupdown widget
-- Prevent panic when trying to iterate over pool items using reflection
-- Split `Model::retarget_animations` in two separate methods
-- Smart movement move for move gizmo (kudos to [@Zoltan Haindrich](https://github.com/kgyrtkirk))
+- Animasyon sistemi yeniden çalışıldı.
+
+- Animasyon Editörü.
+
+- Animasyon Karıştırma Durum Makinesi Editörü.
+
+- Bağlantılı katı cisimlerden önce eklem başlatıldığında meydana gelen olası çökme sorunu düzeltildi.
+
+- Model örneklendirme ölçeklendirme artık prefab önizleme için kullanılıyor.
+
+- Perspektif ve orto projeksiyonlarda birçok olası panik kaynağı düzeltildi.
+
+- 3D modu için editörün kamera hareket hızı ayarı düzeltildi.
+
+- Standart “iki taraflı” gölgelendirici - yapraklar ve çimler için kullanışlıdır.
+
+- Sprite sayfası editörü
+
+- Dizicideki `Vector(2/3/4)<f32/f64/u8/i8/u16/i16/u32/i32/u64/i64>` türleri için destek.
+
+- Sprite sayfası animasyonu artık her kare için açık uv dikdörtgenleri yerine kare koordinatlarını kullanıyor.
+
+- Sprite sayfası animasyonuna artık bir doku eşleştirildi.
+
+- Alan ayarlayıcısının eksik olması durumunda yansıma geri dönüşü düzeltildi.
+
+- Image widget için uv dikdörtgeni ayarlama özelliği
+
+- Editör için sahne ayarları penceresi - sahne ayarlarını düzenleme olanağı sağlar:
+
+fizik entegrasyon parametrelerini, ortam aydınlatma rengini, çeşitli bayrakları vb. değiştirin.
+
+- Editörde Mesh düğmesine yeni bir yüzey eklerken çökmeyi önleyin
+
+- Bir öğeye çift tıkladığında dosya tarayıcı widget'ında dizin/dosya yinelemeleri düzeltildi.
+
+- Denetçi'de malzemelerin kullanım sayısını göster
+
+- `Arc<Mutex<Material>>` öğesini `SharedMaterial` yeni türüyle değiştir.
+
+- Bir malzemenin benzersiz bir kopyasını bir nesneye atama yeteneği.
+
+- `Arc<Mutex<Material>>` öğesini `SurfaceSharedData` ile değiştir
+
+- Serileştirme öncesinde koleksiyonları temizle
+
+- Koleksiyonlar için özellik mirası
+
+- Özel malzemeler içeren bir FBX ile sahne yüklenirken yanlış malzeme değiştirme sorunu düzeltildi.
+
+- FBX yükleyiciye Blender malzeme yuvaları adları eklendi
+
+- `SurfaceData` için `procedural` bayrağına erişim
+
+- Mesh'in yüzey verileri için özellik düzenleyici.
+
+- Sahne düğümleri için doğrulama
+
+- Aşağıdaki gibi geçersiz durumları bulmaya yardımcı olur:
+- Eksik bağlantı gövdeleri veya geçersiz gövde türleri (örneğin, 3B bağlantı için 2B rijit gövde kullanılması)
+
+- Yanlış eklenmiş çarpışmalar (rijit gövdenin alt öğesi olmaması)
+
+- Bir düğümde bir sorun varsa küçük ünlem işareti gösterilir
+
+- Klonlama sırasında widget'lar arasında araç ipucu paylaşımı
+
+- Renk seçici düzeltildi: parlaklık-doygunluk ızgarası görünmüyordu
+
+- Çarpışan nesnelerin kesişim kontrolü için destek eklendi (teşekkürler [@Thomas Hauth](https://github.com/ThomasHauth))
+
+- Animasyon sistemi yeniden düzenlendi
+
+- Sayısal özellikler için eğriler kullanın.
+
+- Yansıma yoluyla rastgele sayısal özellikleri canlandırma yeteneği.
+
+- Animasyonda geçersiz düğüm tanıtıcısı durumunda çökmeyi önleme
+
+- `Curve::value_at` optimizasyonu - Aralıklar için ikili arama kullanarak 2 kat performans artışı.
+
+- `Curve::add_key` ikili arama kullanarak ekleme optimizasyonu.
+
+- Düğüm Seçici widget - sahneden bir düğüm seçmenizi sağlar.
+
+- `Inspect` özelliğini `Reflect` özelliğine birleştirin - artık alanları yinelerken alan meta verilerini elde etmek mümkündür
+
+- Özellik Seçici widget - `Reflect` özelliğini destekleyen bir nesneden bir özellik yolu seçmenizi sağlar.
+
+- `Uuid` için `Reflect` uygulaması
+
+- `fyrox::gui::utils::make_cross` - bir haç vektör görüntüsü oluşturmak için küçük yardımcı program
+
+- `FieldInfo::type_name` - kararsız
+
+`std::any::type_name_of_val`
+
+kullanmadan bir alanın tür adını almayı sağlar - A\* yol bulma için `PathVertex::g_score` cezası (teşekkürler [@cordain](https://github.com/Cordain))
+
+- `RawMesh` için `Default`, `Debug`,`Clone` impl'leri eklendi
+
+- `Curve` için isim ve uuid
+
+- `CurveEditor` widget'ına yeni anahtarlar eklendiğinde eğri gönder
+
+- Eğri düzenleyici widget'ında eğri ve anahtar kimliklerini koru
+
+- `Audio Panel`'i yerleştirme yöneticisi döşemesinde doğru şekilde sar (teşekkürler [@iRaiko](https://github.com/iRaiko))
+
+- `AsyncSceneLoader` - çapraz platform (wasm dahil) asenkron sahne yükleyici
+
+- Fyrox-template'de wasm desteği eklendi - artık fyrox-template, webassembly için özel bir
+
+executor sürümü olan `executor-wasm` crate'i oluşturuyor
+
+- Sahne komut dosyalarını işlemeden önce engellemeyen kaynak bekleme
+
+- Ses durumu için eksik özellik düzenleyicisi eklendi
+
+- Önce ses arabelleğini senkronize et, ardından oynatma konumunu
+
+- `Machine` türü için özellik editörü.
+
+- `VectorImage` widget'ı için Rectangle+RectangleFilled ilkelleri
+
+- Görünümün üst kısmındaki eğri editörü widget'ında x değerlerini çiz
+
+- Eğri editörü widget'ında eksen değerlerini gösterme/gizleme özelliği
+
+- Eğri editöründe görünüm konumunu değiştirmek ve yakınlaştırmak için mesajlar kullan (yakınlaştırma veya görünüm
+
+konumu değiştiğinde anı yakalamaya yardımcı olur)
+
+- Çerçeve sırasında ne zaman oluştuklarına bağlı olarak eklentilere iletilmeyen UI mesajları düzeltildi (teşekkürler
+
+[@bolshoytoster](https://github.com/bolshoytoster))
+
+- Uzunluk yerine animasyon zaman dilimini açıkça ayarlama yeteneği.
+
+- Bir düğümün klonlanması artık tam bir klon oluşturur.
+
+- Numericupdown widget için min, max değerleri, adım ve hassasiyet ayarlama özelliği
+
+- Yansıma kullanarak havuz öğeleri üzerinde yineleme yapmaya çalışırken paniği önleme
+
+- `Model::retarget_animations` iki ayrı yönteme bölünmesi
+
+- Move gizmo için akıllı hareket (teşekkürler [@Zoltan Haindrich](https://github.com/kgyrtkirk))
+
 - `Reflect::set_field_by_path`
-- Ability to add zones for highlighting in the `CurveEditor`
-- Ability to zoom non-uniformly via shift or ctrl pressed during zooming in the `CurveEditor` widget
-- Animation signals rework
-  - uuid instead of numeric identifier
-  - added name for signals
-  - removed getters/setters
-  - added more signal management methods
+
+- `CurveEditor`'da vurgulamak için bölgeler ekleme özelliği
+
+- `CurveEditor` widget'ında yakınlaştırma sırasında shift veya ctrl tuşlarına basarak düzgün olmayan yakınlaştırma yapma özelliği
+
+- Animasyon sinyalleri yeniden düzenlendi
+
+- Sayısal tanımlayıcı yerine uuid
+
+- Sinyaller için isim eklendi
+
+- Alıcılar/ayarlayıcılar kaldırıldı
+
+- Daha fazla sinyal yönetimi yöntemi eklendi
+
 - `Animation::pop_signal`
-- Refactored animation blending state machine to support animation layers
-- `Visit` impl for `HashSet`
-- Ability to set layer mask in the absm editor
-- Added animation system documentation.
+
+- Animasyon katmanlarını desteklemek için animasyon karıştırma durum makinesi yeniden düzenlendi
+- `HashSet` için `Visit` impl
+
+- absm düzenleyicide katman maskesi ayarlama özelliği
+
+- Animasyon sistemi belgeleri eklendi.
+
 - `Graph::try_get_of_type+try_get_mut_of_type`
-- Rename `InheritableVariable` methods to remove ambiguity
+
+- Belirsizliği gidermek için `InheritableVariable` yöntemlerinin adı değiştirildi
+
 - `Model::retarget_animations_to_player`
-- Use correct property editor for `PoseWeight`
-- Show handles of absm entities in the editor
-- Show more info on absm nodes
-  - PlayAnimation nodes shows name of the animation
-  - blend nodes shows the amount of animations blended
+
+- `PoseWeight` için doğru özellik editörünü kullan
+- Editörde absm varlıklarının tutamaçlarını göster
+
+- absm düğümleri hakkında daha fazla bilgi göster
+
+- PlayAnimation düğümleri animasyonun adını göster
+
+- blend düğümleri karıştırılan animasyonların miktarını göster
+
 - `AnimationContainer::find_by_name_ref/mut`
-- Ability to search various animation entities by their names
-- Add more information to panic messages in `fyrox-template` (kudos to [@lenscas](https://github.com/lenscas))
-- Check for reserved names in `fyrox-template` (kudos to [@TheEggShark](https://github.com/TheEggShark))
-- Ability to enable/disable scene nodes
-- Basic support for headless mode for server part of games (kudos to [@martin-t](https://github.com/martin-t))
-- Removed `Scene::remove_node`
-- Rename `NodeTrait::clean_up` -> `NodeTrait::on_removed_from_graph`
-- Fixed colorization in the world viewer
-- Ability to disable steps of update pipeline of the graph
-- Preview mode for animation player, animation blending state machine, particle system nodes.
-- Rename colliding `ParticleSystem::set_enabled` method to `play`
-- Particle system preview control panel
-- Property editor for `Uuid` type.
-- Restrict `Reflect` trait on `Debug`.
-- Optional ability to `Copy Value as String` for properties in `Inspector` widget
-- Pass animation signal name to animation event - makes much easier to respond to multiple animation events with the
-  same name
-- Ability to maximize ui windows
+
+- Çeşitli animasyon varlıklarını adlarına göre arama yeteneği
+
+- `fyrox-template` içindeki panik mesajlarına daha fazla bilgi ekleyin (teşekkürler [@lenscas](https://github.com/lenscas))
+
+- `fyrox-template` içinde ayrılmış isimleri kontrol edin (teşekkürler [@TheEggShark](https://github.com/TheEggShark))
+
+- Sahne düğümlerini etkinleştirme/devre dışı bırakma özelliği
+
+- Oyunların sunucu kısmı için başsız mod için temel destek (teşekkürler [@martin-t](https://github.com/martin-t))
+
+- `Scene::remove_node` kaldırıldı
+
+- `NodeTrait::clean_up` -> `NodeTrait::on_removed_from_graph` olarak yeniden adlandırıldı
+
+- Dünya görüntüleyicide renklendirme düzeltildi
+
+- Grafiğin güncelleme ardışık düzeninin adımlarını devre dışı bırakma özelliği
+
+- Animasyon oynatıcı, animasyon karıştırma durum makinesi ve parçacık sistemi düğümleri için önizleme modu.
+
+- Çarpışan `ParticleSystem::set_enabled` yönteminin adı `play` olarak değiştirildi
+
+- Parçacık sistemi önizleme kontrol paneli
+
+- `Uuid` türü için özellik düzenleyici.
+
+- `Reflect` özelliğini `Debug` ile sınırlandır.
+
+- `Inspector` widget'ındaki özellikler için `Değeri Dize Olarak Kopyala` seçeneği
+
+- Animasyon sinyali adını animasyon olayına aktar - aynı ada sahip birden fazla animasyon olayına yanıt vermeyi çok daha kolay hale getirir
+
+-
+
+UI pencerelerini maksimize etme özelliği
+
 - `Animation::take_events`
+
 - `Reflect::type_name`
-- Show type name of selected object in the inspector
-- Fixed multiple nodes parenting in the world viewer
-- Apply grid snapping when instantiating a prefab
-- Added range selection for tree widget (Shift + Click)
-- Docking manager now collapses tiles when closing a docked window
-- Improved search bar style in the world viewer
-- Improved breadcrumbs in the world viewer
-- `HotKey` + `KeyBinding` + respective property editors
-- Ability to change editor controls.
+
+- Seçilen nesnenin tür adını denetçide göster
+
+- Dünya görüntüleyicide birden fazla düğümün ebeveynlik sorunu düzeltildi
+
+- Prefab oluştururken ızgara yapıştırma özelliği eklendi
+
+- Ağaç widget'ı için aralık seçimi eklendi (Shift + Tıklama)
+
+- Yerleştirme yöneticisi, yerleştirilmiş bir pencereyi kapatırken artık döşemeleri daraltıyor
+
+- Dünya görüntüleyicide arama çubuğu stili iyileştirildi
+
+- Dünya görüntüleyicide ekmek kırıntıları iyileştirildi
+
+- `HotKey` + `KeyBinding` + ilgili özellik düzenleyicileri
+
+- Düzenleyici kontrollerini değiştirme özelliği.
 
 # 0.28
 
-- Preview for prefab instantiation.
-- Drag preview nodes are now input-transparent.
-- Expand/collapse trees by double click.
-- Fixed move/rotate/scale gizmo behaviour for mouse events.
-- Fixed fallback to defaults when editor's config is corrupted.
-- Save `Track Selection` option in the editor's config.
-- Clear breadcrumbs when changing scene in the editor.
-- Fixed 1-frame delay issues in the editor.
-- Emit MouseUp message before Drop message.
-- Fixed UI "flashing" in the editor in some cases.
-- Do not silently discard UI messages from nodes that were already be deleted.
-- Show node handle in breadcrumbs in the editor.
-- Provide direct read-only access to current dragging context in UI.
-- Fixed crash when trying to select a node by invalid handle in the editor.
-- Highlight invalid handles in the Inspector.
-- Discard "leftover" debug geometry when undoing actions in the editor.
-- Some menus in the editor now more intuitive now.
-- Fixed critical bug with incorrect unpack alignment for RGB textures - this causes hard crash in some
-  cases.
-- Do not try to reload a resource if it is already loading.
-- Ability to set desired frame rate for `Executor` (default is 60 FPS).
-- Ability to paste editor's clipboard content to selected node (paste-as-child functionality).
-- Ability to render into transparent window while keeping the transparency of untouched pixels (see
-  `transparent` example).
-- Ability to specify custom window builder in `Executor` + a way to disable vsync in `Executor`.
-- `MultiBorrowContext` for `Pool` and `Graph::begin_multi_borrow`, helps you to borrow multiple mutable
-  references to different items.
-- Speed up code generation in proc-macros.
-- Correctly map handles in instances after property inheritance (fixed weird bugs when handles to nodes
-  in your scripts mapped to incorrect ones)
-- Refactored script processing:
-  - Added `ScriptTrait::on_start` - it is guaranteed to be called after all scripts in scene are initialized, useful
-    when a script depends on some other script
-  - Script processing is now centralized, not scattered as before.
-  - More deterministic update path (`on_init` -> `on_start` -> `on_update` -> `on_destroy`)
-- Fixed crash when modifying text in a text box via message and then trying to type something.
+- Prefab oluşturma önizlemesi.
+
+- Önizleme düğümleri artık giriş açısından şeffaftır.
+
+- Çift tıklayarak ağaçları genişletin/daraltın.
+
+- Fare olayları için taşıma/döndürme/ölçeklendirme gizmo davranışı düzeltildi.
+
+- Editörün yapılandırması bozulduğunda varsayılanlara geri dönme sorunu düzeltildi.
+
+- Editörün yapılandırmasında `Seçimleri Kaydet` seçeneği eklendi.
+
+- Editörde sahne değiştirildiğinde ekmek kırıntıları temizlenir.
+
+- Editörde 1 kare gecikme sorunu düzeltildi.
+
+- Bırakma mesajından önce Fare Bırakma mesajı gönderilir.
+
+- Bazı durumlarda editördeki UI “yanıp sönmesi” sorunu düzeltildi.
+
+- Zaten silinmiş düğümlerden gelen UI mesajları sessizce atılmasın.
+
+- Düğüm tanıtıcıları editördeki ekmek kırıntılarında gösterilsin.
+
+- UI'da mevcut sürükleme bağlamına doğrudan salt okunur erişim sağlanın.
+
+- Editörde geçersiz tanıtıcıyla bir düğüm seçilmeye çalışıldığında çökme sorunu düzeltildi.
+
+- Geçersiz tanıtıcılar Denetçi'de vurgulanın.
+
+- Editörde eylemleri geri alırken “kalan” hata ayıklama geometrisini atın.
+- Editördeki bazı menüler artık daha sezgisel.
+
+- RGB dokular için yanlış paket açma hizalamasıyla ilgili kritik hata düzeltildi - bu, bazı
+
+durumlarda sert çökmelere neden oluyordu.
+
+- Zaten yüklenmekte olan bir kaynağı yeniden yüklemeye çalışmayın.
+
+- `Executor` için istenen kare hızını ayarlama özelliği (varsayılan 60 FPS).
+
+- Editörün panosundaki içeriği seçilen düğüme yapıştırma özelliği (alt öğe olarak yapıştırma işlevi).
+
+- Dokunulmamış piksellerin şeffaflığını koruyarak şeffaf pencereye render etme özelliği (bkz.
+
+`transparent` örneği).
+
+- `Executor`'da özel pencere oluşturucu belirleme özelliği + `Executor`'da vsync'i devre dışı bırakma yöntemi.
+
+- `Pool` ve `Graph::begin_multi_borrow` için `MultiBorrowContext`, farklı öğelere birden fazla değiştirilebilir
+
+referans ödünç almanıza yardımcı olur.
+
+- Proc-makrolarda kod oluşturma hızı artırıldı.
+
+- Özellik mirasından sonra örneklerdeki tanıtıcıları doğru şekilde eşler (komut dosyalarındaki düğümlere ait tanıtıcıların
+
+yanlış tanıtıcılarla eşlenmesi sorunu giderildi)
+
+- Komut dosyası işleme yeniden düzenlendi:
+
+- `ScriptTrait::on_start` eklendi - sahnedeki tüm komut dosyaları başlatıldıktan sonra çağrılması garanti edilir, bir komut dosyası başka bir komut dosyasına bağlı olduğunda kullanışlıdır
+
+- - Komut dosyası işleme artık merkezi hale getirildi, eskisi gibi dağınık değil.
+
+  - Daha belirleyici güncelleme yolu (`on_init` -> `on_start` -> `on_update` -> `on_destroy`)
+
+- Mesaj yoluyla bir metin kutusundaki metni değiştirdikten sonra bir şey yazmaya çalıştığında meydana gelen çökme düzeltildi.
+
 - `ButtonBuilder::with_text_and_font`
-- Show node names in for fields of `Handle<Node>` fields of structs in the editor.
-- Fixed crash in the editor when a script has resource field.
-- Ability to clone behaviour trees.
-- Automatic node handle mapping via reflection.
-- Removed `ScriptTrait::remap_handles` method.
-- Pass elapsed time to scripts.
-- Do not call `ScriptTrait::on_os_event` if scene is disabled.
-- Make world viewer filtering case-insensitive.
-- Correctly set self handle and sender for graph's root node.
-- `#[inline]` attributes for "hot" methods.
-- Fixed panic when rigid body is a root node of a scene.
-- `Base::has_script` + `Base::try_get_script` + `Base::try_get_script_mut` helper methods, it is now easier
-  to fetch scripts on scene nodes.
-- Ability to change selected node type in the editor (useful to change scene root type).
-- Optimized script trait parameter passing, script context now passed by reference instead of value.
-- Script context now have access to all plugins, which makes possible create cross plugin interaction.
-- Removed requirement of scripts api to provide parent plugin's uuid.
-- There is no more need to define uuid for plugins.
-- Do not update scene scripts if it is disabled.
-- `Graph::find_first_by_script` - helps you find a node by its script type.
-- Added missing property editors for `Inspector` widget.
-- Save editor's scene camera settings (position, orientation, zoom, etc.) per scene.
-- Skip-chars list to be able to treat some chars like white space.
-- Optional text shadow effect.
-- Ctrl+Shift+Arrow to select text word-by-word in text box widget.
-- Added navmesh settings to editor's settings panel.
-- Make text box widget to accept text messages + special messages for text box widget.
-- Set 500 ms double click interval (previously it was 750 ms).
-- Fixed text selection in case of custom ui scaling.
-- Fixed `TextBox::screen_pos_to_text_pos` - incorrect usage of `char_code` as index was leading to incorrect screen
-  position to text position mapping.
-- Ability to scroll text in the text box widget.
-- `Rect::with_position` + `Rect::with_size` methods.
-- Fixed caret position when removing text from text box in specific cases.
-- Fixed crash when typing spaces at the end of text box with word wrap.
-- Fixed caret position when adding text to the multiline text box widget.
-- Fixed new line addition in the text box widget.
-- Ability to select words (or whitespace spans) in the text box by double click.
-- Emit double click after mouse down event (not before).
-- Fixed caret blinking in the text box widget for various scenarios.
-- Ctrl+LeftArrow and Ctrl+RightArrow to skip words in the text box widget.
-- Allow setting caret position in the text box widget by clicking outside of line bounds.
-- `raycast2d` example.
-- Fixed text deletion in text box by `Delete` key + selection fixes.
-- Fixed selection by Ctrl+Home, Ctrl+End in the text box widget.
-- Fixed selected text highlighting in the text box widget.
-- Fixed panic when Ctrl+C in a text box when selection is right-to-left.
-- Ability to focus/unfocus a widget by sending a message.
-- Added `TextBox` example.
-- Removed `is_modified` flag from `PropertyInfo`.
-- Ability to revert inherited property to parent's prefab value.
-- Replaced manual property inheritance with reflection.
-- Added `fields` and `fields_mut` for `Reflect` trait.
-- Property inheritance for scripts.
-- Ability to extract selection as a prefab.
-- Fixed tooltips for complex properties in `Inspector` widget.
-- Allow selecting build profile when running a game from the editor.
-- `NodeHandle` wrapper to bypass some limitations of `Inspector` widget.
-- Return result instead of unwrap and panic in `make_relative_path` - fixed some issues with symlinks in the
-  editor.
-- Added missing `Reflect` implementation for scripts made in `fyrox-template`.
-- Added dependencies optimization for projects generated in `fyrox-template`.
-- Provided access to some sound engine methods to plugins (`set_sound_gain` and `sound_gain`)
-- Fixed style for ArrayPropertyEditor widget.
-- Do not emit events for disabled animation signals.
-- Sprite sheet animations with signals.
-- Fixed terrain rendering - there's no more seams between layers with skybox content.
-- Ability to set blending equation in draw parameters in the renderer.
-- Ability to set blend function separately for RGB and Alpha in the renderer.
-- Ignore invisible menus when closing menu chain by out-of-bounds click.
-- Make some buttons in the editor smaller and less bright, add more tooltips.
-- Use images for `Expand all`, `Collapse all`, `Locate Selection` buttons in world viewer.
-- Fixed potential infinite loops when performing some math operations.
-- Smoothing for cascaded shadow maps.
-- Fixed script property editor - no more weird bugs in the editor when setting/editing/removing scripts from
-  a node.
-- Fixed cascaded shadow maps for directional lights.
-- Added `Frustum::center` method.
-- Fixed list of panels in `View` menu in the editor.
-- Create tool tips for interaction modes hidden by default.
-- Reload settings when reconfiguring the editor.
-- Added list of recent scenes to `File` menu in the editor - makes easier to switch between most used scenes.
-- Ability to add, remove, set items for `MenuItem` widget
-- Correctly highlight selected interaction mode button
-- More hotkeys for the editor
-  - `[5]` - activate navmesh edit mode
-  - `[6]` - activate terrain edit mode
-- Ability to set `Selected` flag to `Decorator` widget on build stage
-- Added `Invert drag` option for camera settings in the editor.
-- Fixed incorrect rendering of `Luminance` and `LuminanceAlpha` textures.
-- Fixed closing menus by clicking outside them.
-- Direct access to all fields in all widgets.
-- Force `TextBox` widget to consume all input messages, this fixes hot keys triggering in the editor while
-  typing something in text fields.
 
-# 0.27.1
+- Düzenleyicide yapıların `Handle<Node>` alanlarının alanlarında düğüm adlarını gösterir.
 
-- Fixed `Operation failed! Reason: Modify { value: dyn Reflect }` error.
-- Fixed inability to edit properties of 2d collider shape
-- Fixed inability to edit some properties of Joint2D.
-- Added property editor for `Color Grading Lut` property of the Camera node.
-- Fixed panic when editing cascades properties of directional light.
-- Prevent panic when there's invalid bone handle.
-- Hide `data` field from inspector for Surface, because it has no proper property editor.
-- Fixed terrain layer deletion from the Inspector.
+- Bir komut dosyasında kaynak alanı olduğunda düzenleyicide meydana gelen çökme sorunu düzeltildi.
 
-# 0.27
+- Davranış ağaçlarını klonlama özelliği eklendi.
 
-- Added compile-time reflection (huge thanks to [@toyboot4e](https://github.com/toyboot4e))
-- Most editor commands were removed and replaced by universal command based on reflection.
-- Backward compatibility for native engine data formats was dropped - use FyroxEd 0.13 to convert your scenes to newer
-  version.
-- Fixed panic when loading an FBX model with malformed animation curves (when there is only 1 or 2 components animated
-  instead of 3, X and Y, but not Z for example).
-- ABSM editor now have smaller default size and fits on small screens.
-- Asset previewer now plays model animations
-- Fixed critical FBX importer bug, that caused malformed animations.
-- Ability to define "playable" time slice for animations.
-- Fixed editor update rate, previously it was very high and that caused some weird issues.
-- Proper support for all resource types in Inspector
-- Show ABSM resources in the asset browser
-- Ability to edit sound import options in the asset browser
-- Dynamic type casting for script instances
-- Provide access to parameters in ABSM
-- Fixed transition instantiation in ABSM - it incorrectly handled "invert rule" flag.
-- Prevent panic when deleting a node from script methods.
-- Dynamic type casting for plugin instances
-- Two-step ABSM instantiation - at first step you load all animations in parallel (async) and on second step you
-  create actual ABSM instance.
-- Wait for all resources to load before initialize scripts - this prevents panicking when trying to access
-  not yet loaded resource in script methods.
-- Default instantiation scaling options for 3D models - allows you to scale 3D models automatically on instantiation.
-- Graph event broadcaster - allows you to receive `Added` and `Removed` events for nodes.
-- Correctly initialize scripts of nodes that created at runtime.
-- Component provider for scripts - allows you to provide access to inner script components via unified interface.
-- Disable automatic texture compression - having compression enabled for all kinds of textures is not good, because
-  there could be some textures with gradients, and they'll have significant distortion.
-- `Pool::drain` - allows you to remove all objects from a pool while processing every object via closure.
-- `Script::on_deinit` - allows you to execute any code for cleanup.
-- Added `NodeHandleMap` - a small wrapper over map that have some methods that makes node handle mapping much
-  shorter.
-- Correctly handle missing properties in Inspector for various objects.
-- Provide access to main application window from plugins.
-- Allow chaining `ScriptConstructorContainer::add` calls
-- Removed `screen_size` parameter from `UserInterface::new`
-- Ability to remove render passes.
-- Run the game in a separate process from the editor.
-- Provide access to default engine's user interface instance for plugins.
-- `--override-scene` parameter for Executor
-- `ButtonContent` improvements - it is now possible to re-create button's text field using `ButtonMessage::Content`
-- Provide access to control flow switch for plugins.
+- Yansıma yoluyla otomatik düğüm tanıtıcı eşleme.
+
+- `ScriptTrait::remap_handles` yöntemi kaldırıldı.
+
+- Geçen süreyi komut dosyalarına aktar.
+
+- Sahne devre dışıysa `ScriptTrait::on_os_event` çağrısı yapma.
+
+- Dünya görüntüleyicinin filtrelemesinde büyük/küçük harf duyarlılığını kaldır.
+
+- Grafiğin kök düğümü için kendi tanıtıcı ve göndereni doğru şekilde ayarla.
+
+- “Sıcak” yöntemler için `#[inline]` öznitelikleri.
+- `HashSet` için `Visit` impl
+
+- absm düzenleyicide katman maskesi ayarlama özelliği
+
+- Animasyon sistemi belgeleri eklendi.
+
+- `Graph::try_get_of_type+try_get_mut_of_type`
+
+- Belirsizliği gidermek için `InheritableVariable` yöntemlerinin adı değiştirildi
+
+- `Model::retarget_animations_to_player`
+
+- `PoseWeight` için doğru özellik editörünü kullan
+- Editörde absm varlıklarının tutamaçlarını göster
+
+- absm düğümleri hakkında daha fazla bilgi göster
+
+- PlayAnimation düğümleri animasyonun adını göster
+
+- blend düğümleri karıştırılan animasyonların miktarını göster
+
+- `AnimationContainer::find_by_name_ref/mut`
+
+- Çeşitli animasyon varlıklarını adlarına göre arama yeteneği
+
+- `fyrox-template` içindeki panik mesajlarına daha fazla bilgi ekleyin (teşekkürler [@lenscas](https://github.com/lenscas))
+
+- `fyrox-template` içinde ayrılmış isimleri kontrol edin (teşekkürler [@TheEggShark](https://github.com/TheEggShark))
+
+- Sahne düğümlerini etkinleştirme/devre dışı bırakma özelliği
+
+- Oyunların sunucu kısmı için başsız mod için temel destek (teşekkürler [@martin-t](https://github.com/martin-t))
+
+- `Scene::remove_node` kaldırıldı
+
+- `NodeTrait::clean_up` -> `NodeTrait::on_removed_from_graph` olarak yeniden adlandırıldı
+
+- Dünya görüntüleyicide renklendirme düzeltildi
+
+- Grafiğin güncelleme ardışık düzeninin adımlarını devre dışı bırakma özelliği
+
+- Animasyon oynatıcı, animasyon karıştırma durum makinesi ve parçacık sistemi düğümleri için önizleme modu.
+
+- Çarpışan `ParticleSystem::set_enabled` yönteminin adı `play` olarak değiştirildi
+
+- Parçacık sistemi önizleme kontrol paneli
+
+- `Uuid` türü için özellik düzenleyici.
+
+- `Reflect` özelliğini `Debug` ile sınırlandır.
+
+- `Inspector` widget'ındaki özellikler için `Değeri Dize Olarak Kopyala` seçeneği
+
+- Animasyon sinyali adını animasyon olayına aktar - aynı ada sahip birden fazla animasyon olayına yanıt vermeyi çok daha kolay hale getirir
+
+-
+
+UI pencerelerini maksimize etme özelliği
+
+- `Animation::take_events`
+
+- `Reflect::type_name`
+
+- Seçilen nesnenin tür adını denetçide göster
+
+- Dünya görüntüleyicide birden fazla düğümün ebeveynlik sorunu düzeltildi
+
+- Prefab oluştururken ızgara yapıştırma özelliği eklendi
+
+- Ağaç widget'ı için aralık seçimi eklendi (Shift + Tıklama)
+
+- Yerleştirme yöneticisi, yerleştirilmiş bir pencereyi kapatırken artık döşemeleri daraltıyor
+
+- Dünya görüntüleyicide arama çubuğu stili iyileştirildi
+
+- Dünya görüntüleyicide ekmek kırıntıları iyileştirildi
+
+- `HotKey` + `KeyBinding` + ilgili özellik düzenleyicileri
+
+- Düzenleyici kontrollerini değiştirme özelliği.
+
+# 0.28
+
+- Prefab oluşturma önizlemesi.
+
+- Önizleme düğümleri artık giriş açısından şeffaftır.
+
+- Çift tıklayarak ağaçları genişletin/daraltın.
+
+- Fare olayları için taşıma/döndürme/ölçeklendirme gizmo davranışı düzeltildi.
+
+- Editörün yapılandırması bozulduğunda varsayılanlara geri dönme sorunu düzeltildi.
+
+- Editörün yapılandırmasında `Seçimleri Kaydet` seçeneği eklendi.
+
+- Editörde sahne değiştirildiğinde ekmek kırıntıları temizlenir.
+
+- Editörde 1 kare gecikme sorunu düzeltildi.
+
+- Bırakma mesajından önce Fare Bırakma mesajı gönderilir.
+
+- Bazı durumlarda editördeki UI “yanıp sönmesi” sorunu düzeltildi.
+
+- Zaten silinmiş düğümlerden gelen UI mesajları sessizce atılmasın.
+
+- Düğüm tanıtıcıları editördeki ekmek kırıntılarında gösterilsin.
+
+- UI'da mevcut sürükleme bağlamına doğrudan salt okunur erişim sağlanın.
+
+- Editörde geçersiz tanıtıcıyla bir düğüm seçilmeye çalışıldığında çökme sorunu düzeltildi.
+
+- Geçersiz tanıtıcılar Denetçi'de vurgulanın.
+
+- Editörde eylemleri geri alırken “kalan” hata ayıklama geometrisini atın.
+- Editördeki bazı menüler artık daha sezgisel.
+
+- RGB dokular için yanlış paket açma hizalamasıyla ilgili kritik hata düzeltildi - bu, bazı
+
+durumlarda sert çökmelere neden oluyordu.
+
+- Zaten yüklenmekte olan bir kaynağı yeniden yüklemeye çalışmayın.
+
+- `Executor` için istenen kare hızını ayarlama özelliği (varsayılan 60 FPS).
+
+- Editörün panosundaki içeriği seçilen düğüme yapıştırma özelliği (alt öğe olarak yapıştırma işlevi).
+
+- Dokunulmamış piksellerin şeffaflığını koruyarak şeffaf pencereye render etme özelliği (bkz.
+
+`transparent` örneği).
+
+- `Executor`'da özel pencere oluşturucu belirleme özelliği + `Executor`'da vsync'i devre dışı bırakma yöntemi.
+
+- `Pool` ve `Graph::begin_multi_borrow` için `MultiBorrowContext`, farklı öğelere birden fazla değiştirilebilir
+
+referans ödünç almanıza yardımcı olur.
+
+- Proc-makrolarda kod oluşturma hızı artırıldı.
+
+- Özellik mirasından sonra örneklerdeki tanıtıcıları doğru şekilde eşler (komut dosyalarındaki düğümlere ait tanıtıcıların
+
+yanlış tanıtıcılarla eşlenmesi sorunu giderildi)
+
+- Komut dosyası işleme yeniden düzenlendi:
+
+- `ScriptTrait::on_start` eklendi - sahnedeki tüm komut dosyaları başlatıldıktan sonra çağrılması garanti edilir, bir komut dosyası başka bir komut dosyasına bağlı olduğunda kullanışlıdır
+
+- - Komut dosyası işleme artık merkezi hale getirildi, eskisi gibi dağınık değil.
+
+  - Daha belirleyici güncelleme yolu (`on_init` -> `on_start` -> `on_update` -> `on_destroy`)
+
+- Mesaj yoluyla bir metin kutusundaki metni değiştirdikten sonra bir şey yazmaya çalıştığında meydana gelen çökme düzeltildi.
+
+- `ButtonBuilder::with_text_and_font`
+
+- Düzenleyicide yapıların `Handle<Node>` alanlarının alanlarında düğüm adlarını gösterir.
+
+- Bir komut dosyasında kaynak alanı olduğunda düzenleyicide meydana gelen çökme sorunu düzeltildi.
+
+- Davranış ağaçlarını klonlama özelliği eklendi.
+
+- Yansıma yoluyla otomatik düğüm tanıtıcı eşleme.
+
+- `ScriptTrait::remap_handles` yöntemi kaldırıldı.
+
+- Geçen süreyi komut dosyalarına aktar.
+
+- Sahne devre dışıysa `ScriptTrait::on_os_event` çağrısı yapma.
+
+- Dünya görüntüleyicinin filtrelemesinde büyük/küçük harf duyarlılığını kaldır.
+
+- Grafiğin kök düğümü için kendi tanıtıcı ve göndereni doğru şekilde ayarla.
+
+- “Sıcak” yöntemler için `#[inline]` öznitelikleri.
+- Sert cisim bir sahnenin kök düğümü olduğunda ortaya çıkan panik sorunu düzeltildi.
+
+- `Base::has_script` + `Base::try_get_script` + `Base::try_get_script_mut` yardımcı yöntemleri, artık sahne düğümlerindeki komut dosyalarını almak daha kolay
+
+.
+
+- Editörde seçilen düğüm türünü değiştirme yeteneği (sahne kök türünü değiştirmek için kullanışlıdır).
+
+- Komut dosyası özelliği parametre aktarımı optimize edildi, komut dosyası bağlamı artık değer yerine referans olarak aktarılır.
+
+- Komut dosyası bağlamı artık tüm eklentilere erişebilir, bu da eklentiler arası etkileşimi mümkün kılar.
+
+- Komut dosyası API'sının üst eklentinin uuid'sini sağlaması gerekliliği kaldırıldı.
+
+- Eklentiler için uuid tanımlamaya artık gerek yoktur.
+
+- Devre dışı bırakılmışsa sahne komut dosyalarını güncellemeyin.
+
+- `Graph::find_first_by_script` - komut dosyası türüne göre bir düğümü bulmanıza yardımcı olur.
+
+- `Inspector` widget'ı için eksik özellik düzenleyicileri eklendi.
+
+- Editörün sahne kamera ayarlarını (konum, yön, yakınlaştırma vb.) sahne başına kaydedin.
+
+- Bazı karakterleri boşluk gibi işlemek için karakter atlama listesi.
+
+- İsteğe bağlı metin gölge efekti.
+
+- Metin kutusu widget'ında metni kelime kelime seçmek için Ctrl+Shift+Ok tuşlarını kullanın.
+
+- Editörün ayar paneline navmesh ayarları eklendi.
+
+- Metin kutusu widget'ının metin mesajlarını + metin kutusu widget'ı için özel mesajları kabul etmesini sağlayın.
+
+- 500 ms çift tıklama aralığı ayarlayın (önceden 750 ms idi).
+
+- Özel UI ölçeklendirme durumunda metin seçimi düzeltildi.
+
+- `TextBox::screen_pos_to_text_pos` düzeltildi - `char_code`'un indeks olarak yanlış kullanılması, ekran
+
+konumunun metin konumuna yanlış eşlenmesine neden oluyordu.
+
+- Metin kutusu widget'ında metni kaydırma özelliği.
+
+- `Rect::with_position` + `Rect::with_size` yöntemleri.
+
+- Belirli durumlarda metin kutusundan metin silinirken imleç konumunun düzeltilmesi.
+
+- Kelime sarma özelliği etkinleştirildiğinde metin kutusunun sonuna boşluk yazıldığında yaşanan çökme sorunu düzeltildi.
+
+- Çok satırlı metin kutusu widget'ına metin eklenirken imleç konumunun düzeltilmesi.
+
+- Metin kutusu widget'ında yeni satır eklenmesi sorunu düzeltildi.
+
+- Metin kutusunda çift tıklama ile kelimeleri (veya boşlukları) seçme özelliği eklendi.
+
+- Fare tuşu basıldıktan sonra (önce değil) çift tıklama gönderilir.
+
+- Çeşitli senaryolarda metin kutusu widget'ında karet yanıp sönmesi düzeltildi.
+
+- Metin kutusu widget'ında kelimeleri atlamak için Ctrl+Sol Ok ve Ctrl+Sağ Ok tuşları eklendi.
+
+- Satır sınırlarının dışına tıklayarak metin kutusu widget'ında karet konumunu ayarlama özelliği eklendi.
+
+- `raycast2d` örneği.
+
+- `Delete` tuşu + seçim düzeltmeleri ile metin kutusundaki metin silme sorunu düzeltildi.
+
+- Metin kutusu widget'ında Ctrl+Home, Ctrl+End ile seçim sorunu düzeltildi.
+
+- Metin kutusu widget'ında seçilen metnin vurgulanması sorunu düzeltildi.
+
+- Seçim sağdan sola olduğunda metin kutusunda Ctrl+C tuşlarına basıldığında ortaya çıkan panik sorunu düzeltildi.
+
+- Mesaj göndererek widget'a odaklanma/odaklanmayı kaldırma özelliği eklendi.
+
+- `TextBox` örneği eklendi.
+
+- `PropertyInfo`'dan `is_modified` bayrağı kaldırıldı.
+
+- Kalıtsal özelliği ebeveynin prefab değerine geri döndürme özelliği eklendi.
+
+- Manuel özellik kalıtımı yansıma ile değiştirildi.
+
+- `Reflect` özelliği için `fields` ve `fields_mut` eklendi.
+
+- Komut dosyaları için özellik kalıtımı.
+
+- Seçimi prefab olarak çıkarma özelliği eklendi.
+
+- `Inspector` widget'ındaki karmaşık özellikler için araç ipuçları düzeltildi.
+
+- Editörden oyun çalıştırılırken yapı profili seçilebilme özelliği eklendi.
+
+- `Inspector` widget'ının bazı sınırlamalarını aşmak için `NodeHandle` sarmalayıcı eklendi.
+
+- `make_relative_path` içinde açma ve panik yerine sonuç döndürülür - editördeki sembolik bağlantılarla ilgili bazı sorunlar düzeltildi.
+
+- `fyrox-template` ile oluşturulan komut dosyaları için eksik `Reflect` uygulaması eklendi.
+
+- `fyrox-template` ile oluşturulan projeler için bağımlılık optimizasyonu eklendi.
+
+- Eklentilere bazı ses motoru yöntemlerine erişim sağlandı (`set_sound_gain` ve `sound_gain`)
+
+- ArrayPropertyEditor widget'ının stili düzeltildi.
+
+- Devre dışı bırakılmış animasyon sinyalleri için olay yayma.
+
+- Sinyalleri olan sprite sheet animasyonları.
+
+- Arazi renderleme düzeltildi - skybox içeriği olan katmanlar arasında artık ek yerleri yok.
+
+- Renderer'da çizim parametrelerinde karıştırma denklemi ayarlama özelliği.
+
+- Renderer'da RGB ve Alpha için ayrı ayrı karıştırma işlevi ayarlama özelliği.
+
+- Sınır dışı tıklama ile menü zincirini kapatırken görünmez menüleri yok sayma.
+
+- Editördeki bazı düğmelerin boyutu küçültülerek parlaklığı azaltıldı, daha fazla araç ipucu eklendi.
+
+- Dünya görüntüleyicide `Expand all, Collapse all, Find selection` düğmeleri için resimler kullanıldı.
+
+- Bazı matematik işlemleri sırasında ortaya çıkan potansiyel sonsuz döngüler düzeltildi.
+
+- Basamaklı gölge haritaları için yumuşatma eklendi.
+
+- Komut dosyası özelliği editörü düzeltildi - komut dosyalarını bir düğümden ayarlarken/düzenlerken/silerken editörde garip hatalar artık görülmüyor.
+
+- Yönlü ışıklar için basamaklı gölge haritaları düzeltildi.
+
+- `Frustum::center` yöntemi eklendi.
+
+- Editördeki `Appearance` menüsündeki panel listesi düzeltildi.
+
+- Varsayılan olarak gizlenmiş etkileşim modları için araç ipuçları oluşturuldu.
+
+- Editör yeniden yapılandırıldığında ayarlar yeniden yüklenir.
+- Executor için `--override-scene` parametresi
+
+- `ButtonContent` iyileştirmeleri - artık `ButtonMessage::Content` kullanarak düğmenin metin alanını yeniden oluşturabilirsiniz
+
+- Eklentiler için kontrol akışı anahtarına erişim sağlar.
+
 - `Plugin::on_ui_message`
-- Two-step plugins initialization:
-  - `PluginConstructor` trait defines a method that creates an instance of `Plugin` trait, instance of plugin
-    constructor is used to create plugins on demand. It is needed because engine has deferred plugin initialization.
-- `Framework` is removed, its functionality was merged with plugins.
-- Simplified `ScriptConstructorContainer::add` definition, there were redundant generic parameters that just add
-  visual clutter.
-- Implemented `Clone+Debug` traits for `NavmeshAgent`
-- Fixed spam in log in the editor when any file was changed.
-- High DPI screens support for the editor.
-- Newly created cameras in the editor are now enabled by default.
-- Added "Preview" option for cameras in world viewer.
-- Refactored joints:
-  - Joints binding now is fully automatic and it is based on world transform of the joint, no need to manually
-    set local frames.
-  - Rebinding happens when a joint changes its position
-  - Joints editing in the editor is now much more intuitive
-- Improved debug visualization for physics.
-- Read-only mode for NumericUpDown and Vec2/Vec3/Vec4 widgets
-- Show global coordinates of current selection in the scene previewer
-- BitField widget - it helps you to edit numbers as bit containers, allowing you to switch separate bits
-- More compact editors for properties in Inspector
-- NumericUpDown widget does not use word wrapping by default anymore
-- CheckBox widget can now be switched only by left mouse button
-- Ability to disable contacts between connected bodies of a joint
-- `style` parameter for project template generator - it defines which scene will be used by default - either `2d`
-  or `3d`
-- Ability to select portion of the texture to render in `Rectangle` nodes.
-- Ability to generate script skeleton for template generator
-- HSL color model
-- Ability to copy log enties to the clipboard
-- `Log` API improvements
-- Visualize cameras in the editor
-- Context menu for asset items, it is now possible to open, delete, show-in-explorer items and also
-  to copy file name and full file path to the clipboard.
-- Visualize point and spot lights in the editor.
+
+- İki adımlı eklenti başlatma:
+
+- `PluginConstructor` özelliği, `Plugin` özelliğinin bir örneğini oluşturan bir yöntem tanımlar, eklenti örneği
+
+oluşturucu, isteğe bağlı olarak eklentiler oluşturmak için kullanılır. Motor, eklenti başlatmayı ertelediği için bu gereklidir.
+
+- `Framework` kaldırıldı, işlevselliği eklentilerle birleştirildi.
+
+- `ScriptConstructorContainer::add` tanımı basitleştirildi, sadece görsel karmaşaya neden olan gereksiz genel parametreler vardı
+
+.
+
+- `NavmeshAgent` için `Clone+Debug` özellikleri uygulandı
+
+- Herhangi bir dosya değiştirildiğinde editördeki günlüğünde spam sorunu düzeltildi.
+
+- Editör için yüksek DPI ekran desteği.
+
+- Editörde yeni oluşturulan kameralar artık varsayılan olarak etkindir.
+
+- Dünya görüntüleyicide kameralar için “Önizleme” seçeneği eklendi.
+
+- Yeniden düzenlenmiş eklemler:
+
+- Eklem bağlama artık tamamen otomatiktir ve eklemin dünya dönüşümüne dayanır, yerel çerçeveleri manuel olarak
+
+  - Bir eklem konumunu değiştirdiğinde yeniden bağlama gerçekleşir
+
+  - Editörde eklem düzenleme artık çok daha sezgiseldir
+
+- Fizik için hata ayıklama görselleştirmesi iyileştirildi.
+
+- NumericUpDown ve Vec2/Vec3/Vec4 widget'ları için salt okunur mod
+- Sahne önizleyicide mevcut seçimin global koordinatlarını göster
+
+- BitField widget'ı - sayıları bit konteynerleri olarak düzenlemenize yardımcı olur, ayrı bitler arasında geçiş yapmanızı sağlar
+
+- Inspector'da özellikler için daha kompakt editörler
+
+- NumericUpDown widget'ı artık varsayılan olarak kelime sarma özelliğini kullanmaz
+
+- CheckBox widget'ı artık sadece sol fare tuşuyla değiştirilebilir
+
+- Bir eklemin bağlı gövdeleri arasındaki temasları devre dışı bırakma özelliği
+
+- Proje şablonu oluşturucu için `style` parametresi - varsayılan olarak hangi sahnenin kullanılacağını tanımlar - `2d`
+
+veya `3d`
+
+- `Rectangle` düğümlerinde render edilecek doku kısmını seçme özelliği.
+
+- Şablon oluşturucu için komut dosyası iskeleti oluşturma özelliği
+
+- HSL renk modeli
+
+- Günlük girişlerini panoya kopyalama özelliği
+
+- `Log` API iyileştirmeleri
+
+- Editörde kameraları görselleştirme
+
+- Varlık öğeleri için bağlam menüsü, artık öğeleri açma, silme, gezginde gösterme ve ayrıca
+
+dosya adını ve tam dosya yolunu panoya kopyalama
+
+- Editörde nokta ve spot ışıkları görselleştirme.
 
 # 0.26
 
-This release is mostly to fix critical bugs of 0.25 and add missing functionality that stops you from using scripting
-system.
+- Executor için `--override-scene` parametresi
 
-- Added project template generator
-- Fixed invisible selected item in drop-down list widget.
-- Correctly sync node names in `World Viewer`
-- Reset editor's camera projection mode switch when creating new scene
-- Fixed doubling scene entities in `World Viewer` when loading scene via `StartupData`
-- More logging for renderer
-- Fixed shader cache - now the engine won't re-compile shaders each 20 seconds.
-- Temporarily disable `Lifetime` property editing because it causes crashes
-- Do not show `dirty` flag of `Transform` in the `Inspector`
-- Provide access to property editors container for editor's `Inspector` - it is now possible
-  to register your own property editors
-- Fixed panic when syncing `Inspector` for an entity with `Option<Texture>` field.
-- Added `handle_object_property_changed` and `handle_collection_property_changed` macros to reduce
-  boilerplate code in script property handling.
-- Added ability to restore resource handles for scripts
-- Fixed selection visualization in `Asset Browser`
-- Validation for sky box cube map generator
+- `ButtonContent` iyileştirmeleri - artık `ButtonMessage::Content` kullanarak düğmenin metin alanını yeniden oluşturabilirsiniz
+
+- Eklentiler için kontrol akışı anahtarına erişim sağlar.
+
+- `Plugin::on_ui_message`
+
+- İki adımlı eklenti başlatma:
+
+- `PluginConstructor` özelliği, `Plugin` özelliğinin bir örneğini oluşturan bir yöntem tanımlar, eklenti örneği
+
+oluşturucu, isteğe bağlı olarak eklentiler oluşturmak için kullanılır. Motor, eklenti başlatmayı ertelediği için bu gereklidir.
+
+- `Framework` kaldırıldı, işlevselliği eklentilerle birleştirildi.
+
+- `ScriptConstructorContainer::add` tanımı basitleştirildi, sadece görsel karmaşaya neden olan gereksiz genel parametreler vardı
+
+.
+
+- `NavmeshAgent` için `Clone+Debug` özellikleri uygulandı
+
+- Herhangi bir dosya değiştirildiğinde editördeki günlüğünde spam sorunu düzeltildi.
+
+- Editör için yüksek DPI ekran desteği.
+
+- Editörde yeni oluşturulan kameralar artık varsayılan olarak etkindir.
+
+- Dünya görüntüleyicide kameralar için “Önizleme” seçeneği eklendi.
+
+- Yeniden düzenlenmiş eklemler:
+
+- Eklem bağlama artık tamamen otomatiktir ve eklemin dünya dönüşümüne dayanır, yerel çerçeveleri manuel olarak
+
+  - Bir eklem konumunu değiştirdiğinde yeniden bağlama gerçekleşir
+
+  - Editörde eklem düzenleme artık çok daha sezgiseldir
+
+- Fizik için hata ayıklama görselleştirmesi iyileştirildi.
+
+- NumericUpDown ve Vec2/Vec3/Vec4 widget'ları için salt okunur mod
+- Sahne önizleyicide mevcut seçimin global koordinatlarını göster
+
+- BitField widget'ı - sayıları bit konteynerleri olarak düzenlemenize yardımcı olur, ayrı bitler arasında geçiş yapmanızı sağlar
+
+- Inspector'da özellikler için daha kompakt editörler
+
+- NumericUpDown widget'ı artık varsayılan olarak kelime sarma özelliğini kullanmaz
+
+- CheckBox widget'ı artık sadece sol fare tuşuyla değiştirilebilir
+
+- Bir eklemin bağlı gövdeleri arasındaki temasları devre dışı bırakma özelliği
+
+- Proje şablonu oluşturucu için `style` parametresi - varsayılan olarak hangi sahnenin kullanılacağını tanımlar - `2d`
+
+veya `3d`
+
+- `Rectangle` düğümlerinde render edilecek doku kısmını seçme özelliği.
+
+- Şablon oluşturucu için komut dosyası iskeleti oluşturma özelliği
+
+- HSL renk modeli
+
+- Günlük girişlerini panoya kopyalama özelliği
+
+- `Log` API iyileştirmeleri
+
+- Editörde kameraları görselleştirme
+
+- Varlık öğeleri için bağlam menüsü, artık öğeleri açma, silme, gezginde gösterme ve ayrıca
+
+dosya adını ve tam dosya yolunu panoya kopyalama
+
+- Editörde nokta ve spot ışıkları görselleştirme.
 
 ## Migration guide
 
-There are no breaking changes in this release.
+Bu sürümde önemli değişiklikler yoktur.
 
 # 0.25
 
-- Static plugin system
-- User-defined scripts
-- Play mode for the editor
-- Animation Blending State Machine (ABSM) editor.
-- Some of sound entities were integrated in the scene graph.
-- New `Sound` and `Listener` scene nodes.
-- Sound buffer import options.
-- `ResourceManager::request_sound_buffer` now accepts only path to sound buffer.
-- Prefab inheritance improvements - now most of the properties of scene nodes are inheritable.
-- Access to simulation properties of the physics.
-- Engine and Resource manager are nonserializable anymore, check migration guide to find how to create
-  save files in the correct way.
-- `Node` enumeration was removed and replaced with dynamic dispatch. This allows you to define your own
-  types of scene nodes.
-- `Base` is not a scene node anymore, it was replaced with `Pivot` node (see migration guide for more info)
-- `Base` now has `cast_shadows` property, respective property setters/getters was removed from `Mesh` and
-  `Terrain` nodes.
-- Ability to bring ListView item into view.
-- Logger improvements: event subscriptions + collecting timestamps
-- Log panel improvements in the editor: severity filtering, color differentiation.
-- Scene nodes now have more or less correct local bounds (a bounding box that can fit the node).
-- Improved picking in the editor: now it is using precise hit test against node's geometry.
-- "Ignore back faces" option for picking in the editor: allows you to pick through "back" of polygon
-  faces, especially useful for closed environment.
-- Rotation ribbons were replaced with torus, it is much easier to select desired rotation mode.
-- New material for gizmos in the editor, that prevent depth issues.
-- New expander for TreeView widget, `V` and `>` arrows instead of `+` and `-` signs.
-- ScrollBar widget is much thinner by default.
-- Editor settings window now based on Inspector widget, which provides uniform way of data visualization.
-- `DEFAULT_FONT` singleton was removed, it is replaced with `default_font`
-- Shortcuts improvements in the editor.
-- Overall UI performance improvements.
-- Ability to disable clipping of widget bounds to parent bounds.
-- Layout and render transform support for widgets - allows you to scale/rotate/translate widgets.
-- Ability to make widget lowermost in hierarchy.
-- Animation blending state machine refactoring, optimizations and stability improvements.
-- Animation blending state machines are now stored in special container which stored in the Scene.
-- Docking manager now shows anchors only for its windows.
-- Model previewer now has much more intuitive controls.
-- NumericUpDown don't panic anymore on edges of numeric bounds (i.e when trying to do `i32::MAX_VALUE + 1`)
-- DoubleClick support for UI.
-- Update rate fix for editor, it fixes annoying issue with flickering in text boxes.
-- `UserInterface::hit_test_unrestricted` which performs hit test that is not restricted to current
-  picking restriction stack.
-- WASM renderer fixes.
-- `Pool::try_free` which returns `Option<T>` on invalid handles, instead of panicking.
-- Light source for model previewer
-- Default skybox for editor and model previewer cameras
-- `Color` API improvements.
-- `#[reflect(expand)]` and `#[reflect(expand_subtree)]` were removed from `Inspect` proc-macro
-- Correct field name generation for enum variants
-- Ability to draw Bézier curves in the UI.
-- Fix for navmesh agent navigation of multilayer navigational meshes.
-- Improvements for serializer, now it allows you correctly recover from serialization errors.
+- Statik eklenti sistemi
+
+- Kullanıcı tanımlı komut dosyaları
+
+- Editör için oynatma modu
+
+- Animasyon Karıştırma Durum Makinesi (ABSM) editörü.
+
+- Bazı ses öğeleri sahne grafiğine entegre edildi.
+
+- Yeni `Sound` ve `Listener` sahne düğümleri.
+
+- Ses arabelleği içe aktarma seçenekleri.
+
+- `ResourceManager::request_sound_buffer` artık yalnızca ses arabelleğine giden yolu kabul ediyor.
+
+- Prefab miras iyileştirmeleri - artık sahne düğümlerinin çoğu miras alınabilir.
+
+- Fiziğin simülasyon özelliklerine erişim.
+
+- Motor ve Kaynak yöneticisi artık serileştirilemez, doğru şekilde
+
+kaydetme dosyalarını oluşturmak için geçiş kılavuzuna bakın.
+
+- `Node` numaralandırması kaldırıldı ve dinamik gönderme ile değiştirildi. Bu, kendi
+
+sahne düğüm türlerinizi tanımlamanıza olanak tanır.
+
+- `Base` artık bir sahne düğümü değildir, `Pivot` düğümü ile değiştirilmiştir (daha fazla bilgi için geçiş kılavuzuna bakın)
+
+- `Base` artık `cast_shadows` özelliğine sahiptir, ilgili özellik ayarlayıcıları/alıcıları `Mesh` ve
+
+`Terrain` düğümlerinden kaldırılmıştır.
+
+- ListView öğesini görüntüye getirme özelliği.
+
+- Günlük kaydedici iyileştirmeleri: olay abonelikleri + zaman damgalarının toplanması
+
+- Editörde günlük paneli iyileştirmeleri: önem derecesi filtreleme, renk ayrımı.
+
+- Sahne düğümleri artık daha doğru yerel sınırlara sahiptir (düğüme sığabilen bir sınırlayıcı kutu).
+
+- Editörde seçim iyileştirmeleri: artık düğümün geometrisine karşı hassas vuruş testi kullanılıyor.
+
+- Editörde seçim için “Arka yüzleri yok say” seçeneği: poligon yüzlerinin “arkasından” seçim yapmanızı sağlar,
+
+özellikle kapalı ortamlar için kullanışlıdır.
+
+- Döndürme şeritleri torus ile değiştirildi, istenen döndürme modunu seçmek çok daha kolay.
+
+- Derinlik sorunlarını önleyen, düzenleyicide gizmo'lar için yeni malzeme.
+
+- TreeView widget'ı için yeni genişletici, `+` ve `-` işaretleri yerine `V` ve `>` okları.
+
+- ScrollBar widget'ı varsayılan olarak çok daha ince.
+
+- Editör ayarları penceresi artık veri görselleştirme için tek tip bir yol sağlayan Inspector widget'ına dayanmaktadır.
+
+- `DEFAULT_FONT` singleton kaldırıldı, yerine `default_font`
+
+- Editörde kısayollar iyileştirildi.
+
+- Genel UI performansı iyileştirildi.
+
+- Widget sınırlarının üst öğe sınırlarına kırpılmasını devre dışı bırakma özelliği.
+- Widget'lar için düzen ve görüntüleme dönüştürme desteği - widget'ları ölçeklendirmenize/döndürmenize/yer değiştirmenize olanak tanır.
+
+- Widget'ı hiyerarşide en altta yapma özelliği.
+
+- Animasyon karıştırma durum makinesi yeniden düzenleme, optimizasyonlar ve kararlılık iyileştirmeleri.
+
+- Animasyon karıştırma durum makineleri artık Scene'de depolanan özel bir kapta saklanıyor.
+
+- Yerleştirme yöneticisi artık yalnızca kendi pencereleri için bağlantı noktalarını gösterir.
+
+- Model önizleyicisi artık çok daha sezgisel denetimlere sahiptir.
+
+- NumericUpDown artık sayısal sınırların kenarlarında paniğe kapılmıyor (örneğin, `i32::MAX_VALUE + 1` yapmaya çalışırken).
+
+- UI için çift tıklama desteği.
+
+- Editör için güncelleme hızı düzeltildi, metin kutularındaki titreme sorununu giderir.
+
+- Mevcut seçim kısıtlama yığınıyla sınırlı olmayan vuruş testi gerçekleştiren `UserInterface::hit_test_unrestricted`.
+
+- WASM renderer düzeltmeleri.
+- Geçersiz tanıtıcılarda paniğe kapılmak yerine `Option<T>` döndüren `Pool::try_free`.
+
+- Model önizleyici için ışık kaynağı.
+
+- Model önizleyici için ışık kaynağı
+
+- Editör ve model önizleyici kameraları için varsayılan skybox
+
+- `Color` API iyileştirmeleri.
+
+- `#[reflect(expand)]` ve `#[reflect(expand_subtree)]`, `Inspect` proc-macro'dan kaldırıldı
+
+- Enum varyantları için doğru alan adı oluşturma
+
+- UI'da Bézier eğrileri çizme yeteneği.
+
+- Çok katmanlı navigasyon ağlarının navmesh ajanı navigasyonu için düzeltme.
+
+- Serileştirici için iyileştirmeler, artık serileştirme hatalarından doğru şekilde kurtulabilirsiniz.
 
 ## Migration guide
 
-**WARNING:** This release **does not** provide legacy sound system conversion to new one, which means if
-any of your scene had any sound, they will be lost!
+**UYARI:** Bu sürüm, eski ses sistemini yeni sisteme dönüştürmez, yani
 
-Now there is limited access to `fyrox_sound` entities, there is no way to create sound contexts, sounds,
-effects manually. You have to use respective scene nodes (`Sound`, `Listener`) and `Effect` from
-`fyrox::scene::sound` module (and children modules).
+sahnenizde herhangi bir ses varsa, bunlar kaybolacaktır!
+Artık `fyrox_sound` varlıklarına sınırlı erişim vardır, ses bağlamları, sesler ve
 
-### Nodes
+efektler manuel olarak oluşturulamaz. İlgili sahne düğümlerini (`Sound`, `Listener`) ve `fyrox::scene::sound` modülünden (ve alt modüllerinden) `Effect` kullanmanız gerekir.
 
-Since `Node` enumeration was removed, there is a new way of managing nodes:
+### Düğümler
 
-- `Node` now is just `Box<dyn NodeTrait>` wrapped in a new-type-struct.
-- Pattern matching was replaced with `cast` and `cast_mut` methods.
-- In addition to `cast/cast_mut` there are two more complex methods for polymorphism: `query_component_ref` and
-  `query_component_mut` which are able to extract references to internal parts of the nodes. This now has only one
-  usage - `Light` enumeration was removed and `PointLight`, `SpotLight`, `DirectionalLight` provides unified access
-  to `BaseLight` component via `query_component_ref/query_component_mut`. `query_component` could be a bit slower,
-  since it might involve additional branching while attempting to query component.
-- `Base` node was replaced with `Pivot` node (and respective `PivotBuilder`), it happend due to problems with
-  `Deref<Target = Base>/DerefMut` implementation, if `Base` is implementing `NodeTrait` then it must implement `Deref`
-  but implementing `Deref` for `Base` causes infinite deref coercion loop.
-- To be able to create custom scene nodes and having the ability to serialize/deserialize scene graph with such
-  nodes, `NodeConstructorContainer` was added. It contains a simple map `UUID -> NodeConstructor` which allows to
-  pick the right node constructor based on type uuid at deserialization stage.
+`Node` numaralandırması kaldırıldığından, düğümleri yönetmenin yeni bir yolu vardır:
 
-#### Replacing `BaseBuilder` with `PivotBuilder`
+- `Node` artık yeni bir tip yapısında sarılmış `Box<dyn NodeTrait>` şeklindedir.
 
-It is very simply, just wrap `BaseBuilder` with a `PivotBuilder` and call `build` on `PivotBuilder` instance:
+- Desen eşleştirme, `cast` ve `cast_mut` yöntemleriyle değiştirilmiştir.
+
+- `cast/cast_mut`'a ek olarak, polimorfizm için iki daha karmaşık yöntem vardır: `query_component_ref` ve
+
+`query_component_mut`, düğümlerin iç kısımlarına referansları çıkarabilir. Bunun artık tek bir
+
+kullanımı vardır - `Light` sıralaması kaldırıldı ve `PointLight`, `SpotLight`, `DirectionalLight`, `query_component_ref/query_component_mut` aracılığıyla
+`query_component_ref/query_component_mut` aracılığıyla `BaseLight` bileşenine. `query_component`, bileşeni sorgulamaya çalışırken ek dallanma gerektirebileceğinden
+
+biraz daha yavaş olabilir.
+
+- `Base` düğümü, `Pivot` düğümüyle (ve ilgili `PivotBuilder` ile) değiştirildi. Bu,
+
+`Deref<Target = Base>/DerefMut` uygulamasındaki sorunlar nedeniyle gerçekleşti. `Base`, `NodeTrait` uyguluyorsa, `Deref`'i de uygulamalıdır,
+
+ancak `Base` için `Deref`'i uygulamak sonsuz deref zorlama döngüsüne neden olur.
+
+- Özel sahne düğümleri oluşturabilmek ve bu düğümlerle sahne grafiğini serileştirebilmek/serileştirmeyi kaldırabilmek için
+
+`NodeConstructorContainer` eklendi. Bu, serileştirmeyi kaldırma aşamasında uuid türüne göre doğru düğüm oluşturucuyu seçmeyi sağlayan basit bir `UUID -> NodeConstructor` haritası içerir.
+
+#### `BaseBuilder`'ı `PivotBuilder` ile değiştirme
+
+Çok basit, sadece `BaseBuilder`'ı bir `PivotBuilder` ile sarın ve `PivotBuilder` örneğinde `build`'u çağırın:
 
 ```rust
 // Before
@@ -1799,41 +2653,50 @@ fn create_pivot_node(graph: &mut Graph) -> Handle<Node> {
 }
 ```
 
-#### Pattern matching replacement
+#### Desen eşleştirme ile değiştirme
 
-Pattern matching was replaced with 4 new methods `cast/cast_mut/query_component_ref/query_component_mut`:
+Desen eşleştirme, 4 yeni yöntemle değiştirildi. `cast/cast_mut/query_component_ref/query_component_mut`:
 
 ```rust
 fn set_sprite_color(node: &mut Node, color: Color) {
-    // Use `cast_mut` when you are sure about the real node type.
+    // Gerçek düğüm türünden emin olduğunuzda `cast_mut` kullanın.
     if let Some(sprite) = node.cast_mut::<Sprite>() {
         sprite.set_color(color);
     }
 }
 
 fn set_light_color(node: &mut Node, color: Color) {
-    // Use query_component_mut if you unsure what is the exact type of the node.
-    // In this example the `node` could be either PointLight, SpotLight, DirectionalLight,
-    // since they're all provide access to `BaseLight` via `query_component_x` the function
-    // will work with any of those types.
+    // Düğümün tam türünün ne olduğundan emin değilseniz query_component_mut kullanın.
+
+
+    // Bu örnekte `node`, PointLight, SpotLight veya DirectionalLight olabilir,
+
+// çünkü hepsi `query_component_x` aracılığıyla `BaseLight`'a erişim sağlar, bu nedenle işlev
+
+// bu türlerin herhangi biriyle çalışacaktır.
     if let Some(base_light) = node.query_component_mut::<BaseLight>() {
         base_light.set_color(color);
     }
 }
 ```
 
-### Listener
+### Dinleyici
 
-Now there is no need to manually sync position and orientation of the sound listener, all you need to do
-instead is to create `Listener` node and attach it to your primary camera (or other scene node). Keep
-in mind that the engine supports only one listener, which means that only one listener can be active
-at a time. The engine will not stop you from having multiple listeners active, however only first (the
-order is undefined) will be used to output sound.
+Artık ses dinleyicinin konumunu ve yönünü manuel olarak senkronize etmenize gerek yok, tek yapmanız gereken
 
-### Sound sources
+`Listener` düğümü oluşturmak ve bunu ana kameranıza (veya başka bir sahne düğümüne) eklemek.
 
-There is no more 2D/3D separation between sounds, all sounds in 3D by default. Every sound source now is
-a scene node and can be created like so:
+Motorun yalnızca bir dinleyiciyi desteklediğini, yani aynı anda yalnızca bir dinleyicinin aktif olabileceğini
+
+unutmayın. Motor, birden fazla dinleyicinin aktif olmasını engellemez, ancak ses çıkışı için yalnızca ilki (
+
+sırası tanımlanmamıştır) kullanılır.
+
+### Ses kaynakları
+
+Sesler arasında artık 2D/3D ayrımı yoktur, tüm sesler varsayılan olarak 3D'dir. Artık her ses kaynağı
+
+bir sahne düğümüdür ve şu şekilde oluşturulabilir:
 
 ```rust
 let sound = SoundBuilder::new(
@@ -1852,12 +2715,13 @@ TransformBuilder::new()
 .build(graph);
 ```
 
-Its API mimics `fyrox_sound` API so there should be now troubles in migration.
+API'si `fyrox_sound` API'sini taklit eder, bu nedenle geçişte sorun yaşanmamalıdır.
 
-### Effects
+### Efektler
 
-Effects got a thin wrapper around `fyrox_sound` to make them compatible with `Sound` scene nodes, a reverb
-effect instance can be created like so:
+Efektler, `Sound` sahne düğümleriyle uyumlu hale getirmek için `fyrox_sound` etrafında ince bir sarmalayıcıya sahiptir. Bir reverb
+
+efekt örneği şu şekilde oluşturulabilir:
 
 ```rust
 let reverb = ReverbEffectBuilder::new(BaseEffectBuilder::new().with_gain(0.7))
@@ -1867,7 +2731,7 @@ let reverb = ReverbEffectBuilder::new(BaseEffectBuilder::new().with_gain(0.7))
 .build( & mut scene.graph.sound_context);
 ```
 
-A sound source can be attached to an effect like so:
+Bir ses kaynağı, bir efektin üzerine şu şekilde eklenebilir:
 
 ```rust
 graph
@@ -1880,18 +2744,23 @@ filter: None,
 });
 ```
 
-### Filters
+### Filtreler
 
-Effect input filters API remain unchanged.
+Etki girişi filtreleri API'si değişmeden kalmıştır.
 
-### Engine initialization
+### Motor başlatma
 
-`Engine::new` signature has changed to accept `EngineInitParams`, all previous argument were moved to the
-structure. However, there are some new engine initialization parameters, like `serialization_context` and
-`resource_manager`. Previously `resource_manager` was created implicitly, currently it has to be created
-outside and passed to `EngineInitParams`. This is because of new `SerializationContext` which contains
-a set of constructors for various types that may be used in the engine and be added by external plugins.
-Typical engine initialization could look something like this:
+`Engine::new` imzası, `EngineInitParams`'ı kabul edecek şekilde değiştirilmiştir, önceki tüm argümanlar
+
+yapısına taşınmıştır. Ancak, `serialization_context` ve
+
+`resource_manager` gibi bazı yeni motor başlatma parametreleri eklenmiştir. Önceden `resource_manager` örtük olarak oluşturulurken, artık
+
+dışarıda oluşturulup `EngineInitParams`'a aktarılması gerekmektedir. Bunun nedeni, motor içinde kullanılabilecek ve harici eklentiler tarafından eklenebilecek çeşitli türler için bir dizi yapıcı içeren yeni `SerializationContext`'tir
+
+.
+
+Tipik bir motor başlatma işlemi aşağıdaki gibi görünebilir:
 
 ```rust
 use fyrox::engine::{Engine, EngineInitParams};
@@ -1918,10 +2787,11 @@ fn init_engine() {
 }
 ```
 
-## Serialization
+## Seri hale getirme
 
-Engine and ResourceManager both are non-serializable anymore. It changes approach of creating save files in games.
-Previously you used something like this (following code snippets are modified versions of `save_load` example):
+Engine ve ResourceManager artık seri hale getirilemez. Bu, oyunlarda kayıt dosyalarının oluşturulma yaklaşımını değiştirir.
+
+Önceden şunun gibi bir şey kullanıyordunuz (aşağıdaki kod parçacıkları `save_load` örneğinin değiştirilmiş versiyonlarıdır):
 
 ```rust
 const SAVE_FILE: &str = "save.bin";
@@ -1949,14 +2819,19 @@ fn load(game: &mut Game) {
 }
 ```
 
-However, on practice this approach could lead to some undesirable side effects. The main problem with the old
-approach is that when you serialize the engine, it serializes all scenes you have. This fact is more or less
-ok if you have only one scene, but if you have two and more scenes (for example one for menu and one for
-game level) it writes/reads redundant data. The second problem is that you cannot load saved games asynchronously
-using the old approach, because it takes mutable access of the engine and prevents you from off-threading work.
+Ancak, uygulamada bu yaklaşım bazı istenmeyen yan etkilere yol açabilir. Eski yaklaşımın temel sorunu,
 
-The new approach is much more flexible and do not have such issues, instead of saving the entire state of the
-engine, you just save and load only what you actually need:
+motoru serileştirdiğinizde, sahip olduğunuz tüm sahneleri serileştirmesidir. Tek bir sahneniz varsa bu durum
+
+sorun teşkil etmez, ancak iki veya daha fazla sahneniz varsa (örneğin, biri menü ve diğeri
+
+oyun seviyesi için), gereksiz veriler yazılır/okunur. İkinci sorun, eski yaklaşımı kullanarak kaydedilmiş oyunları asenkron olarak yükleyememenizdir
+
+çünkü bu, motorun değiştirilebilir erişimini gerektirir ve işlerin iş parçacığı dışında çalışmasını engeller.
+
+Yeni yaklaşım çok daha esnektir ve bu tür sorunlar yoktur. Motorun tüm durumunu kaydetmek yerine,
+
+yalnızca gerçekten ihtiyacınız olanları kaydedip yükleyebilirsiniz:
 
 ```rust
 const SAVE_FILE: &str = "save.bin";
@@ -2002,111 +2877,179 @@ async fn load(game: &mut Game) {
 }
 ```
 
-As you can see in the new approach you save your scene and some level data, and on load - you load the scene, add
-it to the engine as usual and load level's data. The new approach is a bit more verbose, but it is much more
-flexible.
+Yeni yaklaşımda gördüğünüz gibi, sahnenizi ve bazı seviye verilerini kaydediyorsunuz ve yükleme sırasında sahneyi yüklüyor,
+
+her zamanki gibi motora ekliyor ve seviye verilerini yüklüyorsunuz. Yeni yaklaşım biraz daha ayrıntılıdır, ancak çok daha
+
+esnektir.
 
 # 0.24
 
-## Engine
+## Motor
 
-- 2D games support (with 2D physics as well)
-- Three new scene nodes was added: RigidBody, Collider, Joint. Since rigid body, collider and joint are graph nodes
-  now, it is possible to have complex hierarchies built with them.
-- It is possible to attach rigid body to any node in scene graph, its position now will be correct in this case (
-  previously it was possible to have rigid bodies attached only on root scene nodes).
-- New `Inspector` widget + tons of built-in property editors (with the ability to add custom editors)
-- `Inspect` trait + proc macro for lightweight reflection
-- UI now using dynamic dispatch allowing you to add custom nodes and messages easily
-- fyrox-sound optimizations (30% faster)
-- Linear interpolation for sound samples when sampling rate != 1.0 (much better quality than before)
-- Color fields in material editor now editable
-- Window client area is now correctly filled by the renderer on every OS, not just Windows.
-- NumericRange removal (replaced with standard Range + extension trait)
-- Sort files and directories in FileBrowser/FileSelector widgets
-- RawStreaming data source for sound
-- Renderer performance improvements (2.5x times faster)
-- UI layout performance improvements
-- Prevent renderer from eating gigabytes of RAM
-- Use `#[inline]` attribute to enable cross-crate inlining
-- `ImmutableString` for faster hashing of static strings
-- `SparseBuffer` as a lightweight analog for `Pool` (non-generational version)
-- Support diffuse color in FBX materials
-- Frustum culling fixes for terrain
-- Shaders don't print empty lines when compiles successfully.
-- `Pool` improvements
-- Impl `IntoIterator` for references to `Pool`
-- Cascaded shadow maps for directional light sources
-- `spawn_at` + `spawn_at_handle` for `Pool`
-- Preview for drag'n'drop
-- `Grid` widget layout performance optimizations (**1000x** performance improvement - this is not a typo)
-- `query_component` for UI widgets
-- Curve resource
-- Remove all associated widgets of a widget when deleting the widget (do not leave dangling objects)
-- World bounding box calculation fix
-- Heavy usage of invalidation in UI routines (prevents checking tons of widgets every frame)
-- Migrate to `parking-lot` synchronization primitives
-- Migrate to `FxHash` (faster hashing)
-- `Log::verify` to log errors of `Result<(), Error`
-- Custom scene node properties support
-- `Alt+Click` prevents selection in `Tree` widget
-- Ability to change camera projection (Perspective or Orthographic)
-- Smart position selection for popups (prevents them from appearing outside screen bounds)
-- High-quality mip-map generation using Lanczos filter.
+- 2D oyun desteği (2D fizik ile birlikte)
+
+- Üç yeni sahne düğümü eklendi: RigidBody, Collider, Joint. Rigid body, collider ve joint artık grafik düğümleri olduğundan,
+
+bunlarla karmaşık hiyerarşiler oluşturmak mümkün.
+
+- Katı cisimleri sahne grafiğindeki herhangi bir düğüme eklemek mümkündür, bu durumda konumu doğru olacaktır (
+
+önceden katı cisimleri yalnızca kök sahne düğümlerine eklemek mümkündü).
+
+- Yeni `Inspector` widget'ı + çok sayıda yerleşik özellik düzenleyici (özel düzenleyiciler ekleme özelliği ile)
+
+- Hafif yansıma için `Inspect` özelliği + proc makrosu
+
+- UI artık dinamik gönderme kullanıyor, böylece özel düğümler ve mesajlar kolayca eklenebilir
+
+- fyrox-sound optimizasyonları (30% daha hızlı)
+
+- Örnekleme oranı != 1.0 olduğunda ses örnekleri için doğrusal enterpolasyon (öncekinden çok daha iyi kalite)
+
+- Malzeme düzenleyicideki renk alanları artık düzenlenebilir
+
+- Pencere istemci alanı artık sadece Windows'ta değil, tüm işletim sistemlerinde renderer tarafından doğru şekilde dolduruluyor.
+
+- NumericRange kaldırıldı (standart Range + extension özelliği ile değiştirildi)
+
+- FileBrowser/FileSelector widget'larında dosya ve dizinleri sıralama
+
+- Ses için RawStreaming veri kaynağı
+
+- Renderer performans iyileştirmeleri (2,5 kat daha hızlı)
+
+- UI düzeni performans iyileştirmeleri
+
+- Renderer'ın gigabaytlarca RAM tüketmesini önleme
+
+- Çapraz kutu içi yerleştirmeyi etkinleştirmek için `#[inline]` özniteliğini kullanma
+
+- Statik dizelerin daha hızlı karma hale getirilmesi için `ImmutableString`
+
+- `Pool` için hafif bir analog olarak `SparseBuffer` (nesil olmayan sürüm)
+
+- FBX malzemelerinde diffüz renk desteği
+
+- Arazide frustum culling düzeltmeleri
+
+- Derleme başarılı olduğunda gölgelendiriciler boş satır yazdırmaz.
+
+- `Pool` iyileştirmeleri
+
+- `Pool` referansları için `IntoIterator` impl
+
+- Yönlü ışık kaynakları için basamaklı gölge haritaları
+
+- `Pool` için `spawn_at` + `spawn_at_handle`
+
+- Sürükle ve bırak için önizleme
+
+- `Grid` widget düzeni performans optimizasyonları (**1000x** performans artışı - bu bir yazım hatası değildir)
+
+- UI widget'ları için `query_component`
+
+- Eğri kaynağı
+
+- Widget'ı silerken ilgili tüm widget'ları kaldır (sarkan nesneler bırakma)
+
+- Dünya sınırlayıcı kutu hesaplama düzeltmesi
+
+- UI rutinlerinde geçersiz kılma işleminin yoğun kullanımı (her karede çok sayıda widget'ın kontrol edilmesini önler)
+
+- `parking-lot` senkronizasyon ilkellerine geçiş
+
+- `FxHash`'e geçiş (daha hızlı karma)
+
+- `Result<(), Error` hatalarını günlüğe kaydetmek için `Log::verify`
+
+- Özel sahne düğümü özellikleri desteği
+
+- `Alt+Tıklama`, `tree` widget'ında seçimi engeller
+
+- Kamera projeksiyonunu değiştirme yeteneği (Perspektif veya Ortografik)
+
+- Açılır pencereler için akıllı konum seçimi (ekran sınırlarının dışında görünmelerini engeller)
+
+- Lanczos filtresi kullanılarak yüksek kaliteli mip-map oluşturma.
 
 ## Editor
 
-- `Inspector` widget integration, which allowed to remove tons of boilerplate code
-- Middle mouse button camera dragging
-- Q/E + Space to move camera up/down
-- Working directory message is much less confusing now
-- Ability to edit sound sources in the editor
-- Checkerboard colorization fix in the world viewer
-- Search in the world viewer
-- Floating brush panel for terrain editor
-- Editor camera has manual exposure (not affected by auto-exposure)
-- Curve editor
-- Automatically select an newly created instance of a scene node
-- Grid snapping fix
-- Angle snapping
-- Edit properties of multiple selected objects at once.
-- Context menu for scene items in world viewer
-- `Create child` for scene item context menu
-- Import options editor for asset browser
-- Hot reload for textures.
+- `Inspector` widget entegrasyonu, tonlarca boilerplate kodunu kaldırmaya olanak sağladı
 
-## Breaking changes and migration guide
+- Orta fare tuşuyla kamera sürükleme
 
-There are lots of breaking changes in this version, however all of them mostly related to the code and scenes made in
-previous version _should_ still be loadable.
+- Q/E + Boşluk tuşuyla kamerayı yukarı/aşağı hareket ettirme
 
-### Convert old scenes to new format
+- Çalışma dizini mesajı artık çok daha az kafa karıştırıcı
+- Editörde ses kaynaklarını düzenleme özelliği
 
-At first, install the rusty-editor from crates.io and run it:
+- Dünya görüntüleyicide dama tahtası renklendirme düzeltmesi
+
+- Dünya görüntüleyicide arama
+
+- Arazi editörü için yüzen fırça paneli
+
+- Editör kamerasında manuel pozlama (otomatik pozlamadan etkilenmez)
+
+- Eğri düzenleyici
+
+- Sahne düğümünün yeni oluşturulan örneğini otomatik olarak seçme
+
+- grid yapıştırma düzeltmesi
+
+- Açı yapıştırma
+
+- Birden fazla seçili nesnenin özelliklerini aynı anda düzenleme.
+
+- Dünya görüntüleyicide sahne öğeleri için bağlam menüsü
+
+- Sahne öğesi bağlam menüsü için `Create sub-item`
+
+- Varlık tarayıcısı için içe aktarma seçenekleri düzenleyici
+
+- Dokular için hızlı yeniden yükleme.
+
+## Önemli değişiklikler ve geçiş kılavuzu
+
+Bu sürümde birçok önemli değişiklik vardır, ancak bunların çoğu kodla ilgilidir ve
+
+önceki sürümde oluşturulan sahneler hala yüklenebilir olmalıdır.
+
+### Eski sahneleri yeni biçime dönüştürün
+
+İlk olarak, crates.io'dan rusty-editor'ü yükleyin ve çalıştırın:
 
 ```shell
 cargo install rusty-editor
 rusty-editor
 ```
 
-And then just re-save your scenes one-by-one. After this all your scenes will be converted to the newest version.
-Keep in mind that the editor from GitHub repo (0.25+) is not longer have backward compatibility/conversion code!
+Ardından sahnelerinizi tek tek yeniden kaydedin. Bu işlemden sonra tüm sahneleriniz en yeni sürüme dönüştürülecektir.
 
-### 2D scenes
+GitHub deposundaki düzenleyicinin (0.25+) artık geriye dönük uyumluluk/dönüştürme koduna sahip olmadığını unutmayın!
 
-2D scene were completely removed and almost every 2D node were removed, there is only one "2D" node left - Rectangle.
-2D now implemented in 3D scenes, you have to use orthographic camera for that. There is no migration guide for 2D scenes
-because 2D had rudimentary support, and I highly doubt that there is any project that uses 2D of the engine.
+### 2D sahne
 
-## Resource management
+2D sahneler tamamen kaldırıldı ve neredeyse tüm 2D düğümleri kaldırıldı, geriye sadece bir “2D” düğümü kaldı - Rectangle.
 
-Resource manager has changed its API and gained some useful features that should save you some time.
+2D artık 3D sahnelerde uygulanıyor, bunun için ortografik kamera kullanmanız gerekiyor. 2D sahneler için geçiş kılavuzu yoktur
 
-`request_texture` now accepts only one argument - path to texture, second argument was used to pass
-`TextureImportOptions`. Import options now should be located in a separate options file. For example, you have a
-`foo.jpg` texture and you want to change its import options (compression, wrapping modes, mip maps, etc.). To do this
-you should create `foo.jpg.options` file in the same directory near your file with following content (each field is
-optional):
+çünkü 2D temel düzeyde destekleniyordu ve motorun 2D'sini kullanan herhangi bir proje olduğunu sanmıyorum.
+
+## Kaynak yönetimi
+
+Kaynak yöneticisi API'sini değiştirdi ve size zaman kazandıracak bazı kullanışlı özellikler kazandı.
+
+`request_texture` artık yalnızca bir argüman kabul ediyor: doku yolu. İkinci argüman
+
+`TextureImportOptions` aktarmak için kullanılıyordu. İçe aktarma seçenekleri artık ayrı bir seçenek dosyasında bulunmalıdır. Örneğin,
+
+`foo.jpg` adlı bir dokumanız var ve bunun içe aktarma seçeneklerini (sıkıştırma, sarma modları, mip haritaları vb.) değiştirmek istiyorsunuz. Bunu yapmak için,
+
+dosyanızın bulunduğu dizinde aşağıdaki içeriğe sahip `foo.jpg.options` dosyasını oluşturmalısınız (her alan
+
+isteğe bağlıdır):
 
 ```text
 (
@@ -2119,11 +3062,13 @@ optional):
 )
 ```
 
-The engine will read this file when you'll call `request_texture` and it will apply the options on the first load.
-This file is not mandatory, you can always set global import defaults in resource manage by calling
-`set_texture_import_options`.
+Motor, `request_texture` çağrıldığında bu dosyayı okuyacak ve ilk yüklemede seçenekleri uygulayacaktır.
 
-`request_model` have the same changes, there is only one argument and import options were moved to options file:
+Bu dosya zorunlu değildir, her zaman kaynak yöneticisinde
+
+`set_texture_import_options`
+
+`request_model` de aynı değişiklikler yapılmıştır, tek bir argüman vardır ve içe aktarma seçenekleri seçenekler dosyasına taşınmıştır:
 
 ```text
 (
@@ -2131,19 +3076,23 @@ This file is not mandatory, you can always set global import defaults in resourc
 )
 ```
 
-Again, all fields aren't mandatory and the entire file can be omitted, global import defaults can be set by calling
-`set_model_import_options`.
+Yine, tüm alanlar zorunlu değildir ve dosyanın tamamı atlanabilir, global import varsayılanları
 
-### Physics
+`set_model_import_options`
 
-Old physics was replaced with new scene nodes: RigidBody, Collider, Joint. Old scenes will be automatically converted
-on load, you should convert your scenes as soon as possible using the editor (open your scene and save it, that will
-do the conversion).
+### Fizik
 
-Now there are two ways of adding a rigid body to a scene node:
+Eski fizik, yeni sahne düğümleriyle değiştirildi: RigidBody, Collider, Joint. Eski sahneler yüklendiğinde otomatik olarak dönüştürülecektir,
 
-- If you want your object to have a rigid body (for example a crate with box rigid body), your object must be
-  **child** object of a rigid body. Graphically it can be represented like this:
+sahnelerinizi mümkün olan en kısa sürede editör kullanarak dönüştürmelisiniz (sahnenizi açın ve kaydedin, bu
+
+dönüştürmeyi gerçekleştirecektir).
+
+Artık bir sahne düğümüne rijit bir cisim eklemenin iki yolu vardır:
+
+- Nesnenizin rijit bir cisme sahip olmasını istiyorsanız (örneğin, kutu rijit cisimli bir sandık), nesneniz
+
+rijit bir cismin **alt** nesnesi olmalıdır. Grafiksel olarak şöyle gösterilebilir:
 
 ```text
 - Rigid Body
@@ -2151,10 +3100,13 @@ Now there are two ways of adding a rigid body to a scene node:
   - Cuboid Collider
 ```
 
-- If you want your object to have a rigid body that should move together with your object (to simulate hit boxes for
-  example), then rigid body must be child object of your object. Additionally it should be marked as `Kinematic`,
-  otherwise it will be affected by simulation (simply speaking it will fall on ground). Graphically it can be
-  represented like this:
+- Nesnenizin, nesnenizle birlikte hareket etmesi gereken sert bir gövdeye sahip olmasını istiyorsanız (örneğin, çarpma kutularını simüle etmek için),
+
+sert gövde nesnenizin alt nesnesi olmalıdır. Ayrıca, `Kinematic` olarak işaretlenmelidir,
+
+aksi takdirde simülasyondan etkilenecektir (basitçe söylemek gerekirse, yere düşecektir). Grafiksel olarak
+
+şu şekilde gösterilebilir:
 
 ```text
 - Limb
@@ -2164,11 +3116,13 @@ Now there are two ways of adding a rigid body to a scene node:
 
 #### Migration
 
-This section will help you to migrate to new physics.
+Bu bölüm, yeni fizik sistemine geçiş yapmanıza yardımcı olacaktır.
 
 ##### Rigid bodies
 
-Rigid body and colliders now can be created like so:
+Rigi body ve collider artık şu şekilde oluşturulabilir:
+
+(bazı yerlede rigi body yerine sert cisimler collider yerinede çarpışanlar görebilirsiniz bu çeviriden kaynaklıdır.)
 
 ```rust
 use fyrox_impl::{
@@ -2187,23 +3141,24 @@ fn create_capsule_rigid_body(scene: &mut Scene) -> Handle<Node> {
     RigidBodyBuilder::new(
         BaseBuilder::new()
             .with_local_transform(
-                // To position, rotate rigid body you should use engine's transform.
+                // Sert gövdeyi konumlandırmak ve döndürmek için motorun dönüşümünü kullanmalısınız.
                 TransformBuilder::new()
                     .with_local_position(Vector3::new(1.0, 2.0, 3.0))
                     .build(),
             )
             .with_children(&[
-                // It is very important to add at least one child collider node, otherwise rigid
-                // body will not do collision response.
+                // En az bir alt çarpışma düğümü eklemek çok önemlidir, aksi takdirde katı
+
+                // gövde çarpışma tepkisi vermez.
                 ColliderBuilder::new(
                     BaseBuilder::new().with_local_transform(
-                        // Colliders can have relative position to their parent rigid bodies.
+                        // Çarpışanlar, ana katı cisimlerine göre göreceli konuma sahip olabilir.
                         TransformBuilder::new()
                             .with_local_position(Vector3::new(0.0, 0.5, 0.0))
                             .build(),
                     ),
                 )
-                    // Rest of properties can be set almost as before.
+                    // Diğer özellikler neredeyse önceki gibi ayarlanabilir.
                     .with_friction(0.2)
                     .with_restitution(0.1)
                     .with_shape(ColliderShape::capsule_y(0.5, 0.2))
@@ -2221,7 +3176,7 @@ fn create_capsule_rigid_body(scene: &mut Scene) -> Handle<Node> {
 
 ##### Joints
 
-Joints can be created in a similar way:
+joints de benzer şekilde oluşturulabilir:
 
 ```rust
 fn create_ball_joint(scene: &mut Scene) -> Handle<Node> {
@@ -2242,12 +3197,13 @@ fn create_ball_joint(scene: &mut Scene) -> Handle<Node> {
 
 ##### Raycasting
 
-Raycasting located in `scene.graph.physics`, there were almost no changes to it, except now it returns handles to
-scene nodes instead of raw collider handles.
+Raycasting, `scene.graph.physics` içinde bulunur ve neredeyse hiç değişiklik yapılmamıştır, ancak artık ham çarpışan nesne tutamaçları yerine
 
-##### Contact info
+sahne düğümlerine tutamaçlar döndürür.
 
-Contact info can now be queried from the collider node itself, via `contacts()` method.
+##### İletişim bilgileri
+
+İletişim bilgileri artık `contacts()` yöntemi ile çarpıştırıcı düğümünden sorgulanabilir.
 
 ```rust
 fn query_contacts(collider: Handle<Node>, graph: &Graph) -> impl Iterator<Item=ContactPair> {
